@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.2.1">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Grupos" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Token" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">&quot;username=830008686&quot;, &quot;password=830008686&quot;, &quot;grant_type=password&quot;,&#xd;
+&quot;client_id=9160f6412fad4b7fbc5f86d37a8dd680&quot;</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">sisafitra.sispropreprod.gov.co</stringProp>
+          <stringProp name="HTTPSampler.port">8062</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/token</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">true</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="AfiliacionARL" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&quot;CodigoARL&quot;:&quot;14-29&quot;,&#xd;
+&quot;TipoDocumentoEmpleador&quot;:&quot;NI&quot;,&#xd;
+&quot;NumeroDocumentoEmpleador&quot;:&quot;890100369&quot;,&#xd;
+&quot;ConsecutivoNITEmpleador&quot;:&quot;0&quot;,&#xd;
+&quot;TipoPersona&quot;:&quot;N&quot;,&#xd;
+&quot;NaturalezaJuridica&quot;:3,&#xd;
+&quot;TipoAportante&quot;:1,&#xd;
+&quot;RazonSocialEmpleador&quot;:&quot;COOPERATIVA MULTIACTIVA DEL SECTOR ENERG╔TICO COOTRAELECTRANTA&quot;,&#xd;
+&quot;PrimerNombreEmpleador&quot;:&quot;&quot;,&#xd;
+&quot;PrimerApellidoEmpleador&quot;:&quot;&quot;,&#xd;
+&quot;CorreoEmpleador&quot;:&quot;cootrael1963@hotmail.com&quot;,&#xd;
+&quot;ActividadEconomica&quot;:1651601,&#xd;
+&quot;ClaseAportante&quot;:&quot;A&quot;,&#xd;
+&quot;TipoDocumentoRepresentante&quot;:&quot;CC&quot;,&#xd;
+&quot;NumeroDocumentoRepresentante&quot;:&quot;93001002&quot;,&#xd;
+&quot;PrimerNombreRepresentante&quot;:&quot;MARTHA&quot;,&#xd;
+&quot;PrimerApellidoRepresentante&quot;:&quot;PALACIOS&quot;,&#xd;
+&quot;FechaAfiliacion&quot;:&quot;2019-07-01&quot;,&#xd;
+&quot;CodigoSedeP&quot;:&quot;01&quot;,&#xd;
+&quot;NombreSedeP&quot;:&quot;01&quot;,&#xd;
+&quot;MunicipioSedeP&quot;:&quot;08001&quot;,&#xd;
+&quot;DireccionSedeP&quot;:&quot;CL 70  52  54 LOCAL 2  215&quot;,&#xd;
+&quot;ZonaSedeP&quot;:&quot;U&quot;,&#xd;
+&quot;TelefonoSedeP&quot;:&quot;3601718&quot;,&#xd;
+&quot;CorreoSedeP&quot;:&quot;cootrael1963@hotmail.com&quot;,&#xd;
+&quot;TipoDocumentoResponsable&quot;:&quot;CC&quot;,&#xd;
+&quot;NumeroDocumentoResponsable&quot;:&quot;93001002&quot;,&#xd;
+&quot;PrimerNombreResponsable&quot;:&quot;PALACIOS&quot;,&#xd;
+&quot;PrimerApellidoResponsable&quot;:&quot;MARTHA&quot;}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">sisafitra.sispropreprod.gov.co</stringProp>
+          <stringProp name="HTTPSampler.port">8062</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/AfiliacionARL</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="InicioRelacionLaboralARL" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+  &quot;CodigoARL&quot;: &quot;string&quot;,&#xd;
+  &quot;TipoDocumentoEmpleador&quot;: &quot;string&quot;,&#xd;
+  &quot;NumeroDocumentoEmpleador&quot;: &quot;string&quot;,&#xd;
+  &quot;ConsecutivoNITEmpleador&quot;: &quot;string&quot;,&#xd;
+  &quot;CodigoSede&quot;: &quot;string&quot;,&#xd;
+  &quot;CodigoCentroTrabajo&quot;: &quot;string&quot;,&#xd;
+  &quot;FechaInicioNovedad&quot;: &quot;string&quot;,&#xd;
+  &quot;TipoDocumentoEmpleado&quot;: &quot;string&quot;,&#xd;
+  &quot;NumeroDocumentoEmpleado&quot;: &quot;string&quot;,&#xd;
+  &quot;PrimerNombreEmpleado&quot;: &quot;string&quot;,&#xd;
+  &quot;PrimerApellidoEmpleado&quot;: &quot;string&quot;,&#xd;
+  &quot;TipoCotizante&quot;: 0,&#xd;
+  &quot;SubTipoCotizante&quot;: 0,&#xd;
+  &quot;IBC&quot;: 0,&#xd;
+  &quot;TipoSalario&quot;: 0&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">sisafitra.sispropreprod.gov.co</stringProp>
+          <stringProp name="HTTPSampler.port">8062</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/InicioRelacionLaboralARL</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TerminacionRelacionLaboralARL" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+  &quot;CodigoARL&quot;: &quot;string&quot;,&#xd;
+  &quot;TipoDocumentoEmpleador&quot;: &quot;string&quot;,&#xd;
+  &quot;NumeroDocumentoEmpleador&quot;: &quot;string&quot;,&#xd;
+  &quot;ConsecutivoNITEmpleador&quot;: &quot;string&quot;,&#xd;
+  &quot;CodigoSede&quot;: &quot;string&quot;,&#xd;
+  &quot;CodigoCentroTrabajo&quot;: &quot;string&quot;,&#xd;
+  &quot;FechaFinNovedad&quot;: &quot;string&quot;,&#xd;
+  &quot;TipoDocumentoEmpleado&quot;: &quot;string&quot;,&#xd;
+  &quot;NumeroDocumentoEmpleado&quot;: &quot;string&quot;,&#xd;
+  &quot;PrimerNombreEmpleado&quot;: &quot;string&quot;,&#xd;
+  &quot;PrimerApellidoEmpleado&quot;: &quot;string&quot;,&#xd;
+  &quot;TipoCotizante&quot;: 0,&#xd;
+  &quot;SubTipoCotizante&quot;: 0&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">sisafitra.sispropreprod.gov.co</stringProp>
+          <stringProp name="HTTPSampler.port">8062</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/TerminacionRelacionLaboralARL</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="ConsultaEmpresasTrasladadas" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+  &quot;CodigoArl&quot;: &quot;14-29&quot;,&#xd;
+  &quot;FechaInicio&quot;: &quot;2015-12-31&quot;,&#xd;
+  &quot;FechaFin&quot;: &quot;2019-12-31&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">sisafitra.sispropreprod.gov.co</stringProp>
+          <stringProp name="HTTPSampler.port">8062</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/ConsultaEmpresasTrasladadas</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="ConsultaEstructuraEmpresa" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+  &quot;CodigoARL&quot;: &quot;string&quot;,&#xd;
+  &quot;TipoDocumentoEmpleador&quot;: &quot;string&quot;,&#xd;
+  &quot;NumeroDocumentoEmpleador&quot;: &quot;string&quot;,&#xd;
+  &quot;ConsecutivoNITEmpleador&quot;: &quot;string&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">sisafitra.sispropreprod.gov.co</stringProp>
+          <stringProp name="HTTPSampler.port">8062</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/ConsultaEstructuraEmpresa</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TrasladoEmpleador" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+  &quot;CodigoARL&quot;: &quot;string&quot;,&#xd;
+  &quot;TipoDocumentoEmpleador&quot;: &quot;string&quot;,&#xd;
+  &quot;NumeroDocumentoEmpleador&quot;: &quot;string&quot;,&#xd;
+  &quot;ConsecutivoNITEmpleador&quot;: &quot;string&quot;,&#xd;
+  &quot;FechaNovedad&quot;: &quot;string&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">sisafitra.sispropreprod.gov.co</stringProp>
+          <stringProp name="HTTPSampler.port">8062</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/TrasladoEmpleador</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="RetractoTrasladoEmpleador" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+  &quot;CodigoARL&quot;: &quot;string&quot;,&#xd;
+  &quot;TipoDocumentoEmpleador&quot;: &quot;string&quot;,&#xd;
+  &quot;NumeroDocumentoEmpleador&quot;: &quot;string&quot;,&#xd;
+  &quot;ConsecutivoNITEmpleador&quot;: &quot;string&quot;,&#xd;
+  &quot;TipoRetracto&quot;: &quot;string&quot;,&#xd;
+  &quot;FechaNovedad&quot;: &quot;string&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">sisafitra.sispropreprod.gov.co</stringProp>
+          <stringProp name="HTTPSampler.port">8062</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/RetractoTrasladoEmpleador</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="RetiroDefinitivoEmpresaSGRL" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+  &quot;CodigoARL&quot;: &quot;string&quot;,&#xd;
+  &quot;TipoDocumentoEmpresa&quot;: &quot;string&quot;,&#xd;
+  &quot;NumeroDocumentoEmpresa&quot;: &quot;string&quot;,&#xd;
+  &quot;ConsecutivoNITEmpresa&quot;: &quot;string&quot;,&#xd;
+  &quot;FechaRetiroEmpresa&quot;: &quot;string&quot;,&#xd;
+  &quot;CausalRetiroEmpresa&quot;: 0&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">sisafitra.sispropreprod.gov.co</stringProp>
+          <stringProp name="HTTPSampler.port">8062</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/RetiroDefinitivoEmpresaSGRL</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="NovedadesSedes" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">sisafitra.sispropreprod.gov.co</stringProp>
+          <stringProp name="HTTPSampler.port">8062</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/NovedadesSedes</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="NovedadesCentroTrabajo" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">sisafitra.sispropreprod.gov.co</stringProp>
+          <stringProp name="HTTPSampler.port">8062</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/NovedadesCentroTrabajo</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="ReclasificacionCentroTrabajo" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+  &quot;CodigoARL&quot;: &quot;string&quot;,&#xd;
+  &quot;TipoDocumentoEmpleador&quot;: &quot;string&quot;,&#xd;
+  &quot;NumeroDocumentoEmpleador&quot;: &quot;string&quot;,&#xd;
+  &quot;ConsecutivoNITEmpleador&quot;: &quot;string&quot;,&#xd;
+  &quot;CodigoSede&quot;: &quot;string&quot;,&#xd;
+  &quot;CodigoCentroTrabajo&quot;: &quot;string&quot;,&#xd;
+  &quot;NombreCentroTrabajo&quot;: &quot;string&quot;,&#xd;
+  &quot;CodigoActividadEconomicaAnterior&quot;: 0,&#xd;
+  &quot;CodigoActividadEconomicaNueva&quot;: 0,&#xd;
+  &quot;SolicitanteReclasificacion&quot;: 0&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">sisafitra.sispropreprod.gov.co</stringProp>
+          <stringProp name="HTTPSampler.port">8062</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/ReclasificacionCentroTrabajo</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="NovedadesTransitorias" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">sisafitra.sispropreprod.gov.co</stringProp>
+          <stringProp name="HTTPSampler.port">8062</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/NovedadesTransitorias</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="ModificacionIBC" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+  &quot;CodigoARL&quot;: &quot;string&quot;,&#xd;
+  &quot;TipoDocumentoEmpleador&quot;: &quot;string&quot;,&#xd;
+  &quot;NumeroDocumentoEmpleador&quot;: &quot;string&quot;,&#xd;
+  &quot;ConsecutivoNITEmpleador&quot;: &quot;string&quot;,&#xd;
+  &quot;CodigoSede&quot;: &quot;string&quot;,&#xd;
+  &quot;CodigoCentroTrabajo&quot;: &quot;string&quot;,&#xd;
+  &quot;FechaNovedaCambioIBC&quot;: &quot;string&quot;,&#xd;
+  &quot;TipoDocumentoTrabajador&quot;: &quot;string&quot;,&#xd;
+  &quot;NumeroDocumentoTrabajador&quot;: &quot;string&quot;,&#xd;
+  &quot;PrimerApellidoTrabajador&quot;: &quot;string&quot;,&#xd;
+  &quot;PrimerNombreTrabajador&quot;: &quot;string&quot;,&#xd;
+  &quot;TipoCotizante&quot;: 0,&#xd;
+  &quot;SubtipoCotizante&quot;: 0,&#xd;
+  &quot;IBC&quot;: 0,&#xd;
+  &quot;TipoSalario&quot;: 0&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">sisafitra.sispropreprod.gov.co</stringProp>
+          <stringProp name="HTTPSampler.port">8062</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/ModificacionIBC</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
