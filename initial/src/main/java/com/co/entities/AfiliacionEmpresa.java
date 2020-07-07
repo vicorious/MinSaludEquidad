@@ -10,17 +10,50 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-@JsonPropertyOrder({ "CodigoARL", "TipoDocumentoEmpleador", "NumeroDocumentoEmpleador",
-                    "ConsecutivoNITEmpleador", "TipoPersona", "NaturalezaJuridica", "TipoAportante",
-"RazonSocialEmpleador", "PrimerNombreEmpleador", "PrimerApellidoEmpleador", "CorreoEmpleador", "ActividadEconomica",
-"ClaseAportante", "TipoDocumentoRepresentante", "NumeroDocumentoRepresentante", "PrimerNombreRepresentante",
-"PrimerApellidoRepresentante", "FechaAfiliacion", "CodigoSedeP", "NombreSedeP", "MunicipioSedeP", "DireccionSedeP", "ZonaSedeP",
-"TelefonoSedeP", "CorreoSedeP", "TipoDocumentoResponsable", "NumeroDocumentoResponsable", "PrimerNombreResponsable", "PrimerApellidoResponsable"})
-@JsonIgnoreProperties(value = { "afiliacionEmpresaId",
-        "empre_form", "tokenMin", "fechaCaptura", "fechaReporte",
-        "fechaRespuesta", "estadoMin", "naturalezaJuridica", "tipoAportante", "actividadEconomica" })
+@JsonPropertyOrder  ({
+        "CodigoARL",
+        "TipoDocumentoEmpleador",
+        "NumeroDocumentoEmpleador",
+        "ConsecutivoNITEmpleador",
+        "TipoPersona",
+        "NaturalezaJuridica",
+        "TipoAportante",
+        "RazonSocialEmpleador",
+        "PrimerNombreEmpleador",
+        "PrimerApellidoEmpleador",
+        "CorreoEmpleador",
+        "ActividadEconomica",
+        "ClaseAportante",
+        "TipoDocumentoRepresentante",
+        "NumeroDocumentoRepresentante",
+        "PrimerNombreRepresentante",
+        "PrimerApellidoRepresentante",
+        "FechaAfiliacion",
+        "CodigoSedeP",
+        "NombreSedeP",
+        "MunicipioSedeP",
+        "DireccionSedeP",
+        "ZonaSedeP",
+        "TelefonoSedeP",
+        "CorreoSedeP",
+        "TipoDocumentoResponsable",
+        "NumeroDocumentoResponsable",
+        "PrimerNombreResponsable",
+        "PrimerApellidoResponsable"
+})
+@JsonIgnoreProperties(value = {
+        "afiliacionEmpresaId",
+        "empre_form",
+        "tokenMin",
+        "fechaCaptura",
+        "fechaReporte",
+        "fechaRespuesta",
+        "estadoMin",
+        "naturalezaJuridica",
+        "tipoAportante",
+        "actividadEconomica"
+})
 @Entity
 @Table(name = "SRV_AFILIACION_EMPRESA")
 public class AfiliacionEmpresa extends BaseEntity
