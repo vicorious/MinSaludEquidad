@@ -35,11 +35,11 @@ public class AfiliacionService
         }
         else
         {
-            result.stream().forEach(p ->
+            result.forEach(p ->
             {
-                p.activiEconimi = Integer.parseInt(p.getActividadEconomica().trim());
-                p.tipAportante = Integer.parseInt(p.getTipoAportante().trim());
-                p.natuJuridica = Integer.parseInt(p.getNaturalezaJuridica().trim());
+                p.activiEconimi = Integer.parseInt(p.getActividadEconomica() != null ? p.getActividadEconomica().trim() : "0");
+                p.tipAportante = Integer.parseInt(p.getTipoAportante() != null ? p.getTipoAportante().trim() : "0");
+                p.natuJuridica = Integer.parseInt(p.getNaturalezaJuridica() != null ?  p.getNaturalezaJuridica().trim() : "0");
 
             });
             return result;

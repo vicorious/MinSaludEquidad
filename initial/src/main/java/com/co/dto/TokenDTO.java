@@ -1,6 +1,6 @@
 package com.co.dto;
 
-public class TokenDTO extends ResponseDTO
+public class    TokenDTO extends ResponseDTO
 {
     private String access_token;
 

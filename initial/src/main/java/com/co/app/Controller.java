@@ -17,7 +17,6 @@ import com.co.service.*;
 import com.co.controller.BaseController;
 import com.co.enums.EstadosEnum;
 import com.co.exception.MinSaludBusinessException;
-import com.co.singleton.ConfiguracionSingleton;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,8 +26,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import com.co.utils.SisafitraConstant;
-
-import javax.annotation.PostConstruct;
 
 @Component
 @RestController
@@ -68,8 +65,9 @@ public class Controller extends BaseController
     @Autowired
     private ParametroGeneralService parametroGeneralService;
 
-    List<ParametroGeneral> parametros;
-
+	/**
+	 *
+	 */
 	public Controller()
 	{
 		this.afiliacionService = new AfiliacionService();
@@ -84,13 +82,6 @@ public class Controller extends BaseController
 		this.transladoEmpresaService = new TransladoEmpresaService();
 		this.parametroGeneralService = new ParametroGeneralService();
 
-		this.parametros = new ArrayList<>();
-
-	}
-
-	@PostConstruct
-	public void singleton(){
-		this.parametroGeneralService.parametros();
 	}
 
 	Logger log = LoggerFactory.getLogger(this.getClass().getName());
@@ -173,8 +164,8 @@ public class Controller extends BaseController
 					EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName());
 			log.info("Numero afiliaciones a registrar: ".concat(String.valueOf(afiliaciones.size())));
             Method method = new Object() {}.getClass().getEnclosingMethod();
-			ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumento(
-					SisafitraConstant.ParameroGeneralConstant.EMPRESA);
+			ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
+                    SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
 			for(AfiliacionEmpresa afiliacion: afiliaciones)
 			{
 				log.info("Afiliacion ID: ".concat(afiliacion.getAfiliacionEmpresaId().toPlainString()));
@@ -193,7 +184,7 @@ public class Controller extends BaseController
 								EstadosEnum.FALLIDO.getName(), ((ErrorDTO)response).getError_description(),
 								authorization));
 						afiliacion.setEstadoMin(EstadosEnum.FALLIDO.getName());
-						afiliacionesInCorrectas.add(afiliacion.getNumeroDocumentoEmpleador());
+						afiliacionesInCorrectas.add(afiliacion.getNumeroDocumentoEmpleador().trim());
 					} else if(response instanceof ResponseMinSaludDTO)
 					{
 						this.logService.save(writeLogSATARL(afiliacion.getEmpre_form(),
@@ -201,7 +192,7 @@ public class Controller extends BaseController
 								EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO)response).getCodigo(),
 								authorization));
 						afiliacion.setEstadoMin(EstadosEnum.EXITOSO.getName());
-						afiliacionesCorrectas.add(afiliacion.getNumeroDocumentoEmpleador());
+						afiliacionesCorrectas.add(afiliacion.getNumeroDocumentoEmpleador().trim());
 					}
 
                 }
@@ -213,7 +204,7 @@ public class Controller extends BaseController
                                     : "FAIL", authorization));
 					afiliacion.setEstadoMin(EstadosEnum.FALLIDO.getName());
                     log.error("Error interno: ".concat(e.getMessage()));
-					afiliacionesInCorrectas.add(afiliacion.getNumeroDocumentoEmpleador());
+					afiliacionesInCorrectas.add(afiliacion.getNumeroDocumentoEmpleador().trim());
                 }
 
 				afiliacion.setTokenMin(authorization);
@@ -263,8 +254,8 @@ public class Controller extends BaseController
 	public Object inicioRelacionLaboralARL(@RequestHeader("Authorization") String authorization) {
 		Object response = null;
 		try {
-			ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumento(SisafitraConstant.ParameroGeneralConstant.EMPRESA);
-			for(InicioLaboral inicioLaboral: this.inicioLaboralService.getIniciosLaborales(EstadosEnum.FALLIDO.getName(), EstadosEnum.EN_TRAMITE.getName())) {
+            ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
+                    SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);			for(InicioLaboral inicioLaboral: this.inicioLaboralService.getIniciosLaborales(EstadosEnum.FALLIDO.getName(), EstadosEnum.EN_TRAMITE.getName())) {
 				try {
 					Method method = new Object() {}.getClass().getEnclosingMethod();
 					//Para crear request
@@ -312,8 +303,8 @@ public class Controller extends BaseController
 	{
 		Object response = null;
 		try {
-			ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumento(SisafitraConstant.ParameroGeneralConstant.EMPRESA);
-			for(TerminacionLaboral terminacionLaboral: this.terminacionLaboralService.getTerminacionesLaborales(EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName()))
+            ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
+                    SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);			for(TerminacionLaboral terminacionLaboral: this.terminacionLaboralService.getTerminacionesLaborales(EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName()))
 			{
 				try {
 					Method method = new Object() {}.getClass().getEnclosingMethod();
@@ -381,8 +372,8 @@ public class Controller extends BaseController
 				return response;
 			List<ConsultaEmpresa> empresas =  this.consultaEmpresaService.transformConsultaEmpresa((List<ConsultaEmpresaDTO>) response, authorization);
 			log.info("Consulta empresa Transform: ".concat(empresas.toString()));
-			ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumento(SisafitraConstant.ParameroGeneralConstant.EMPRESA);
-			for(ConsultaEmpresa consultaEmpresa: empresas) {
+            ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
+                    SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);			for(ConsultaEmpresa consultaEmpresa: empresas) {
 				try {
 					this.consultaEmpresaService.save(consultaEmpresa);
 					log.info("Consulta empresa Save Ok!");
@@ -417,11 +408,8 @@ public class Controller extends BaseController
 		} catch (InvocationTargetException e) {
 			log.error("Error al invocar el servicio: ERROR: ".concat(e.getMessage()));
 			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
-		} catch (MinSaludBusinessException e) {
-			log.error("Error de negocio. ERROR: ".concat(e.getMessage()));
-			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-	}
+    }
 
 	@ApiOperation(value = "Consulta estructura de empresas", response = ResponseContentExitFailDTO.class)
 	@ApiImplicitParams({
@@ -450,8 +438,8 @@ public class Controller extends BaseController
             log.info("Fecha para buscar estructuras Empresa es: ".concat(now.toString()));
 
 			List<ConsultaEmpresa> empresasAConsultar = this.consultaEmpresaService.consultaEmpresaPorFecha(now.toString(), LocalDate.now().toString());
-			ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumento(SisafitraConstant.ParameroGeneralConstant.EMPRESA);
-
+        ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
+                SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
 		for(ConsultaEmpresa consultaEmpresa: empresasAConsultar) {
 				try
 				{
@@ -475,12 +463,12 @@ public class Controller extends BaseController
 				{
 					log.error("Configuracion @ServiceConfig invalida: ERROR: ".concat(e.getMessage()));
 					this.logService.save(writeLogSATARL(consultaEmpresa.getEmpreForm(), new BigDecimal(parametro.getValor().trim()), consultaEmpresa.getId(), EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description() : "FAIL" , authorization));
-					estructurasIncorrectas.add(consultaEmpresa.getNumeroDocumentoEmpleador());
+					estructurasIncorrectas.add(consultaEmpresa.getNumeroDocumentoEmpleador().trim());
 				}catch (IllegalAccessException | NoSuchFieldException e)
 				{
 					log.error("Response es invalido para el objeto ResponseMinSaludDTO: ERROR: ".concat(e.getMessage()));
 					this.logService.save(writeLogSATARL(consultaEmpresa.getEmpreForm(), new BigDecimal(parametro.getValor().trim()), consultaEmpresa.getId(), EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description() : "FAIL" , authorization));
-					estructurasIncorrectas.add(consultaEmpresa.getNumeroDocumentoEmpleador());
+					estructurasIncorrectas.add(consultaEmpresa.getNumeroDocumentoEmpleador().trim());
 				} catch (IOException e)
 				{
 					log.error("Error de conexion con el servicio: ERROR: ".concat(e.getMessage()));
@@ -490,7 +478,7 @@ public class Controller extends BaseController
 				{
 					log.error("Error de negocio: ".concat(e.getMessage()));
 					this.logService.save(writeLogSATARL(consultaEmpresa.getEmpreForm(), new BigDecimal(parametro.getValor().trim()), consultaEmpresa.getId(), EstadosEnum.FALLIDO.getName(), "FAIL", authorization));
-					estructurasIncorrectas.add(consultaEmpresa.getNumeroDocumentoEmpleador());
+					estructurasIncorrectas.add(consultaEmpresa.getNumeroDocumentoEmpleador().trim());
 				}
 			}
 
@@ -521,8 +509,8 @@ public class Controller extends BaseController
 			method = RequestMethod.POST)
 	public Object trasladoEmpleador(@RequestHeader("Authorization") String authorization) throws MinSaludBusinessException {
 		Object response = null;
-		ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumento(SisafitraConstant.ParameroGeneralConstant.EMPRESA);
-		for(TransladoEmpresaArl transladoEmpresaArl: this.transladoEmpresaService.getAll(EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName())) {
+        ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
+                SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);		for(TransladoEmpresaArl transladoEmpresaArl: this.transladoEmpresaService.getAll(EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName())) {
 			try {
 				Method method = new Object() {}.getClass().getEnclosingMethod();
 				RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(mapperBody(transladoEmpresaArl), method.getName(), this.getClass(), method.getParameterTypes());
@@ -568,8 +556,8 @@ public class Controller extends BaseController
 			method = RequestMethod.POST)
 	public Object retractoTrasladoEmpleador(@RequestHeader("Authorization") String authorization) throws MinSaludBusinessException {
 		Object response = null;
-		ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumento(SisafitraConstant.ParameroGeneralConstant.EMPRESA);
-		for(Retractacion retractacion: this.retractionService.getAll(EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName()))
+        ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
+                SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);		for(Retractacion retractacion: this.retractionService.getAll(EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName()))
 		{
 			try {
 				Method method = new Object() {}.getClass().getEnclosingMethod();
@@ -617,8 +605,8 @@ public class Controller extends BaseController
 			method = RequestMethod.POST)
 	public Object retiroDefinitivoEmpresaSGRL(@RequestHeader("Authorization") String authorization) throws MinSaludBusinessException {
 		Object response = null;
-		ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumento(SisafitraConstant.ParameroGeneralConstant.EMPRESA);
-		for(RetiroDefinitivoSGRL retiroDefinitivoSGRL: this.retiroDefinitivoService.getAll()) {
+        ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
+                SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);		for(RetiroDefinitivoSGRL retiroDefinitivoSGRL: this.retiroDefinitivoService.getAll()) {
 			try {
 				Method method = new Object() {}.getClass().getEnclosingMethod();
 				RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(mapperBody(retiroDefinitivoSGRL), method.getName(), this.getClass(), method.getParameterTypes());
@@ -667,8 +655,8 @@ public class Controller extends BaseController
 		Object response = null;
 		try
 		{
-			//ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumento(SisafitraConstant.ParameroGeneralConstant.EMPRESA);
-			Method method = new Object() {}.getClass().getEnclosingMethod();
+            ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
+                    SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);			Method method = new Object() {}.getClass().getEnclosingMethod();
 			RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(entity_body, method.getName(), this.getClass(), method.getParameterTypes());
 			request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
 			response = super.responseFromPostRequest(request_body, ResponseMinSaludDTO.class);
@@ -709,8 +697,8 @@ public class Controller extends BaseController
 	public Object novedadesCentroTrabajo(String authorization, String entity_body)
 	{
 		Object response = null;
-		//ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumento(SisafitraConstant.ParameroGeneralConstant.EMPRESA);
-		try
+        ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
+                SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);		try
 		{
 			Method method = new Object() {}.getClass().getEnclosingMethod();
 			RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(entity_body, method.getName(), this.getClass(), method.getParameterTypes());
@@ -752,8 +740,8 @@ public class Controller extends BaseController
 			method = RequestMethod.POST)
 	public Object reclasificacionCentroTrabajo(@RequestHeader("Authorization") String authorization) throws MinSaludBusinessException {
 		Object response = null;
-		ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumento(SisafitraConstant.ParameroGeneralConstant.EMPRESA);
-
+        ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
+                SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
 		for (ReclasificacionCentroTrabajo reclasificacionCentroTrabajo : this.reclasificacionCentroTrabajoService.getAll()) {
 				try {
 					Method method = new Object() {}.getClass().getEnclosingMethod();
@@ -798,8 +786,8 @@ public class Controller extends BaseController
 	public Object novedadesTransitorias(String authorization, String entity_body)
 	{
 		Object response = null;
-		//ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumento(SisafitraConstant.ParameroGeneralConstant.EMPRESA);
-		try
+        ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
+                SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);		try
 		{
 			Method method = new Object() {}.getClass().getEnclosingMethod();
 			RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(entity_body, method.getName(), this.getClass(), method.getParameterTypes());
@@ -842,8 +830,8 @@ public class Controller extends BaseController
 	public Object modificacionIBC(String authorization, String entity_body)
 	{
 		Object response = null;
-		//ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumento(SisafitraConstant.ParameroGeneralConstant.EMPRESA);
-		try
+        ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
+                SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);		try
 		{
 			Method method = new Object() {}.getClass().getEnclosingMethod();
 			RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(entity_body, method.getName(), this.getClass(), method.getParameterTypes());
