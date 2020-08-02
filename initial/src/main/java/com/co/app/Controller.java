@@ -17,6 +17,7 @@ import com.co.service.*;
 import com.co.controller.BaseController;
 import com.co.enums.EstadosEnum;
 import com.co.exception.MinSaludBusinessException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -251,29 +252,72 @@ public class Controller extends BaseController
 			name = "InicioRelacionLaboralARL", clientId = "37cf0135c6c5408eb474a8ac0cdd11f2",
 			uri =  "/InicioRelacionLaboralARL", headers = {"Content-Type=application/json"},
 			method = RequestMethod.POST)
-	public Object inicioRelacionLaboralARL(@RequestHeader("Authorization") String authorization) {
-		Object response = null;
-		try {
-            ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
-                    SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);			for(InicioLaboral inicioLaboral: this.inicioLaboralService.getIniciosLaborales(EstadosEnum.FALLIDO.getName(), EstadosEnum.EN_TRAMITE.getName())) {
-				try {
+	public Object inicioRelacionLaboralARL(@RequestHeader("Authorization") String authorization)
+    {
+        Object response = null;
+		try
+        {
+            log.info("InicioRelacionLaboral init with authorization ".concat(authorization));
+            List<String> inicioRelacionCorrectas = new ArrayList<>();
+            List<String> inicioRelacionInCorrectas = new ArrayList<>();
+            ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
+            log.info("Consultamos inicioRelacionLaboral en estado EN_TRAMITE o FALLIDO ");
+            for(InicioLaboral inicioLaboral: this.inicioLaboralService.getIniciosLaborales(EstadosEnum.FALLIDO.getName(), EstadosEnum.EN_TRAMITE.getName()))
+            {
+                    log.info("relacionLaboral ID: ".concat(inicioLaboral.getId().toPlainString()));
 					Method method = new Object() {}.getClass().getEnclosingMethod();
 					//Para crear request
 					RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(mapperBody(inicioLaboral), method.getName(), this.getClass(), method.getParameterTypes());
 					request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
-					response = super.responseFromPostRequest(request_body, ResponseMinSaludDTO.class);
-					this.logService.save(writeLogSATARL(inicioLaboral.getEmpre_form(), new BigDecimal(parametro.getValor().trim()), inicioLaboral.getId(), EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO) response).getCodigo(), authorization));
-				} catch (NoSuchMethodException | NoSuchFieldException | IllegalAccessException e)
-				{
-					log.error("Configuracion @ServiceConfig invalida: ERROR: ".concat(e.getMessage()));
-					return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
-				}catch (IOException e)
-				{
-					log.error("Error de conexion con el servicio: ERROR: ".concat(e.getMessage()));
-					return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
-				}
+                    log.info("Request relacionLaboral ID: ".concat(request_body.toString()));
+
+                    try{
+                        response = super.responseFromPostRequest(request_body, ResponseMinSaludDTO.class);
+                        log.info("relacionLaboral response: ".concat(response.toString()));
+                        if(response instanceof ErrorDTO)
+                        {
+                            this.logService.save(writeLogSATARL(inicioLaboral.getEmpre_form(),
+                                    new BigDecimal(parametro.getValor().trim()), inicioLaboral.getId(),
+                                    EstadosEnum.FALLIDO.getName(), ((ErrorDTO)response).getError_description(),
+                                    authorization));
+                            inicioLaboral.setEstadoMin(EstadosEnum.FALLIDO.getName());
+                            inicioRelacionInCorrectas.add(inicioLaboral.getNumeroDocumentoEmpleador().trim());
+                        } else if(response instanceof ResponseMinSaludDTO)
+                        {
+                            this.logService.save(writeLogSATARL(inicioLaboral.getEmpre_form(),
+                                    new BigDecimal(parametro.getValor().trim()), inicioLaboral.getId(),
+                                    EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO)response).getCodigo(),
+                                    authorization));
+                            inicioLaboral.setEstadoMin(EstadosEnum.EXITOSO.getName());
+                            inicioRelacionCorrectas.add(inicioLaboral.getNumeroDocumentoEmpleador().trim());
+                        }
+
+                    }
+                    catch (Exception e)
+                    {
+                        this.logService.save(writeLogSATARL(inicioLaboral.getEmpre_form(),
+                                new BigDecimal(parametro.getValor().trim()), inicioLaboral.getId(),
+                                EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
+                                        : "FAIL", authorization));
+                        inicioLaboral.setEstadoMin(EstadosEnum.FALLIDO.getName());
+                        log.error("Error interno: ".concat(e.getMessage()));
+                        inicioRelacionInCorrectas.add(inicioLaboral.getNumeroDocumentoEmpleador().trim());
+                    }
+                inicioLaboral.setTokenMin(authorization);
+                inicioLaboral.setFechaReporte(LocalDateTime.now());
+                inicioLaboral.setFechaRespuesta(LocalDateTime.now());
+                this.inicioLaboralService.add(inicioLaboral);
 			}
-		} catch (MinSaludBusinessException e) {
+		} catch (NoSuchMethodException e)
+		{
+			log.error("Configuracion @ServiceConfig invalida: ERROR: ".concat(e.getMessage()));
+			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}catch (IOException e)
+		{
+			log.error("Error de conexion con el servicio: ERROR: ".concat(e.getMessage()));
+			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (MinSaludBusinessException e)
+		{
 			log.error("Error de negocio. ERROR: ".concat(e.getMessage()));
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		}
@@ -303,8 +347,13 @@ public class Controller extends BaseController
 	{
 		Object response = null;
 		try {
-            ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
-                    SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);			for(TerminacionLaboral terminacionLaboral: this.terminacionLaboralService.getTerminacionesLaborales(EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName()))
+
+            log.info("terminacionRelacion init with authorization ".concat(authorization));
+            List<String> terminacionRelacionCorrectas = new ArrayList<>();
+            List<String> terminacionRelacionInCorrectas = new ArrayList<>();
+            ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
+            log.info("Consultamos terminacionRelacion en estado EN_TRAMITE o FALLIDO ");
+            for(TerminacionLaboral terminacionLaboral: this.terminacionLaboralService.getTerminacionesLaborales(EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName()))
 			{
 				try {
 					Method method = new Object() {}.getClass().getEnclosingMethod();
@@ -354,7 +403,7 @@ public class Controller extends BaseController
 			name = "ConsultaEmpresasTrasladadas", clientId = "147171ef46c44b41b77b2aaac10ae39b",
 			uri = "/ConsultaEmpresasTrasladadas", headers = {"Content-Type=application/json"},
 			method = RequestMethod.POST)
-	public Object consultaEmpresa(@RequestHeader("Authorization") String authorization, @RequestBody  String entity_body)
+	public Object consultaEmpresa(@RequestHeader("Authorization") String authorization, @RequestBody String entity_body)
 	{
 		Object response = null;
 		List<String> empresasConsultadas = new ArrayList<>();

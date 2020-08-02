@@ -1,5 +1,6 @@
 package com.co.service;
 
+import com.co.entities.AfiliacionEmpresa;
 import com.co.entities.InicioLaboral;
 import com.co.exception.MinSaludBusinessException;
 import com.co.persistence.InicioLaboralRepository;
@@ -25,5 +26,10 @@ public class InicioLaboralService
         }
 
         return result;
+    }
+
+    public void add(InicioLaboral inicioLaboral)
+    {
+        this.inicioLaboralRepository.save(inicioLaboral);
     }
 }
