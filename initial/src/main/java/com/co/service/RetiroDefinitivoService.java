@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Component
@@ -18,5 +19,15 @@ public class RetiroDefinitivoService
     public List<RetiroDefinitivoSGRL> getAll() {
 
         return (List<RetiroDefinitivoSGRL>) this.retiroDefinitivoRepository.findAll();
+    }
+
+    public List<RetiroDefinitivoSGRL> getAll(BigDecimal... estados) {
+
+        return  this.retiroDefinitivoRepository.getRetiroDefinitivoSGRL(estados);
+    }
+
+    public void add(RetiroDefinitivoSGRL retiroDefinitivoSGRL)
+    {
+        this.retiroDefinitivoRepository.save(retiroDefinitivoSGRL);
     }
 }

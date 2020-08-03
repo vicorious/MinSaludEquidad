@@ -18,4 +18,9 @@ public class ReclasificacionCentroTrabajoService {
     public List<ReclasificacionCentroTrabajo> getAll(){
         return (List<ReclasificacionCentroTrabajo>) this.reclasificacionCentroTrabajoRepository.findAll();
     }
+
+    public void add(ReclasificacionCentroTrabajo reclasificacionCentroTrabajo)
+    {
+        this.reclasificacionCentroTrabajoRepository.save(reclasificacionCentroTrabajo);
+    }
 }

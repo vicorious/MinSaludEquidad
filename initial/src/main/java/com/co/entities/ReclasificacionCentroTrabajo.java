@@ -16,7 +16,7 @@ import java.math.BigDecimal;
         "fechaRespuesta", "estadoMin" })
 @Entity
 @Table(name = "SRV_RECL_CENTRO_TRABAJO")
-public class ReclasificacionCentroTrabajo
+public class ReclasificacionCentroTrabajo extends BaseEntity
 {
     @Id
     @Column(name = "SRV_RECL_CENTRO_TRABAJO_ID")

@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
         "fechaRespuesta", "estadoMin", "naturalezaJuridica", "tipoAportante", "actividadEconomica" })
 @Entity
 @Table(name = "SRV_RETIRO_DEFINITIVO_SGRL")
-public class RetiroDefinitivoSGRL
+public class RetiroDefinitivoSGRL extends BaseEntity
 {
     @Id
     @Column(name = "SRV_RETIRO_DEFINITIVO_SGRL")
