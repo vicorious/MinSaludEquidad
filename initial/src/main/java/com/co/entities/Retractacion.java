@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 public class Retractacion extends BaseEntity
 {
     @Id
-    @Column(name = "SRV_RETRACTACION_ID")
+    @Column(name = "SRV_RETRACTACION_EMPRESA_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigDecimal retractacionId;
 
