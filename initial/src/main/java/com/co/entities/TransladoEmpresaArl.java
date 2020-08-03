@@ -25,7 +25,7 @@ public class TransladoEmpresaArl extends BaseEntity
     @Column(name = "CONSEC_DESENT")
     private String consecDesent;
 
-    @Column(name = "fecsolicirud_tras")
+    @Column(name = "fecsolicitud_tras")
     private LocalDateTime fechaSolicitudTranslado;
 
     public BigDecimal getTransladoEmpresId() {
