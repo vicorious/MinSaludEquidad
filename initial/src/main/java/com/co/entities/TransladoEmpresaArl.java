@@ -14,11 +14,11 @@ import java.time.LocalDateTime;
         "empre_form", "tokenMin", "fechaCaptura", "fechaReporte",
         "fechaRespuesta", "estadoMin", "naturalezaJuridica", "tipoAportante" })
 @Entity
-@Table(name = "SRV_TRANSLADO_EMPRESA_ARL")
+@Table(name = "SRV_TRASLADO_EMPRESA_ARL")
 public class TransladoEmpresaArl extends BaseEntity
 {
     @Id
-    @Column(name = "SRV_TRANSLADO_EMPRESA_ARL_ID")
+    @Column(name = "SRV_TRASLADO_EMPRESA_ARL_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigDecimal transladoEmpresId;
 
