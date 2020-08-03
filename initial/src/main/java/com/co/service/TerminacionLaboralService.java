@@ -27,4 +27,8 @@ public class TerminacionLaboralService
 
         return result;
     }
+
+    public void add(TerminacionLaboral terminacionLaboral){
+        this.terminacionLaboralRepository.save(terminacionLaboral);
+    }
 }

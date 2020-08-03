@@ -27,4 +27,9 @@ public class RetractionService
 
         return result;
     }
+
+    public void add(Retractacion retractacion)
+    {
+        this.retractacionRepository.save(retractacion);
+    }
 }

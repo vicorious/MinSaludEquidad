@@ -308,6 +308,13 @@ public class Controller extends BaseController
                 inicioLaboral.setFechaRespuesta(LocalDateTime.now());
                 this.inicioLaboralService.add(inicioLaboral);
 			}
+
+			ResponseContentExitFailDTO responseContentExitFailDTO = new ResponseContentExitFailDTO();
+			responseContentExitFailDTO.setExito(inicioRelacionCorrectas);
+			responseContentExitFailDTO.setFail(inicioRelacionInCorrectas);
+
+			return responseContentExitFailDTO;
+
 		} catch (NoSuchMethodException e)
 		{
 			log.error("Configuracion @ServiceConfig invalida: ERROR: ".concat(e.getMessage()));
@@ -322,7 +329,6 @@ public class Controller extends BaseController
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		}
 
-		return response;
 	}
 
     @ApiOperation(value = "Termina la relacion laboral en una ARL",  response = ResponseContentExitFailDTO.class)
@@ -346,8 +352,8 @@ public class Controller extends BaseController
 	public Object terminacionRelacionLaboralARL(@RequestHeader("Authorization") String authorization)
 	{
 		Object response = null;
-		try {
-
+		try
+		{
             log.info("terminacionRelacion init with authorization ".concat(authorization));
             List<String> terminacionRelacionCorrectas = new ArrayList<>();
             List<String> terminacionRelacionInCorrectas = new ArrayList<>();
@@ -355,33 +361,60 @@ public class Controller extends BaseController
             log.info("Consultamos terminacionRelacion en estado EN_TRAMITE o FALLIDO ");
             for(TerminacionLaboral terminacionLaboral: this.terminacionLaboralService.getTerminacionesLaborales(EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName()))
 			{
-				try {
-					Method method = new Object() {}.getClass().getEnclosingMethod();
-					RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(mapperBody(terminacionLaboral), method.getName(), this.getClass(), method.getParameterTypes());
-					request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
-					response = super.responseFromPostRequest(request_body, ResponseMinSaludDTO.class);
 
-				} catch (NoSuchMethodException e) {
-					log.error("Configuracion @ServiceConfig invalida: ERROR: ".concat(e.getMessage()));
-					assert response != null;
-					this.logService.save(writeLogSATARL(terminacionLaboral.getEmpre_form(), new BigDecimal(parametro.getValor().trim()), terminacionLaboral.getId(), EstadosEnum.FALLIDO.getName(), ((ErrorDTO)response).getError_description(), authorization));
-				} catch (IllegalAccessException | NoSuchFieldException e) {
-					log.error("Response es invalido para el objeto ResponseMinSaludDTO: ERROR: ".concat(e.getMessage()));
-					assert response != null;
-					this.logService.save(writeLogSATARL(terminacionLaboral.getEmpre_form(), new BigDecimal(parametro.getValor().trim()), terminacionLaboral.getId(), EstadosEnum.FALLIDO.getName(), ((ErrorDTO)response).getError_description(), authorization));
-				} catch (IOException e) {
-					log.error("Error de conexion con el servicio: ERROR: ".concat(e.getMessage()));
-					assert response != null;
-					this.logService.save(writeLogSATARL(terminacionLaboral.getEmpre_form(), new BigDecimal(parametro.getValor().trim()), terminacionLaboral.getId(), EstadosEnum.FALLIDO.getName(), ((ErrorDTO) response).getError_description(), authorization));
+				Method method = new Object() {}.getClass().getEnclosingMethod();
+				RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(mapperBody(terminacionLaboral), method.getName(), this.getClass(), method.getParameterTypes());
+				request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
+				try
+				{
+
+					response = super.responseFromPostRequest(request_body, ResponseMinSaludDTO.class);
+					if(response instanceof ErrorDTO)
+					{
+						this.logService.save(writeLogSATARL(terminacionLaboral.getEmpre_form(),
+								new BigDecimal(parametro.getValor().trim()), terminacionLaboral.getId(),
+								EstadosEnum.FALLIDO.getName(), ((ErrorDTO)response).getError_description(),
+								authorization));
+						terminacionLaboral.setEstadoMin(EstadosEnum.FALLIDO.getName());
+						terminacionRelacionCorrectas.add(terminacionLaboral.getNumeroDocumentoEmpleador().trim());
+					} else if(response instanceof ResponseMinSaludDTO)
+					{
+						this.logService.save(writeLogSATARL(terminacionLaboral.getEmpre_form(),
+								new BigDecimal(parametro.getValor().trim()), terminacionLaboral.getId(),
+								EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO)response).getCodigo(),
+								authorization));
+						terminacionLaboral.setEstadoMin(EstadosEnum.EXITOSO.getName());
+						terminacionRelacionCorrectas.add(terminacionLaboral.getNumeroDocumentoEmpleador().trim());
+					}
+
+				} catch (Exception e)
+				{
+					this.logService.save(writeLogSATARL(terminacionLaboral.getEmpre_form(),
+							new BigDecimal(parametro.getValor().trim()), terminacionLaboral.getId(),
+							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
+									: "FAIL", authorization));
+					terminacionLaboral.setEstadoMin(EstadosEnum.FALLIDO.getName());
+					log.error("Error interno: ".concat(e.getMessage()));
+					terminacionRelacionInCorrectas.add(terminacionLaboral.getNumeroDocumentoEmpleador().trim());
 				}
-				this.logService.save(writeLogSATARL(terminacionLaboral.getEmpre_form(), new BigDecimal(parametro.getValor().trim()), terminacionLaboral.getId(), EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO)response).getCodigo(), authorization));
+
+				terminacionLaboral.setTokenMin(authorization);
+				terminacionLaboral.setFechaReporte(LocalDateTime.now());
+				terminacionLaboral.setFechaRespuesta(LocalDateTime.now());
+				this.terminacionLaboralService.add(terminacionLaboral);
 			}
-			} catch (MinSaludBusinessException ex) {
+
+			ResponseContentExitFailDTO responseContentExitFailDTO = new ResponseContentExitFailDTO();
+			responseContentExitFailDTO.setExito(terminacionRelacionCorrectas);
+			responseContentExitFailDTO.setFail(terminacionRelacionInCorrectas);
+
+			return responseContentExitFailDTO;
+
+			} catch (MinSaludBusinessException | JsonProcessingException | NoSuchMethodException ex)
+			{
 				log.error("Error de negocio. ERROR: ".concat(ex.getMessage()));
 				return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-
-		return response;
+			}
 	}
 
 	@ApiOperation(value = "Consulta empresas para el codigo de ARL enviado", response = ResponseContentExitFailDTO.class)
@@ -558,31 +591,67 @@ public class Controller extends BaseController
 			method = RequestMethod.POST)
 	public Object trasladoEmpleador(@RequestHeader("Authorization") String authorization) throws MinSaludBusinessException {
 		Object response = null;
+		List<String> trasladoCorrectas = new ArrayList<>();
+		List<String> trasladoInCorrectas = new ArrayList<>();
         ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
-                SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);		for(TransladoEmpresaArl transladoEmpresaArl: this.transladoEmpresaService.getAll(EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName())) {
-			try {
+                SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
+        try
+		{
+			for (TransladoEmpresaArl transladoEmpresaArl : this.transladoEmpresaService.getAll(EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName()))
+			{
 				Method method = new Object() {}.getClass().getEnclosingMethod();
 				RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(mapperBody(transladoEmpresaArl), method.getName(), this.getClass(), method.getParameterTypes());
 				request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
-				response = super.responseFromPostRequestWithPossibleMappingError(request_body, ResponseMinSaludDTO.class);
-				this.logService.save(writeLogSATARL(transladoEmpresaArl.getEmpre_form(), new BigDecimal(parametro.getValor().trim()), transladoEmpresaArl.getTransladoEmpresId(), EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO)response).getCodigo(), authorization));
+				try
+				{
+					response = super.responseFromPostRequestWithPossibleMappingError(request_body, ResponseMinSaludDTO.class);
+					if(response instanceof ErrorDTO)
+					{
+						this.logService.save(writeLogSATARL(transladoEmpresaArl.getEmpre_form(),
+								new BigDecimal(parametro.getValor().trim()), transladoEmpresaArl.getTransladoEmpresId(),
+								EstadosEnum.FALLIDO.getName(), ((ErrorDTO)response).getError_description(),
+								authorization));
+						transladoEmpresaArl.setEstadoMin(EstadosEnum.FALLIDO.getName());
+						trasladoCorrectas.add(transladoEmpresaArl.getNumeroDocumentoEmpleador().trim());
+					} else if(response instanceof ResponseMinSaludDTO)
+					{
+						this.logService.save(writeLogSATARL(transladoEmpresaArl.getEmpre_form(),
+								new BigDecimal(parametro.getValor().trim()), transladoEmpresaArl.getTransladoEmpresId(),
+								EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO)response).getCodigo(),
+								authorization));
+						transladoEmpresaArl.setEstadoMin(EstadosEnum.EXITOSO.getName());
+						trasladoCorrectas.add(transladoEmpresaArl.getNumeroDocumentoEmpleador().trim());
+					}
+					this.logService.save(writeLogSATARL(transladoEmpresaArl.getEmpre_form(), new BigDecimal(parametro.getValor().trim()), transladoEmpresaArl.getTransladoEmpresId(), EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO) response).getCodigo(), authorization));
 
-			} catch (NoSuchMethodException e) {
-				log.error("Configuracion @ServiceConfig invalida: ERROR: ".concat(e.getMessage()));
-				assert response != null;
-				this.logService.save(writeLogSATARL(transladoEmpresaArl.getEmpre_form(), new BigDecimal(parametro.getValor().trim()), transladoEmpresaArl.getTransladoEmpresId(), EstadosEnum.FALLIDO.getName(), ((ResponseMinSaludDTO)response).getCodigo(), authorization));
-			} catch (IllegalAccessException | NoSuchFieldException e) {
-				log.error("Response es invalido para el objeto ResponseMinSaludDTO: ERROR: ".concat(e.getMessage()));
-				assert response != null;
-				this.logService.save(writeLogSATARL(transladoEmpresaArl.getEmpre_form(), new BigDecimal(parametro.getValor().trim()), transladoEmpresaArl.getTransladoEmpresId(), EstadosEnum.FALLIDO.getName(), ((ResponseMinSaludDTO)response).getCodigo(), authorization));
-			} catch (IOException e) {
-				log.error("Error de conexion con el servicio: ERROR: ".concat(e.getMessage()));
-				assert response != null;
-				this.logService.save(writeLogSATARL(transladoEmpresaArl.getEmpre_form(), new BigDecimal(parametro.getValor().trim()), transladoEmpresaArl.getTransladoEmpresId(), EstadosEnum.FALLIDO.getName(), ((ResponseMinSaludDTO)response).getCodigo(), authorization));
+				} catch (Exception e)
+				{
+					this.logService.save(writeLogSATARL(transladoEmpresaArl.getEmpre_form(),
+							new BigDecimal(parametro.getValor().trim()), transladoEmpresaArl.getTransladoEmpresId(),
+							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
+									: "FAIL", authorization));
+					transladoEmpresaArl.setEstadoMin(EstadosEnum.FALLIDO.getName());
+					log.error("Error interno: ".concat(e.getMessage()));
+					trasladoInCorrectas.add(transladoEmpresaArl.getNumeroDocumentoEmpleador().trim());
+				}
+
+				transladoEmpresaArl.setTokenMin(authorization);
+				transladoEmpresaArl.setFechaReporte(LocalDateTime.now());
+				transladoEmpresaArl.setFechaRespuesta(LocalDateTime.now());
+				this.transladoEmpresaService.add(transladoEmpresaArl);
 			}
+
+			ResponseContentExitFailDTO responseContentExitFailDTO = new ResponseContentExitFailDTO();
+			responseContentExitFailDTO.setExito(trasladoCorrectas);
+			responseContentExitFailDTO.setFail(trasladoInCorrectas);
+
+			return responseContentExitFailDTO;
+		} catch (NoSuchMethodException | JsonProcessingException e)
+		{
+			log.error("Error de negocio. ERROR: ".concat(e.getMessage()));
+			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		return response;
 	}
 
     @ApiOperation(value = "Retractacion del translado del empleador",  response = ResponseContentExitFailDTO.class)
@@ -605,33 +674,66 @@ public class Controller extends BaseController
 			method = RequestMethod.POST)
 	public Object retractoTrasladoEmpleador(@RequestHeader("Authorization") String authorization) throws MinSaludBusinessException {
 		Object response = null;
+		List<String> retractoCorrectas = new ArrayList<>();
+		List<String> retractoInCorrectas = new ArrayList<>();
         ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
-                SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);		for(Retractacion retractacion: this.retractionService.getAll(EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName()))
+                SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
+        try
 		{
-			try {
+			for (Retractacion retractacion : this.retractionService.getAll(EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName())) {
 				Method method = new Object() {}.getClass().getEnclosingMethod();
 				RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(mapperBody(retractacion), method.getName(), this.getClass(), method.getParameterTypes());
 				request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
-				response = super.responseFromPostRequestWithPossibleMappingError(request_body, ResponseMinSaludDTO.class);
-				this.logService.save(writeLogSATARL(retractacion.getEmpre_form(), new BigDecimal(parametro.getValor().trim()), retractacion.getRetractacionId(), EstadosEnum.EXITOSO.getName(),((ResponseMinSaludDTO)response).getCodigo(), authorization));
+				try
+				{
+					response = super.responseFromPostRequestWithPossibleMappingError(request_body, ResponseMinSaludDTO.class);
+					if(response instanceof ErrorDTO)
+					{
+						this.logService.save(writeLogSATARL(retractacion.getEmpre_form(),
+								new BigDecimal(parametro.getValor().trim()), retractacion.getRetractacionId(),
+								EstadosEnum.FALLIDO.getName(), ((ErrorDTO)response).getError_description(),
+								authorization));
+						retractacion.setEstadoMin(EstadosEnum.FALLIDO.getName());
+						retractoCorrectas.add(retractacion.getNumeroDocumentoEmpleador().trim());
+					} else if(response instanceof ResponseMinSaludDTO)
+					{
+						this.logService.save(writeLogSATARL(retractacion.getEmpre_form(),
+								new BigDecimal(parametro.getValor().trim()), retractacion.getRetractacionId(),
+								EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO)response).getCodigo(),
+								authorization));
+						retractacion.setEstadoMin(EstadosEnum.EXITOSO.getName());
+						retractoCorrectas.add(retractacion.getNumeroDocumentoEmpleador().trim());
+					}
+					this.logService.save(writeLogSATARL(retractacion.getEmpre_form(), new BigDecimal(parametro.getValor().trim()), retractacion.getRetractacionId(), EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO) response).getCodigo(), authorization));
 
-			} catch (NoSuchMethodException e) {
-				log.error("Configuracion @ServiceConfig invalida: ERROR: ".concat(e.getMessage()));
-				assert response != null;
-				this.logService.save(writeLogSATARL(retractacion.getEmpre_form(), new BigDecimal(parametro.getValor().trim()), retractacion.getRetractacionId(), EstadosEnum.FALLIDO.getName(), ((ResponseMinSaludDTO)response).getCodigo(), authorization));
-			} catch (IllegalAccessException | NoSuchFieldException e) {
-				log.error("Response es invalido para el objeto ResponseMinSaludDTO: ERROR: ".concat(e.getMessage()));
-				assert response != null;
-				this.logService.save(writeLogSATARL(retractacion.getEmpre_form(), new BigDecimal(parametro.getValor().trim()), retractacion.getRetractacionId(), EstadosEnum.FALLIDO.getName(), ((ResponseMinSaludDTO)response).getCodigo(), authorization));
-			} catch (IOException e) {
-				log.error("Error de conexion con el servicio: ERROR: ".concat(e.getMessage()));
-				assert response != null;
-				this.logService.save(writeLogSATARL(retractacion.getEmpre_form(), new BigDecimal(parametro.getValor().trim()), retractacion.getRetractacionId(), EstadosEnum.FALLIDO.getName(), ((ResponseMinSaludDTO)response).getCodigo(), authorization));
+				} catch (Exception e)
+				{
+					this.logService.save(writeLogSATARL(retractacion.getEmpre_form(),
+							new BigDecimal(parametro.getValor().trim()), retractacion.getRetractacionId(),
+							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
+									: "FAIL", authorization));
+					retractacion.setEstadoMin(EstadosEnum.FALLIDO.getName());
+					log.error("Error interno: ".concat(e.getMessage()));
+					retractoInCorrectas.add(retractacion.getNumeroDocumentoEmpleador().trim());
+				}
+
+				retractacion.setTokenMin(authorization);
+				retractacion.setFechaReporte(LocalDateTime.now());
+				retractacion.setFechaRespuesta(LocalDateTime.now());
+				this.retractionService.add(retractacion);
 			}
+
+			ResponseContentExitFailDTO responseContentExitFailDTO = new ResponseContentExitFailDTO();
+			responseContentExitFailDTO.setExito(retractoCorrectas);
+			responseContentExitFailDTO.setFail(retractoInCorrectas);
+
+			return responseContentExitFailDTO;
+		} catch (NoSuchMethodException | JsonProcessingException e)
+		{
+			log.error("Error de negocio. ERROR: ".concat(e.getMessage()));
+			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-
-		return response;
 	}
 
     @ApiOperation(value = "Retiro definitivo SGRL",  response = ResponseContentExitFailDTO.class)
@@ -655,7 +757,8 @@ public class Controller extends BaseController
 	public Object retiroDefinitivoEmpresaSGRL(@RequestHeader("Authorization") String authorization) throws MinSaludBusinessException {
 		Object response = null;
         ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
-                SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);		for(RetiroDefinitivoSGRL retiroDefinitivoSGRL: this.retiroDefinitivoService.getAll()) {
+                SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
+        for(RetiroDefinitivoSGRL retiroDefinitivoSGRL: this.retiroDefinitivoService.getAll()) {
 			try {
 				Method method = new Object() {}.getClass().getEnclosingMethod();
 				RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(mapperBody(retiroDefinitivoSGRL), method.getName(), this.getClass(), method.getParameterTypes());
@@ -782,7 +885,7 @@ public class Controller extends BaseController
             @ApiResponse(code = 404, message = "Not found", response = ErrorDTO.class),
             @ApiResponse(code = 500, message = "Failure", response = InternalServerErrorDTO.class),
     })
-	@PostMapping(path = "/ReclasificacionCentroTrabajo", consumes = "application/json", produces = "application/json")
+		@PostMapping(path = "/ReclasificacionCentroTrabajo", consumes = "application/json", produces = "application/json")
 	@ServiceConfig(protocol = "https", domain = "sisafitra.sispropreprod.gov.co", port = "8062",
 			name = "ReclasificacionCentroTrabajo", clientId = "a1829924eb1642a2adbe48799a905e55",
 			uri = "/ReclasificacionCentroTrabajo", headers = {"Content-Type=application/json"},

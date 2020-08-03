@@ -21,4 +21,9 @@ public class TransladoEmpresaService {
     {
         return this.transladoEmpresaRepository.getTransladoEmpresaArl(estados);
     }
+
+    public void add(TransladoEmpresaArl transladoEmpresaArl)
+    {
+        this.transladoEmpresaRepository.save(transladoEmpresaArl);
+    }
 }
