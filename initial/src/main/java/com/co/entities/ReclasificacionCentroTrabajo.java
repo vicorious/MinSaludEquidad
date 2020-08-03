@@ -24,14 +24,6 @@ public class ReclasificacionCentroTrabajo extends BaseEntity
     private BigDecimal id;
 
     @JsonSerialize(using = SerializerCustom.class)
-    @Column(name = "EMPLE_TIPDOC")
-    private String empleTipdoc;
-
-    @JsonSerialize(using = SerializerCustom.class)
-    @Column(name = "EMPLE_ID")
-    private String empleid;
-
-    @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "CONSEC_DESENT")
     private BigDecimal consecDesent;
 
@@ -62,24 +54,7 @@ public class ReclasificacionCentroTrabajo extends BaseEntity
     public void setId(BigDecimal id) {
         this.id = id;
     }
-
-    public String getEmpleTipdoc() {
-        return empleTipdoc;
-    }
-
-    @JsonProperty("TipoDocumentoEmpleador")
-    public void setEmpleTipdoc(String empleTipdoc) {
-        this.empleTipdoc = empleTipdoc;
-    }
-
-    public String getEmpleid() {
-        return empleid;
-    }
-    @JsonProperty("NumeroDocumentoEmpleador")
-    public void setEmpleid(String empleid) {
-        this.empleid = empleid;
-    }
-
+    
     public BigDecimal getConsecDesent() {
         return consecDesent;
     }

@@ -22,12 +22,6 @@ public class RetiroDefinitivoSGRL extends BaseEntity
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigDecimal id;
 
-    @Column(name = "EMPRE_TIPDOC")
-    private String empreTipDoc;
-
-    @Column(name = "EMPRE_ID")
-    private String empreId;
-
     @Column(name = "CONSEC_DESENT")
     private String consecDesent;
 
@@ -43,24 +37,6 @@ public class RetiroDefinitivoSGRL extends BaseEntity
 
     public void setId(BigDecimal id) {
         this.id = id;
-    }
-
-    public String getEmpreTipDoc() {
-        return empreTipDoc;
-    }
-
-    @JsonProperty("TipoDocumentoEmpresa")
-    public void setEmpreTipDoc(String empreTipDoc) {
-        this.empreTipDoc = empreTipDoc;
-    }
-
-    public String getEmpreId() {
-        return empreId;
-    }
-
-    @JsonProperty("NumeroDocumentoEmpresa")
-    public void setEmpreId(String empreId) {
-        this.empreId = empreId;
     }
 
     public String getConsecDesent() {
