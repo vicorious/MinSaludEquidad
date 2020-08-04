@@ -21,9 +21,8 @@ import static javax.persistence.CascadeType.*;
 @JsonIgnoreProperties(value = { "id",
         "empreForm", "tokenMin", "fecCaptura", "fecReporte",
         "fecRespuesta", "estadoMin", "estadoMin" })
-@Entity(name = "NovedadesCentro")
+@Entity
 @Table(name = "SRV_CENTROS_TRABAJO")
-@DynamicUpdate
 public class NovedadesCentro extends BaseEntity
 {
     @Id
