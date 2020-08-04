@@ -28,7 +28,7 @@ public class InicioLaboral extends BaseEntity
 
     @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "CONSEC_DESENT")
-    private BigDecimal consecDesent;
+    private String consecDesent;
 
     @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "COD_SEDE")
@@ -82,12 +82,12 @@ public class InicioLaboral extends BaseEntity
         this.id = id;
     }
 
-    public BigDecimal getConsecDesent() {
+    public String getConsecDesent() {
         return consecDesent;
     }
 
     @JsonProperty("ConsecutivoNITEmpleador")
-    public void setConsecDesent(BigDecimal consecDesent) {
+    public void setConsecDesent(String consecDesent) {
         this.consecDesent = consecDesent;
     }
 
