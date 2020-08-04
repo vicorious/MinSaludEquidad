@@ -25,22 +25,26 @@ public class TerminacionLaboral extends BaseEntity
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigDecimal id;
 
-    @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "CONSEC_DESENT")
-    private BigDecimal consecDesent;
+    private String consecDesent;
 
+    @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "SEDE_COD")
     private String sedeCod;
 
+    @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "CENTRO_COD")
     private String centroCod;
 
+    @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "FECFIN_LABORAL")
     private String fecFinNovedad;
 
+    @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "EMPLE_TIPDOC")
     private String empleTipDoc;
 
+    @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "EMPLE_ID")
     private String empleId;
 
@@ -58,12 +62,12 @@ public class TerminacionLaboral extends BaseEntity
         this.id = id;
     }
 
-    public BigDecimal getConsecDesent() {
+    public String getConsecDesent() {
         return consecDesent;
     }
 
     @JsonProperty("ConsecutivoNITEmpleador")
-    public void setConsecDesent(BigDecimal consecDesent) {
+    public void setConsecDesent(String consecDesent) {
         this.consecDesent = consecDesent;
     }
 

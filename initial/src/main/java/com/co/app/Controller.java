@@ -66,6 +66,9 @@ public class Controller extends BaseController
     @Autowired
     private ParametroGeneralService parametroGeneralService;
 
+	@Autowired
+	private NovedadesSedesService novedadesSedesService;
+
 	/**
 	 *
 	 */
@@ -82,6 +85,7 @@ public class Controller extends BaseController
 		this.retractionService = new RetractionService();
 		this.transladoEmpresaService = new TransladoEmpresaService();
 		this.parametroGeneralService = new ParametroGeneralService();
+		this.novedadesSedesService = new NovedadesSedesService();
 
 	}
 
@@ -858,30 +862,70 @@ public class Controller extends BaseController
 			name = "NovedadesSedes", clientId = "f45d4049f9a44f839e692f2ca331ec77",
 			uri = "/NovedadesSedes", headers = {"Content-Type=application/json"},
 			method = RequestMethod.POST)
-	public Object novedadesSedes(String authorization, String entity_body)
+	public Object novedadesSedes(String authorization)
 	{
 		Object response = null;
+		List<String> novedadesSedesCorrectas = new ArrayList<>();
+		List<String> novedadesSedesInCorrectas = new ArrayList<>();
 		try
 		{
-            ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
-                    SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);			Method method = new Object() {}.getClass().getEnclosingMethod();
-			RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(entity_body, method.getName(), this.getClass(), method.getParameterTypes());
-			request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
-			response = super.responseFromPostRequest(request_body, ResponseMinSaludDTO.class);
+			ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
+					SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
 
-		} catch (NoSuchMethodException e)
-		{
-			log.error("Configuracion @ServiceConfig invalida: ERROR: ".concat(e.getMessage()));
-		}catch (IllegalAccessException | NoSuchFieldException e)
-		{
-			log.error("Response es invalido para el objeto ResponseMinSaludDTO: ERROR: ".concat(e.getMessage()));
-		} catch (IOException e)
+			for (NovedadesSede novedadesSede : this.novedadesSedesService.getNovedadesSedes(EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName()))
+			{
+				Method method = new Object() {}.getClass().getEnclosingMethod();
+				RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(mapperBody(novedadesSede), method.getName(), this.getClass(), method.getParameterTypes());
+				request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
+				try
+				{
+					response = super.responseFromPostRequest(request_body, ResponseMinSaludDTO.class);
+					if (response instanceof ErrorDTO)
+					{
+						this.logService.save(writeLogSATARL(novedadesSede.getEmpre_form(),
+								new BigDecimal(parametro.getValor().trim()), novedadesSede.getNovedadesSedeId(),
+								EstadosEnum.FALLIDO.getName(), ((ErrorDTO) response).getError_description(),
+								authorization));
+						novedadesSede.setEstadoMin(EstadosEnum.FALLIDO.getName());
+						novedadesSedesCorrectas.add(novedadesSede.getNumeroDocumentoEmpleador().trim());
+					} else if (response instanceof ResponseMinSaludDTO)
+					{
+						this.logService.save(writeLogSATARL(novedadesSede.getEmpre_form(),
+								new BigDecimal(parametro.getValor().trim()), novedadesSede.getNovedadesSedeId(),
+								EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO) response).getCodigo(),
+								authorization));
+						novedadesSede.setEstadoMin(EstadosEnum.EXITOSO.getName());
+						novedadesSedesCorrectas.add(novedadesSede.getNumeroDocumentoEmpleador().trim());
+					}
+				} catch (Exception e)
+				{
+					this.logService.save(writeLogSATARL(novedadesSede.getEmpre_form(),
+							new BigDecimal(parametro.getValor().trim()), novedadesSede.getNovedadesSedeId(),
+							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
+									: "FAIL", authorization));
+					novedadesSede.setEstadoMin(EstadosEnum.FALLIDO.getName());
+					log.error("Error interno: ".concat(e.getMessage()));
+					novedadesSedesInCorrectas.add(novedadesSede.getNumeroDocumentoEmpleador().trim());
+
+				}
+
+				novedadesSede.setTokenMin(authorization);
+				novedadesSede.setFechaReporte(LocalDateTime.now());
+				novedadesSede.setFechaRespuesta(LocalDateTime.now());
+				this.novedadesSedesService.add(novedadesSede);
+			}
+
+			ResponseContentExitFailDTO responseContentExitFailDTO = new ResponseContentExitFailDTO();
+			responseContentExitFailDTO.setExito(novedadesSedesCorrectas);
+			responseContentExitFailDTO.setFail(novedadesSedesInCorrectas);
+
+			return responseContentExitFailDTO;
+
+		} catch (NoSuchMethodException | IOException | MinSaludBusinessException e)
 		{
 			log.error("Error de conexion con el servicio: ERROR: ".concat(e.getMessage()));
+			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
-
-		return response;
 	}
 
     @ApiOperation(value = "Novedades centro de trabajo",  response = ResponseContentExitFailDTO.class)

@@ -23,7 +23,6 @@ public class ReclasificacionCentroTrabajo extends BaseEntity
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigDecimal id;
 
-    @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "CONSEC_DESENT")
     private BigDecimal consecDesent;
 
@@ -35,15 +34,12 @@ public class ReclasificacionCentroTrabajo extends BaseEntity
     @Column(name = "CENTRO_COD")
     private String codCentro;
 
-    @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "COD_ANTE_ACTIVIDAD")
     private BigDecimal codAnteactividad;
 
-    @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "COD_NUEVA_ACTIVIDAD")
     private BigDecimal codNuevaactividad;
 
-    @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "SOLICITANTE_RECLASIF")
     private BigDecimal solicitanteReClasif;
 
@@ -54,7 +50,7 @@ public class ReclasificacionCentroTrabajo extends BaseEntity
     public void setId(BigDecimal id) {
         this.id = id;
     }
-    
+
     public BigDecimal getConsecDesent() {
         return consecDesent;
     }

@@ -21,7 +21,8 @@ import static javax.persistence.CascadeType.*;
         "fechaRespuesta", "estructuraEmpresa", "centros", "centrosTrabajo", "estadoMin", "naturalezaJuridica", "tipoAportante", "actividadEconomica" })
 @Entity
 @Table(name = "SRV_ESTRUCTURA_SEDE")
-public class Sede {
+public class Sede extends BaseEntity
+{
     public Sede() {
         this.centros = new ArrayList<>();
     }
@@ -30,15 +31,6 @@ public class Sede {
     @Column(name = "SRV_ESTRUCTURA_SEDE_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigDecimal id;
-
-    @Column(name = "TOKEN_MIN")
-    private String tokenMin;
-
-    @Column(name = "FECCAPTURA")
-    private LocalDateTime fecCaptura;
-
-    @Column(name = "FECRESPUESTA")
-    private LocalDateTime fecRespuesta;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "SRV_ESTRUCTURA_EMPRESA_ID")
@@ -126,30 +118,6 @@ public class Sede {
 
     public void setId(BigDecimal id) {
         this.id = id;
-    }
-
-    public String getTokenMin() {
-        return tokenMin;
-    }
-
-    public void setTokenMin(String tokenMin) {
-        this.tokenMin = tokenMin;
-    }
-
-    public LocalDateTime getFecCaptura() {
-        return fecCaptura;
-    }
-
-    public void setFecCaptura(LocalDateTime fecCaptura) {
-        this.fecCaptura = fecCaptura;
-    }
-
-    public LocalDateTime getFecRespuesta() {
-        return fecRespuesta;
-    }
-
-    public void setFecRespuesta(LocalDateTime fecRespuesta) {
-        this.fecRespuesta = fecRespuesta;
     }
 
     public EstructuraEmpresa getEstructuraEmpresa() {

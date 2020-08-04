@@ -98,39 +98,14 @@ public class ConsultaEmpresaService
         return empresas;
     }
 
-    public EstructuraEmpresa mapEstructura(EstructuraEmpresa empresa, String token) throws JsonProcessingException {
-        /*JSONObject json = new JSONObject(response);
-        JSONArray sedes = json.getJSONArray("sedes");
-        ObjectMapper mapper = new ObjectMapper();
-        EstructuraEmpresa empresa = mapper.readValue(response, EstructuraEmpresa.class);
-        empresa.setFecCaptura(LocalDateTime.now().toString());
-        for(int i = 0; i < sedes.length(); i++)
-        {
-            JSONObject sede = sedes.getJSONObject(i);
-            Sede sede_o = mapper.readValue(sede.toString(), Sede.class);
-            JSONArray centros = sede.getJSONArray("centrosTrabajo");
-            for(int j = 0; j < centros.length(); j++){
-                JSONObject centro = centros.getJSONObject(j);
-                CentroTrabajo centro_o = mapper.readValue(centro.toString(), CentroTrabajo.class);
-                JSONArray empleados = centro.getJSONArray("empleados");
-                for(int k = 0; k < empleados.length(); k++)
-                {
-                    JSONObject empleado = empleados.getJSONObject(k);
-                    Empleado empleado_o = mapper.readValue(empleado.toString(), Empleado.class);
-                    centro_o.addEmpleados(empleado_o);
-                }
-
-                sede_o.addCentro(centro_o);
-            }
-            empresa.addSede(sede_o);
-        }*/
-
+    public EstructuraEmpresa mapEstructura(EstructuraEmpresa empresa, String token)
+    {
         empresa.setTokenMin(token);
         empresa.getSedes().forEach(p -> {
             p.setEstructuraEmpresa(empresa);
             p.setTokenMin(token);
-            p.setFecCaptura(LocalDateTime.now());
-            p.setFecRespuesta(LocalDateTime.now());
+            p.setFechaCaptura(LocalDateTime.now());
+            p.setFechaRespuesta(LocalDateTime.now());
             p.setCodSede(p.getCodSede().length() == 1 ? "0".concat(p.getCodSede()) : p.getCodSede());
         });
         empresa.getSedes().forEach(p -> p.getCentros().forEach(c -> {
