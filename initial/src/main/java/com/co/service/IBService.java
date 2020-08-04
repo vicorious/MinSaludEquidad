@@ -1,10 +1,8 @@
 package com.co.service;
 
-import com.co.entities.InicioLaboral;
 import com.co.entities.NovedadIBCTipsal;
 import com.co.exception.MinSaludBusinessException;
 import com.co.persistence.IBCRepository;
-import com.co.persistence.InicioLaboralRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;

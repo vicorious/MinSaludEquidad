@@ -1,6 +1,5 @@
 package com.co.service;
 
-import com.co.entities.AfiliacionEmpresa;
 import com.co.entities.Retractacion;
 import com.co.exception.MinSaludBusinessException;
 import com.co.persistence.RetractacionRepository;

@@ -1,6 +1,5 @@
 package com.co.persistence;
 
-import com.co.entities.RetiroDefinitivoSGRL;
 import com.co.entities.Retractacion;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

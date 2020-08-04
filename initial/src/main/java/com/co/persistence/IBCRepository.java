@@ -1,7 +1,6 @@
 package com.co.persistence;
 
 import com.co.entities.NovedadIBCTipsal;
-import com.co.entities.NovedadesTransitorias;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

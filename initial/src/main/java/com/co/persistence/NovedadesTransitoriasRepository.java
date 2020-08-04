@@ -1,6 +1,5 @@
 package com.co.persistence;
 
-import com.co.entities.InicioLaboral;
 import com.co.entities.NovedadesTransitorias;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

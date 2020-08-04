@@ -1,9 +1,7 @@
 package com.co.service;
 
-import com.co.entities.NovedadesSede;
 import com.co.entities.NovedadesTransitorias;
 import com.co.exception.MinSaludBusinessException;
-import com.co.persistence.NovedaSedeRepository;
 import com.co.persistence.NovedadesTransitoriasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

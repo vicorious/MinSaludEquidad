@@ -887,7 +887,7 @@ public class Controller extends BaseController
 			name = "NovedadesSedes", clientId = "f45d4049f9a44f839e692f2ca331ec77",
 			uri = "/NovedadesSedes", headers = {"Content-Type=application/json"},
 			method = RequestMethod.POST)
-	public Object novedadesSedes(String authorization)
+	public Object novedadesSedes(@RequestHeader("Authorization")String authorization)
 	{
 		log.info("novedadesSedes init with authorization ".concat(authorization));
 		Object response = null;
@@ -974,7 +974,7 @@ public class Controller extends BaseController
 			name = "NovedadesCentroTrabajo", clientId = "f0dccc17a4b84772848fd5f3efe20f4b",
 			uri = "/NovedadesCentroTrabajo", headers = {"Content-Type=application/json"},
 			method = RequestMethod.POST)
-	public Object novedadesCentroTrabajo(String authorization, String entity_body)
+	public Object novedadesCentroTrabajo(@RequestHeader("Authorization")String authorization)
 	{
 		log.info("novedadesCentroTrabajo init with authorization ".concat(authorization));
 		Object response = null;
@@ -1144,7 +1144,7 @@ public class Controller extends BaseController
 			name = "NovedadesTransitorias", clientId = "6ff4b98c8c22497b9c1d7d7eb5c94644",
 			uri = "/NovedadesTransitorias", headers = {"Content-Type=application/json"},
 			method = RequestMethod.POST)
-	public Object novedadesTransitorias(String authorization)
+	public Object novedadesTransitorias(@RequestHeader("Authorization")String authorization)
 	{
 		log.info("novedadesTransitorias init with authorization ".concat(authorization));
 		Object response = null;
@@ -1230,7 +1230,7 @@ public class Controller extends BaseController
 			name = "ModificacionIBC", clientId = "83d16bb59dc548cb8a75bc43c8da68c6",
 			uri = "/ModificacionIBC", headers = {"Content-Type=application/json"},
 			method = RequestMethod.POST)
-	public Object modificacionIBC(String authorization)
+	public Object modificacionIBC(@RequestHeader("Authorization")String authorization)
 	{
 		log.info("modificacionIBC init with authorization ".concat(authorization));
 		Object response = null;

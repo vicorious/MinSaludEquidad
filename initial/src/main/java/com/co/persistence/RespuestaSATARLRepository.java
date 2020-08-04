@@ -1,6 +1,5 @@
 package com.co.persistence;
 
-import com.co.entities.AfiliacionEmpresa;
 import com.co.entities.RespuestaSATARL;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

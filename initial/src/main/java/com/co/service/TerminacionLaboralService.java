@@ -1,6 +1,5 @@
 package com.co.service;
 
-import com.co.entities.InicioLaboral;
 import com.co.entities.TerminacionLaboral;
 import com.co.exception.MinSaludBusinessException;
 import com.co.persistence.TerminacionLaboralRepository;

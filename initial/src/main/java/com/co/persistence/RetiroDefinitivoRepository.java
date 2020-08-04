@@ -1,7 +1,5 @@
 package com.co.persistence;
 
-import com.co.entities.ReclasificacionCentroTrabajo;
-import com.co.entities.RespuestaSATARL;
 import com.co.entities.RetiroDefinitivoSGRL;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
