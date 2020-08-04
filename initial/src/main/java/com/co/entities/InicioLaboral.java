@@ -58,19 +58,15 @@ public class InicioLaboral extends BaseEntity
     @Column(name = "EMPLE_PNOMBRE")
     private String empleNombre;
 
-    @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "TIPO_COTIZANTE")
     private BigDecimal tipoCotizante;
 
-    @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "SUBTIPO_COTIZANTE")
     private BigDecimal subTipoCotizante;
 
-    @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "IBC")
     private BigDecimal ibc;
 
-    @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "TIPO_SALARIO")
     private BigDecimal tipoSalario;
 
