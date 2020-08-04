@@ -17,7 +17,7 @@ import java.util.List;
 public class TerminacionLaboralService
 {
     @Autowired
-    private TerminacionLaboralRepository terminacionLaboralRepository;
+    TerminacionLaboralRepository terminacionLaboralRepository;
 
     public List<TerminacionLaboral> getTerminacionesLaborales(BigDecimal... estados) throws MinSaludBusinessException {
         List<TerminacionLaboral> result = this.terminacionLaboralRepository.getTerminacionesLaborales(estados);

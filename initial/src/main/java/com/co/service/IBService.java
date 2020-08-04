@@ -14,7 +14,7 @@ import java.util.List;
 public class IBService
 {
     @Autowired
-    private IBCRepository ibcRepository;
+    IBCRepository ibcRepository;
 
     public List<NovedadIBCTipsal> getIBC(BigDecimal... estados) throws MinSaludBusinessException {
         List<NovedadIBCTipsal> result = this.ibcRepository.getNovedadIBCTipsal(estados);

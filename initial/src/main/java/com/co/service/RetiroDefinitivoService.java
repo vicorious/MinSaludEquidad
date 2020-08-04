@@ -14,7 +14,7 @@ import java.util.List;
 public class RetiroDefinitivoService
 {
     @Autowired
-    private RetiroDefinitivoRepository retiroDefinitivoRepository;
+    RetiroDefinitivoRepository retiroDefinitivoRepository;
 
     public List<RetiroDefinitivoSGRL> getAll() {
 

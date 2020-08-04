@@ -13,7 +13,7 @@ import java.util.List;
 public class ReclasificacionCentroTrabajoService {
 
     @Autowired
-    private ReclasificacionCentroTrabajoRepository reclasificacionCentroTrabajoRepository;
+    ReclasificacionCentroTrabajoRepository reclasificacionCentroTrabajoRepository;
 
     public List<ReclasificacionCentroTrabajo> getAll(){
         return (List<ReclasificacionCentroTrabajo>) this.reclasificacionCentroTrabajoRepository.findAll();

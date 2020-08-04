@@ -17,7 +17,7 @@ import java.util.List;
 public class RetractionService
 {
     @Autowired
-    private RetractacionRepository retractacionRepository;
+    RetractacionRepository retractacionRepository;
 
     public List<Retractacion> getAll(BigDecimal... estados) throws MinSaludBusinessException {
         List<Retractacion> result = this.retractacionRepository.getAllRetractacionEstado(estados);

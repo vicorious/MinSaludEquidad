@@ -14,7 +14,7 @@ import java.util.List;
 public class NovedadesCentroTrabajoService
 {
     @Autowired
-    private NovedadCentroTrabajoRepository novedadCentroTrabajoRepository;
+    NovedadCentroTrabajoRepository novedadCentroTrabajoRepository;
 
     public List<NovedadesCentro> getNovedadesSedes(BigDecimal... estados) throws MinSaludBusinessException {
         List<NovedadesCentro> result = this.novedadCentroTrabajoRepository.getCentros(estados);

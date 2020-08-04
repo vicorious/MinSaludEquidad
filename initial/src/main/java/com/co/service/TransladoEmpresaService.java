@@ -14,7 +14,7 @@ import java.util.List;
 public class TransladoEmpresaService {
 
     @Autowired
-    private TransladoEmpresaRepository transladoEmpresaRepository;
+    TransladoEmpresaRepository transladoEmpresaRepository;
 
 
     public List<TransladoEmpresaArl> getAll(BigDecimal... estados)

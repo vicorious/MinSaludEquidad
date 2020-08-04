@@ -1,6 +1,5 @@
 package com.co.service;
 
-import com.co.entities.AfiliacionEmpresa;
 import com.co.entities.InicioLaboral;
 import com.co.exception.MinSaludBusinessException;
 import com.co.persistence.InicioLaboralRepository;
@@ -17,7 +16,7 @@ import java.util.List;
 public class InicioLaboralService
 {
     @Autowired
-    private InicioLaboralRepository inicioLaboralRepository;
+    InicioLaboralRepository inicioLaboralRepository;
 
     public List<InicioLaboral> getIniciosLaborales(BigDecimal... estados) throws MinSaludBusinessException {
         List<InicioLaboral> result = this.inicioLaboralRepository.getIniciosLaborales(estados);

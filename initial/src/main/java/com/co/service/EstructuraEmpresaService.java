@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class EstructuraEmpresaService
 {
     @Autowired
-    private EstructuraEmpresaRepository estructuraEmpresaRepository;
+    EstructuraEmpresaRepository estructuraEmpresaRepository;
 
     public void save(EstructuraEmpresa estructuraEmpresa){
 
