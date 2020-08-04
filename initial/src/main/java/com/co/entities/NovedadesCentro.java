@@ -22,7 +22,7 @@ import static javax.persistence.CascadeType.*;
         "empreForm", "tokenMin", "fecCaptura", "fecReporte",
         "fecRespuesta", "estadoMin", "estadoMin" })
 @Entity(name = "NovedadesCentro")
-@Table(name = "SRV_ESTRUCTURA_CENTRO")
+@Table(name = "SRV_CENTROS_TRABAJO")
 @DynamicUpdate
 public class NovedadesCentro extends BaseEntity
 {

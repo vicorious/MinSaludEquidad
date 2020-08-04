@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
         "empreForm", "tokenMin", "fecCaptura", "fecReporte",
         "fecRespuesta", "estadoMin", "estadoMin" })
 @Entity(name = "NovedadesSede")
-@Table(name = "SRV_ESTRUCTURA_SEDE")
+@Table(name = "SRV_NOVEDADES_SEDE")
 @DynamicUpdate
 public class NovedadesSede extends BaseEntity
 {
