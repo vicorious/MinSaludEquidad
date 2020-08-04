@@ -11,7 +11,8 @@ import java.time.LocalDateTime;
         "FechaInicioNovedad", "FechaFinNovedad", "TipoNovedad", "TipoDocumentoTrabajador",
         "NumeroDocumentoTrabajador", "PrimerApellidoTrabajador", "PrimerNombreTrabajador", "TipoCotizante", "TipoCotizante",
         "IndicadorNovedad"})
-@Entity(name = "SRV_NOVEDADES_TRANSITORIAS")
+@Entity
+@Table(name = "SRV_NOVEDADES_TRANSITORIAS")
 public class NovedadesTransitorias extends BaseEntity
 {
     @Id
