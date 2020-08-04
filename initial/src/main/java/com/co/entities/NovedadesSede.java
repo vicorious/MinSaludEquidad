@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 public class NovedadesSede extends BaseEntity
 {
     @Id
-    @Column(name = "SRV_ESTRUCTURA_SEDE_ID")
+    @Column(name = "SRV_NOVEDADES_SEDE_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigDecimal novedadesSedeId;
 
