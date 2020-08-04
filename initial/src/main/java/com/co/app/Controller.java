@@ -383,10 +383,11 @@ public class Controller extends BaseController
 				Method method = new Object() {}.getClass().getEnclosingMethod();
 				RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(mapperBody(terminacionLaboral), method.getName(), this.getClass(), method.getParameterTypes());
 				request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
+				log.info("Request terminacionRelacion: ".concat(request_body.toString()));
 				try
 				{
-
 					response = super.responseFromPostRequest(request_body, ResponseMinSaludDTO.class);
+					log.info("response terminacionRelacion: ".concat(response.toString()));
 					if(response instanceof ErrorDTO)
 					{
 						this.logService.save(writeLogSATARL(terminacionLaboral.getEmpre_form(),
@@ -616,6 +617,8 @@ public class Controller extends BaseController
 			uri = "/TrasladoEmpleador", headers = {"Content-Type=application/json"},
 			method = RequestMethod.POST)
 	public Object trasladoEmpleador(@RequestHeader("Authorization") String authorization) throws MinSaludBusinessException {
+
+		log.info("trasladoEmpleador init with authorization ".concat(authorization));
 		Object response = null;
 		List<String> trasladoCorrectas = new ArrayList<>();
 		List<String> trasladoInCorrectas = new ArrayList<>();
@@ -628,9 +631,11 @@ public class Controller extends BaseController
 				Method method = new Object() {}.getClass().getEnclosingMethod();
 				RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(mapperBody(transladoEmpresaArl), method.getName(), this.getClass(), method.getParameterTypes());
 				request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
+				log.info("trasladoEmpleador Request ".concat(request_body.toString()));
 				try
 				{
 					response = super.responseFromPostRequestWithPossibleMappingError(request_body, ResponseMinSaludDTO.class);
+					log.info("trasladoEmpleador Response ".concat(response.toString()));
 					if(response instanceof ErrorDTO)
 					{
 						this.logService.save(writeLogSATARL(transladoEmpresaArl.getEmpre_form(),
@@ -701,6 +706,8 @@ public class Controller extends BaseController
 			uri = "/RetractoTrasladoEmpleador", headers = {"Content-Type=application/json"},
 			method = RequestMethod.POST)
 	public Object retractoTrasladoEmpleador(@RequestHeader("Authorization") String authorization) throws MinSaludBusinessException {
+
+		log.info("retractoTrasladoEmpleador init with authorization ".concat(authorization));
 		Object response = null;
 		List<String> retractoCorrectas = new ArrayList<>();
 		List<String> retractoInCorrectas = new ArrayList<>();
@@ -712,9 +719,11 @@ public class Controller extends BaseController
 				Method method = new Object() {}.getClass().getEnclosingMethod();
 				RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(mapperBody(retractacion), method.getName(), this.getClass(), method.getParameterTypes());
 				request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
+				log.info("retractoTrasladoEmpleador request ".concat(request_body.toString()));
 				try
 				{
 					response = super.responseFromPostRequestWithPossibleMappingError(request_body, ResponseMinSaludDTO.class);
+					log.info("retractoTrasladoEmpleador response ".concat(response.toString()));
 					if(response instanceof ErrorDTO)
 					{
 						this.logService.save(writeLogSATARL(retractacion.getEmpre_form(),
@@ -789,6 +798,8 @@ public class Controller extends BaseController
 			uri = "/RetiroDefinitivoEmpresaSGRL", headers = {"Content-Type=application/json"},
 			method = RequestMethod.POST)
 	public Object retiroDefinitivoEmpresaSGRL(@RequestHeader("Authorization") String authorization) throws MinSaludBusinessException {
+
+		log.info("retiroDefinitivoEmpresaSGRL init with authorization ".concat(authorization));
 		Object response = null;
 		List<String> retiroCorrectas = new ArrayList<>();
 		List<String> retiroInCorrectas = new ArrayList<>();
@@ -800,9 +811,11 @@ public class Controller extends BaseController
 				Method method = new Object() {}.getClass().getEnclosingMethod();
 				RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(mapperBody(retiroDefinitivoSGRL), method.getName(), this.getClass(), method.getParameterTypes());
 				request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
+				log.info("retiroDefinitivoEmpresaSGRL request ".concat(request_body.toString()));
 				try
 				{
 					response = super.responseFromPostRequest(request_body, ResponseMinSaludDTO.class);
+					log.info("retiroDefinitivoEmpresaSGRL response ".concat(response.toString()));
 					if (response instanceof ErrorDTO)
 					{
 						this.logService.save(writeLogSATARL(retiroDefinitivoSGRL.getEmpre_form(),
@@ -876,6 +889,7 @@ public class Controller extends BaseController
 			method = RequestMethod.POST)
 	public Object novedadesSedes(String authorization)
 	{
+		log.info("novedadesSedes init with authorization ".concat(authorization));
 		Object response = null;
 		List<String> novedadesSedesCorrectas = new ArrayList<>();
 		List<String> novedadesSedesInCorrectas = new ArrayList<>();
@@ -889,9 +903,11 @@ public class Controller extends BaseController
 				Method method = new Object() {}.getClass().getEnclosingMethod();
 				RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(mapperBody(novedadesSede), method.getName(), this.getClass(), method.getParameterTypes());
 				request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
+				log.info("novedadesSedes request ".concat(request_body.toString()));
 				try
 				{
 					response = super.responseFromPostRequest(request_body, ResponseMinSaludDTO.class);
+					log.info("novedadesSedes response ".concat(response.toString()));
 					if (response instanceof ErrorDTO)
 					{
 						this.logService.save(writeLogSATARL(novedadesSede.getEmpre_form(),
@@ -960,6 +976,7 @@ public class Controller extends BaseController
 			method = RequestMethod.POST)
 	public Object novedadesCentroTrabajo(String authorization, String entity_body)
 	{
+		log.info("novedadesCentroTrabajo init with authorization ".concat(authorization));
 		Object response = null;
 		ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
 		List<String> novedadesCentroCorrectas = new ArrayList<>();
@@ -970,9 +987,11 @@ public class Controller extends BaseController
 				Method method = new Object() {}.getClass().getEnclosingMethod();
 				RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(mapperBody(novedadesCentro), method.getName(), this.getClass(), method.getParameterTypes());
 				request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
+				log.info("novedadesCentroTrabajo request ".concat(request_body.toString()));
 				try
 				{
 					response = super.responseFromPostRequest(request_body, ResponseMinSaludDTO.class);
+					log.info("novedadesCentroTrabajo response ".concat(response.toString()));
 					if (response instanceof ErrorDTO)
 					{
 						this.logService.save(writeLogSATARL(novedadesCentro.getEmpre_form(),
@@ -1040,6 +1059,7 @@ public class Controller extends BaseController
 			uri = "/ReclasificacionCentroTrabajo", headers = {"Content-Type=application/json"},
 			method = RequestMethod.POST)
 	public Object reclasificacionCentroTrabajo(@RequestHeader("Authorization") String authorization) throws MinSaludBusinessException {
+		log.info("reclasificacionCentroTrabajo init with authorization ".concat(authorization));
 		Object response = null;
 		ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
 		List<String> reclasificacionCorrectas = new ArrayList<>();
@@ -1053,9 +1073,11 @@ public class Controller extends BaseController
 				}.getClass().getEnclosingMethod();
 				RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(mapperBody(reclasificacionCentroTrabajo), method.getName(), this.getClass(), method.getParameterTypes());
 				request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
+				log.info("reclasificacionCentroTrabajo request ".concat(request_body.toString()));
 				try
 				{
 					response = super.responseFromPostRequest(request_body, ResponseMinSaludDTO.class);
+					log.info("reclasificacionCentroTrabajo response ".concat(response.toString()));
 					if (response instanceof ErrorDTO)
 					{
 						this.logService.save(writeLogSATARL(reclasificacionCentroTrabajo.getEmpre_form(),
@@ -1122,9 +1144,9 @@ public class Controller extends BaseController
 			name = "NovedadesTransitorias", clientId = "6ff4b98c8c22497b9c1d7d7eb5c94644",
 			uri = "/NovedadesTransitorias", headers = {"Content-Type=application/json"},
 			method = RequestMethod.POST)
-	public Object novedadesTransitorias(String authorization, String entity_body)
+	public Object novedadesTransitorias(String authorization)
 	{
-
+		log.info("novedadesTransitorias init with authorization ".concat(authorization));
 		Object response = null;
 		ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
 		List<String> novedadesTransitoriasCorrectas = new ArrayList<>();
@@ -1132,13 +1154,16 @@ public class Controller extends BaseController
 		try
 		{
 
-			for (NovedadesTransitorias novedadesTransitorias : this.novedadesTransitoriasService.getNovedadesTransitorias(EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName())) {
+			for (NovedadesTransitorias novedadesTransitorias : this.novedadesTransitoriasService.getNovedadesTransitorias(EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName()))
+			{
 				Method method = new Object() {}.getClass().getEnclosingMethod();
 				RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(mapperBody(novedadesTransitorias), method.getName(), this.getClass(), method.getParameterTypes());
 				request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
+				log.info("novedadesTransitorias request ".concat(request_body.toString()));
 				try
 				{
 					response = super.responseFromPostRequest(request_body, ResponseMinSaludDTO.class);
+					log.info("novedadesTransitorias response ".concat(response.toString()));
 					if (response instanceof ErrorDTO)
 					{
 						this.logService.save(writeLogSATARL(novedadesTransitorias.getEmpre_form(),
@@ -1205,8 +1230,9 @@ public class Controller extends BaseController
 			name = "ModificacionIBC", clientId = "83d16bb59dc548cb8a75bc43c8da68c6",
 			uri = "/ModificacionIBC", headers = {"Content-Type=application/json"},
 			method = RequestMethod.POST)
-	public Object modificacionIBC(String authorization, String entity_body)
+	public Object modificacionIBC(String authorization)
 	{
+		log.info("modificacionIBC init with authorization ".concat(authorization));
 		Object response = null;
 		ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
 		List<String> IBCsCorrectas = new ArrayList<>();
@@ -1217,9 +1243,11 @@ public class Controller extends BaseController
 				Method method = new Object() {}.getClass().getEnclosingMethod();
 				RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(mapperBody(novedadIBCTipsal), method.getName(), this.getClass(), method.getParameterTypes());
 				request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
+				log.info("modificacionIBC request ".concat(request_body.toString()));
 				try
 				{
 					response = super.responseFromPostRequest(request_body, ResponseMinSaludDTO.class);
+					log.info("modificacionIBC response ".concat(response.toString()));
 					if (response instanceof ErrorDTO)
 					{
 						this.logService.save(writeLogSATARL(novedadIBCTipsal.getEmpre_form(),
