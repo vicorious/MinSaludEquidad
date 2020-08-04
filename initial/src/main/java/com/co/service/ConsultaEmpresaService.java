@@ -111,8 +111,8 @@ public class ConsultaEmpresaService
         empresa.getSedes().forEach(p -> p.getCentros().forEach(c -> {
             c.setSede(p);
             c.setTokenMin(token);
-            c.setFecCaptura(LocalDateTime.now().toString());
-            c.setFecRespuesta(LocalDateTime.now().toString());
+            c.setFechaCaptura(LocalDateTime.now());
+            c.setFechaRespuesta(LocalDateTime.now());
         }));
         empresa.getSedes().forEach(p -> p.getCentros().forEach(c -> c.getEmpleados().forEach(e -> {
             e.setCentro(c);

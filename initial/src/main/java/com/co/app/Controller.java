@@ -69,6 +69,15 @@ public class Controller extends BaseController
 	@Autowired
 	private NovedadesSedesService novedadesSedesService;
 
+	@Autowired
+	private NovedadesTransitoriasService novedadesTransitoriasService;
+
+	@Autowired
+	private NovedadesCentroTrabajoService novedadesCentroTrabajoService;
+
+	@Autowired
+	private IBService ibcService;
+
 	/**
 	 *
 	 */
@@ -86,6 +95,9 @@ public class Controller extends BaseController
 		this.transladoEmpresaService = new TransladoEmpresaService();
 		this.parametroGeneralService = new ParametroGeneralService();
 		this.novedadesSedesService = new NovedadesSedesService();
+		this.novedadesTransitoriasService = new NovedadesTransitoriasService();
+		this.novedadesCentroTrabajoService = new NovedadesCentroTrabajoService();
+		this.ibcService = new IBService();
 
 	}
 
@@ -949,27 +961,64 @@ public class Controller extends BaseController
 	public Object novedadesCentroTrabajo(String authorization, String entity_body)
 	{
 		Object response = null;
-        ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
-                SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);		try
+		ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
+		List<String> novedadesCentroCorrectas = new ArrayList<>();
+		List<String> novedadesCentroInCorrectas = new ArrayList<>();
+		try
 		{
-			Method method = new Object() {}.getClass().getEnclosingMethod();
-			RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(entity_body, method.getName(), this.getClass(), method.getParameterTypes());
-			request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
-			response = super.responseFromPostRequest(request_body, ResponseMinSaludDTO.class);
+			for (NovedadesCentro novedadesCentro : this.novedadesCentroTrabajoService.getNovedadesSedes(EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName())) {
+				Method method = new Object() {}.getClass().getEnclosingMethod();
+				RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(mapperBody(novedadesCentro), method.getName(), this.getClass(), method.getParameterTypes());
+				request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
+				try
+				{
+					response = super.responseFromPostRequest(request_body, ResponseMinSaludDTO.class);
+					if (response instanceof ErrorDTO)
+					{
+						this.logService.save(writeLogSATARL(novedadesCentro.getEmpre_form(),
+								new BigDecimal(parametro.getValor().trim()), novedadesCentro.getId(),
+								EstadosEnum.FALLIDO.getName(), ((ErrorDTO) response).getError_description(),
+								authorization));
+						novedadesCentro.setEstadoMin(EstadosEnum.FALLIDO.getName());
+						novedadesCentroCorrectas.add(novedadesCentro.getNumeroDocumentoEmpleador().trim());
+					} else if (response instanceof ResponseMinSaludDTO)
+					{
+						this.logService.save(writeLogSATARL(novedadesCentro.getEmpre_form(),
+								new BigDecimal(parametro.getValor().trim()), novedadesCentro.getId(),
+								EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO) response).getCodigo(),
+								authorization));
+						novedadesCentro.setEstadoMin(EstadosEnum.EXITOSO.getName());
+						novedadesCentroCorrectas.add(novedadesCentro.getNumeroDocumentoEmpleador().trim());
+					}
 
-		} catch (NoSuchMethodException e)
+				} catch (Exception e)
+				{
+					this.logService.save(writeLogSATARL(novedadesCentro.getEmpre_form(),
+							new BigDecimal(parametro.getValor().trim()), novedadesCentro.getId(),
+							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
+									: "FAIL", authorization));
+					novedadesCentro.setEstadoMin(EstadosEnum.FALLIDO.getName());
+					log.error("Error interno: ".concat(e.getMessage()));
+					novedadesCentroInCorrectas.add(novedadesCentro.getNumeroDocumentoEmpleador().trim());
+				}
+
+				novedadesCentro.setTokenMin(authorization);
+				novedadesCentro.setFechaReporte(LocalDateTime.now());
+				novedadesCentro.setFechaRespuesta(LocalDateTime.now());
+				this.novedadesCentroTrabajoService.add(novedadesCentro);
+			}
+
+			ResponseContentExitFailDTO responseContentExitFailDTO = new ResponseContentExitFailDTO();
+			responseContentExitFailDTO.setExito(novedadesCentroCorrectas);
+			responseContentExitFailDTO.setFail(novedadesCentroInCorrectas);
+
+			return responseContentExitFailDTO;
+
+		} catch (NoSuchMethodException | JsonProcessingException | MinSaludBusinessException e)
 		{
-			log.error("Configuracion @ServiceConfig invalida: ERROR: ".concat(e.getMessage()));
-		}catch (IllegalAccessException | NoSuchFieldException e)
-		{
-			log.error("Response es invalido para el objeto ResponseMinSaludDTO: ERROR: ".concat(e.getMessage()));
-		} catch (IOException e)
-		{
-			log.error("Error de conexion con el servicio: ERROR: ".concat(e.getMessage()));
+			log.error("Error de negocio. ERROR: ".concat(e.getMessage()));
+			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
-
-		return response;
 	}
 
     @ApiOperation(value = "Reclasificacion de centro de trabajo",  response = ResponseContentExitFailDTO.class)
@@ -1075,28 +1124,67 @@ public class Controller extends BaseController
 			method = RequestMethod.POST)
 	public Object novedadesTransitorias(String authorization, String entity_body)
 	{
+
 		Object response = null;
-        ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
-                SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);		try
+		ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
+		List<String> novedadesTransitoriasCorrectas = new ArrayList<>();
+		List<String> novedadesTransitoriasInCorrectas = new ArrayList<>();
+		try
 		{
-			Method method = new Object() {}.getClass().getEnclosingMethod();
-			RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(entity_body, method.getName(), this.getClass(), method.getParameterTypes());
-			request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
-			response = super.responseFromPostRequest(request_body, ResponseMinSaludDTO.class);
 
-		} catch (NoSuchMethodException e)
+			for (NovedadesTransitorias novedadesTransitorias : this.novedadesTransitoriasService.getNovedadesTransitorias(EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName())) {
+				Method method = new Object() {}.getClass().getEnclosingMethod();
+				RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(mapperBody(novedadesTransitorias), method.getName(), this.getClass(), method.getParameterTypes());
+				request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
+				try
+				{
+					response = super.responseFromPostRequest(request_body, ResponseMinSaludDTO.class);
+					if (response instanceof ErrorDTO)
+					{
+						this.logService.save(writeLogSATARL(novedadesTransitorias.getEmpre_form(),
+								new BigDecimal(parametro.getValor().trim()), novedadesTransitorias.getId(),
+								EstadosEnum.FALLIDO.getName(), ((ErrorDTO) response).getError_description(),
+								authorization));
+						novedadesTransitorias.setEstadoMin(EstadosEnum.FALLIDO.getName());
+						novedadesTransitoriasCorrectas.add(novedadesTransitorias.getNumeroDocumentoEmpleador().trim());
+					} else if (response instanceof ResponseMinSaludDTO)
+					{
+						this.logService.save(writeLogSATARL(novedadesTransitorias.getEmpre_form(),
+								new BigDecimal(parametro.getValor().trim()), novedadesTransitorias.getId(),
+								EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO) response).getCodigo(),
+								authorization));
+						novedadesTransitorias.setEstadoMin(EstadosEnum.EXITOSO.getName());
+						novedadesTransitoriasCorrectas.add(novedadesTransitorias.getNumeroDocumentoEmpleador().trim());
+					}
+
+				} catch (Exception e)
+				{
+					this.logService.save(writeLogSATARL(novedadesTransitorias.getEmpre_form(),
+							new BigDecimal(parametro.getValor().trim()), novedadesTransitorias.getId(),
+							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
+									: "FAIL", authorization));
+					novedadesTransitorias.setEstadoMin(EstadosEnum.FALLIDO.getName());
+					log.error("Error interno: ".concat(e.getMessage()));
+					novedadesTransitoriasInCorrectas.add(novedadesTransitorias.getNumeroDocumentoEmpleador().trim());
+				}
+
+				novedadesTransitorias.setTokenMin(authorization);
+				novedadesTransitorias.setFechaReporte(LocalDateTime.now());
+				novedadesTransitorias.setFechaRespuesta(LocalDateTime.now());
+				this.novedadesTransitoriasService.add(novedadesTransitorias);
+			}
+
+			ResponseContentExitFailDTO responseContentExitFailDTO = new ResponseContentExitFailDTO();
+			responseContentExitFailDTO.setExito(novedadesTransitoriasCorrectas);
+			responseContentExitFailDTO.setFail(novedadesTransitoriasInCorrectas);
+
+			return responseContentExitFailDTO;
+
+		} catch (NoSuchMethodException | JsonProcessingException | MinSaludBusinessException e)
 		{
-			log.error("Configuracion @ServiceConfig invalida: ERROR: ".concat(e.getMessage()));
-		}catch (IllegalAccessException | NoSuchFieldException e)
-		{
-			log.error("Response es invalido para el objeto ResponseMinSaludDTO: ERROR: ".concat(e.getMessage()));
-		} catch (IOException e)
-		{
-			log.error("Error de conexion con el servicio: ERROR: ".concat(e.getMessage()));
+			log.error("Error de negocio. ERROR: ".concat(e.getMessage()));
+			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
-
-		return response;
 	}
 
     @ApiOperation(value = "Modificacion IBC",  response = ResponseContentExitFailDTO.class)
@@ -1120,26 +1208,64 @@ public class Controller extends BaseController
 	public Object modificacionIBC(String authorization, String entity_body)
 	{
 		Object response = null;
-        ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
-                SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);		try
+		ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
+		List<String> IBCsCorrectas = new ArrayList<>();
+		List<String> IBCInCorrectas = new ArrayList<>();
+		try
 		{
-			Method method = new Object() {}.getClass().getEnclosingMethod();
-			RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(entity_body, method.getName(), this.getClass(), method.getParameterTypes());
-			request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
-			response = super.responseFromPostRequest(request_body, ResponseMinSaludDTO.class);
+			for (NovedadIBCTipsal novedadIBCTipsal : this.ibcService.getIBC(EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName())) {
+				Method method = new Object() {}.getClass().getEnclosingMethod();
+				RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(mapperBody(novedadIBCTipsal), method.getName(), this.getClass(), method.getParameterTypes());
+				request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
+				try
+				{
+					response = super.responseFromPostRequest(request_body, ResponseMinSaludDTO.class);
+					if (response instanceof ErrorDTO)
+					{
+						this.logService.save(writeLogSATARL(novedadIBCTipsal.getEmpre_form(),
+								new BigDecimal(parametro.getValor().trim()), novedadIBCTipsal.getId(),
+								EstadosEnum.FALLIDO.getName(), ((ErrorDTO) response).getError_description(),
+								authorization));
+						novedadIBCTipsal.setEstadoMin(EstadosEnum.FALLIDO.getName());
+						IBCsCorrectas.add(novedadIBCTipsal.getNumeroDocumentoEmpleador().trim());
+					} else if (response instanceof ResponseMinSaludDTO)
+					{
+						this.logService.save(writeLogSATARL(novedadIBCTipsal.getEmpre_form(),
+								new BigDecimal(parametro.getValor().trim()), novedadIBCTipsal.getId(),
+								EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO) response).getCodigo(),
+								authorization));
+						novedadIBCTipsal.setEstadoMin(EstadosEnum.EXITOSO.getName());
+						IBCsCorrectas.add(novedadIBCTipsal.getNumeroDocumentoEmpleador().trim());
+					}
 
-		} catch (NoSuchMethodException e)
+				} catch (Exception e)
+				{
+					this.logService.save(writeLogSATARL(novedadIBCTipsal.getEmpre_form(),
+							new BigDecimal(parametro.getValor().trim()), novedadIBCTipsal.getId(),
+							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
+									: "FAIL", authorization));
+					novedadIBCTipsal.setEstadoMin(EstadosEnum.FALLIDO.getName());
+					log.error("Error interno: ".concat(e.getMessage()));
+					IBCInCorrectas.add(novedadIBCTipsal.getNumeroDocumentoEmpleador().trim());
+				}
+
+				novedadIBCTipsal.setTokenMin(authorization);
+				novedadIBCTipsal.setFechaReporte(LocalDateTime.now());
+				novedadIBCTipsal.setFechaRespuesta(LocalDateTime.now());
+				this.ibcService.add(novedadIBCTipsal);
+			}
+
+			ResponseContentExitFailDTO responseContentExitFailDTO = new ResponseContentExitFailDTO();
+			responseContentExitFailDTO.setExito(IBCsCorrectas);
+			responseContentExitFailDTO.setFail(IBCInCorrectas);
+
+			return responseContentExitFailDTO;
+
+		} catch (NoSuchMethodException | JsonProcessingException | MinSaludBusinessException e)
 		{
-			log.error("Configuracion @ServiceConfig invalida: ERROR: ".concat(e.getMessage()));
-		}catch (IllegalAccessException | NoSuchFieldException e)
-		{
-			log.error("Response es invalido para el objeto ResponseMinSaludDTO: ERROR: ".concat(e.getMessage()));
-		} catch (IOException e)
-		{
-			log.error("Error de conexion con el servicio: ERROR: ".concat(e.getMessage()));
+			log.error("Error de negocio. ERROR: ".concat(e.getMessage()));
+			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
-		return response;
 	}
 	
 }

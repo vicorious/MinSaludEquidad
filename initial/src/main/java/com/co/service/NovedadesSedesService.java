@@ -20,7 +20,7 @@ public class NovedadesSedesService
     public List<NovedadesSede> getNovedadesSedes(BigDecimal... estados) throws MinSaludBusinessException {
         List<NovedadesSede> result = this.novedaSedeRepository.getNovedadesSedes(estados);
         if (result.size() == 0) {
-            throw new MinSaludBusinessException("No existen iniciosLaborales en estado: ".concat(Arrays.toString(estados)));
+            throw new MinSaludBusinessException("No existen NovedadesSedes en estado: ".concat(Arrays.toString(estados)));
         }
 
         return result;

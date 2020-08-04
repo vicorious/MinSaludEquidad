@@ -18,7 +18,7 @@ import static javax.persistence.CascadeType.*;
         "fechaRespuesta", "sede", "empleados", "estadoMin", "naturalezaJuridica", "tipoAportante", "actividadEconomica" })
 @Entity
 @Table(name = "SRV_ESTRUCTURA_CENTRO")
-public class CentroTrabajo
+public class CentroTrabajo extends BaseEntity
 {
     public CentroTrabajo() {
         this.empleados = new ArrayList<>();
@@ -28,15 +28,6 @@ public class CentroTrabajo
     @Column(name = "SRV_ESTRUCTURA_CENTRO_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigDecimal id;
-
-    @Column(name = "TOKEN_MIN")
-    private String tokenMin;
-
-    @Column(name = "FECCAPTURA")
-    private String fecCaptura;
-
-    @Column(name = "FECRESPUESTA")
-    private String fecRespuesta;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "SRV_ESTRUCTURA_SEDE_ID")
@@ -115,30 +106,6 @@ public class CentroTrabajo
 
     public void setId(BigDecimal id) {
         this.id = id;
-    }
-
-    public String getTokenMin() {
-        return tokenMin;
-    }
-
-    public void setTokenMin(String tokenMin) {
-        this.tokenMin = tokenMin;
-    }
-
-    public String getFecCaptura() {
-        return fecCaptura;
-    }
-
-    public void setFecCaptura(String fecCaptura) {
-        this.fecCaptura = fecCaptura;
-    }
-
-    public String getFecRespuesta() {
-        return fecRespuesta;
-    }
-
-    public void setFecRespuesta(String fecRespuesta) {
-        this.fecRespuesta = fecRespuesta;
     }
 
     public Sede getSede() {

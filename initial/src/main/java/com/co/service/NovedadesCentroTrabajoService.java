@@ -1,4 +1,32 @@
 package com.co.service;
 
-public class NovedadesCentroTrabajoService {
+import com.co.entities.NovedadesCentro;
+import com.co.entities.NovedadesTransitorias;
+import com.co.exception.MinSaludBusinessException;
+import com.co.persistence.NovedadCentroTrabajoRepository;
+import com.co.persistence.NovedadesTransitoriasRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
+
+public class NovedadesCentroTrabajoService
+{
+    @Autowired
+    private NovedadCentroTrabajoRepository novedadCentroTrabajoRepository;
+
+    public List<NovedadesCentro> getNovedadesSedes(BigDecimal... estados) throws MinSaludBusinessException {
+        List<NovedadesCentro> result = this.novedadCentroTrabajoRepository.getCentros(estados);
+        if (result.size() == 0) {
+            throw new MinSaludBusinessException("No existen novedades transitorias en estado: ".concat(Arrays.toString(estados)));
+        }
+
+        return result;
+    }
+
+    public void add(NovedadesCentro NovedadesSede)
+    {
+        this.novedadCentroTrabajoRepository.save(NovedadesSede);
+    }
 }

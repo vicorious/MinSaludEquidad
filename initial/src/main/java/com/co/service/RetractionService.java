@@ -22,7 +22,7 @@ public class RetractionService
     public List<Retractacion> getAll(BigDecimal... estados) throws MinSaludBusinessException {
         List<Retractacion> result = this.retractacionRepository.getAllRetractacionEstado(estados);
         if (result.size() == 0) {
-            throw new MinSaludBusinessException("No existen afiliaciones en estado: ".concat(Arrays.toString(estados)));
+            throw new MinSaludBusinessException("No existen Retraction en estado: ".concat(Arrays.toString(estados)));
         }
 
         return result;
