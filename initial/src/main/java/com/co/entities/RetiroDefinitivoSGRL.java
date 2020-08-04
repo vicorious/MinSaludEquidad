@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 public class RetiroDefinitivoSGRL extends BaseEntity
 {
     @Id
-    @Column(name = "SRV_RETIRO_DEFINITIVO_SGRL")
+    @Column(name = "SRV_RETIRO_DEFINITIVO_SGRL_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigDecimal id;
 
