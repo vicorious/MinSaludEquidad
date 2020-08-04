@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @JsonIgnoreProperties(value = { "id",
         "empreForm", "tokenMin", "fecCaptura", "fecReporte",
         "fecRespuesta", "estadoMin", "estadoMin" })
-@Entity(name = "SRV_NOVEDADES_SEDE")
+@Entity(name = "NovedadesSede")
 @Table(name = "SRV_ESTRUCTURA_SEDE")
 @DynamicUpdate
 public class NovedadesSede extends BaseEntity
