@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
         "ZonaSede", "TelefonoSede", "CorreoSede", "TipoDocumentoResponsable", "NumeroDocumentoResponsable", "PrimerNombreResponsable",
         "PrimerApellidoResponsable", "IndicadorActualizacion", "SedeEmpleadorMision", "TipoDocumentoEmpleadorMs", "NumeroDocumentoEmpleadorMs", "ConsecutivoNITEmpleadorMs"})
 @JsonIgnoreProperties(value = { "id",
-        "empreForm", "tokenMin", "fechaCaptura", "fecReporte",
+        "empreForm", "tokenMin", "fechaCaptura", "fecReporte", "novedadesSedeId",
         "fecRespuesta", "estadoMin", "estadoMin","empre_form",  "tokenMin", "fechaCaptura", "fechaReporte", "fechaRespuesta", "estadoMin" })
 @Entity
 @Table(name = "SRV_NOVEDADES_SEDE")
@@ -45,7 +45,7 @@ public class NovedadesSede extends BaseEntity
     private String emprePernatPriApe;
 
     @Column(name = "FECNOV_SEDE")
-    private LocalDateTime fechaNovedadSede;
+    private String fechaNovedadSede;
 
     @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "COD_SEDE")
@@ -153,12 +153,12 @@ public class NovedadesSede extends BaseEntity
         this.emprePernatPriApe = emprePernatPriApe;
     }
 
-    public LocalDateTime getFechaNovedadSede() {
+    public String getFechaNovedadSede() {
         return fechaNovedadSede;
     }
 
     @JsonProperty("FechaNovedad")
-    public void setFechaNovedadSede(LocalDateTime fechaNovedadSede) {
+    public void setFechaNovedadSede(String fechaNovedadSede) {
         this.fechaNovedadSede = fechaNovedadSede;
     }
 
