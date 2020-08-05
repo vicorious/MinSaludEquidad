@@ -162,11 +162,11 @@ public class AfiliacionEmpresa extends BaseEntity
     private String NumeroDocumentoResponsable;
 
     @JsonSerialize(using = SerializerCustom.class)
-    @Column(name = "RESPO_PRIAPE")
+    @Column(name = "RESPO_PRINOM")
     private String PrimerNombreResponsable;
 
     @JsonSerialize(using = SerializerCustom.class)
-    @Column(name = "RESPO_PRINOM")
+    @Column(name = "RESPO_PRIAPE")
     private String PrimerApellidoResponsable;
 
     //Transient fields

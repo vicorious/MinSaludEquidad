@@ -2,6 +2,7 @@ package com.co.entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -26,8 +27,7 @@ public class RespuestaSATARL
     private String tokenMin;
 
     @Column(name = "FECRESPUESTA")
-    @Temporal(TemporalType.DATE)
-    private Date fecRespuesta;
+    private LocalDateTime fecRespuesta;
 
     @Column(name = "ESTADO_MIN")
     private BigDecimal estadoMin;
@@ -86,11 +86,11 @@ public class RespuestaSATARL
         this.tokenMin = tokenMin;
     }
 
-    public Date getFecRespuesta() {
+    public LocalDateTime getFecRespuesta() {
         return fecRespuesta;
     }
 
-    public void setFecRespuesta(Date fecRespuesta) {
+    public void setFecRespuesta(LocalDateTime fecRespuesta) {
         this.fecRespuesta = fecRespuesta;
     }
 

@@ -28,6 +28,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
@@ -125,7 +126,7 @@ public class BaseController
         respuestaSATARL.setSrvId(srv_id);
         respuestaSATARL.setSrvConsec(srv_consec);
         respuestaSATARL.setTokenMin(authorization);
-        respuestaSATARL.setFecRespuesta(java.util.Date.from(Instant.now()));
+        respuestaSATARL.setFecRespuesta(LocalDateTime.now());
         respuestaSATARL.setEstadoMin(estado_min);
         if(match.find()) {
             respuestaSATARL.setDescerrorMin(match.group(1));
