@@ -39,14 +39,6 @@ public class NovedadesCentro extends BaseEntity
     private String codCentroTrab;
 
     @JsonSerialize(using = SerializerCustom.class)
-    @Column(name = "EMPRE_TIPDOC")
-    private String tipDoc;
-
-    @JsonSerialize(using = SerializerCustom.class)
-    @Column(name = "EMPRE_ID")
-    private String empreId;
-
-    @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "COD_SEDE")
     private String codSede;
 
