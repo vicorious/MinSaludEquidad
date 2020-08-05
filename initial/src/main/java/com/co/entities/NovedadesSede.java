@@ -29,7 +29,7 @@ public class NovedadesSede extends BaseEntity
     private BigDecimal novedadesSedeId;
 
     @JsonSerialize(using = SerializerCustom.class)
-    @Column(name = "EMPRE_NIT_DESCENT")
+    @Column(name = "EMPRE_NIT_DESCEN")
     private String empreNitDescent;
 
     @JsonSerialize(using = SerializerCustom.class)
