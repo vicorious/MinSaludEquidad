@@ -26,7 +26,7 @@ import static javax.persistence.CascadeType.*;
 public class NovedadesCentro extends BaseEntity
 {
     @Id
-    @Column(name = "srv_centros_empresa_id")
+    @Column(name = "srv_centros_trabajo_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigDecimal id;
 
