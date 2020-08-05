@@ -39,6 +39,18 @@ public class NovedadesCentro extends BaseEntity
     private String codCentroTrab;
 
     @JsonSerialize(using = SerializerCustom.class)
+    @Column(name = "EMPRE_TIPDOC")
+    private String tipDoc;
+
+    @JsonSerialize(using = SerializerCustom.class)
+    @Column(name = "EMPRE_ID")
+    private String empreId;
+
+    @JsonSerialize(using = SerializerCustom.class)
+    @Column(name = "COD_SEDE")
+    private String codSede;
+
+    @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "CENTRO_TRAB")
     private String centroTrab;
 
@@ -100,6 +112,33 @@ public class NovedadesCentro extends BaseEntity
     @OneToMany(cascade = {PERSIST, MERGE, REMOVE}, mappedBy = "centro", fetch = FetchType.LAZY)
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     private List<Empleado> empleados;
+
+    public String getTipDoc() {
+        return tipDoc;
+    }
+
+    @JsonProperty("TipoDocumentoEmpleador")
+    public void setTipDoc(String tipDoc) {
+        this.tipDoc = tipDoc;
+    }
+
+    public String getEmpreId() {
+        return empreId;
+    }
+
+    @JsonProperty("NumeroDocumentoEmpleador")
+    public void setEmpreId(String empreId) {
+        this.empreId = empreId;
+    }
+
+    public String getCodSede() {
+        return codSede;
+    }
+
+    @JsonProperty("CodigoSede")
+    public void setCodSede(String codSede) {
+        this.codSede = codSede;
+    }
 
     public BigDecimal getId() {
         return id;
