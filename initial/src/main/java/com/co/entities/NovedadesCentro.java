@@ -105,7 +105,7 @@ public class NovedadesCentro extends BaseEntity
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     private List<Empleado> empleados;
 
-    public String getTipDoc() {
+   /* public String getTipDoc() {
         return tipDoc;
     }
 
@@ -121,7 +121,7 @@ public class NovedadesCentro extends BaseEntity
     @JsonProperty("NumeroDocumentoEmpleador")
     public void setEmpreId(String empreId) {
         this.empreId = empreId;
-    }
+    }*/
 
     public String getCodSede() {
         return codSede;
