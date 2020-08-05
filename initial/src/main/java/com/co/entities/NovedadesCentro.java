@@ -81,9 +81,9 @@ public class NovedadesCentro extends BaseEntity
     @Column(name = "RESP_CENTRAB_PRIAPE")
     private String respCentrabPrimerApellido;
 
-    @JsonSerialize(using = SerializerCustom.class)
+   /* @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "RESP_CENTRAB_SEGAPE")
-    private String respCentrabSegundoApellido;
+    private String respCentrabSegundoApellido;*/
 
     @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "RESP_CENTRAB_PRINOM")
@@ -217,14 +217,14 @@ public class NovedadesCentro extends BaseEntity
         this.respCentrabPrimerApellido = respCentrabPrimerApellido;
     }
 
-    public String getRespCentrabSegundoApellido() {
+   /* public String getRespCentrabSegundoApellido() {
         return respCentrabSegundoApellido;
     }
 
     @JsonProperty("segundoApellidoResponsableCT")
     public void setRespCentrabSegundoApellido(String respCentrabSegundoApellido) {
         this.respCentrabSegundoApellido = respCentrabSegundoApellido;
-    }
+    }*/
 
     public String getRespCentrabPrimerNombre() {
         return respCentrabPrimerNombre;
