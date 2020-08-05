@@ -101,13 +101,13 @@ public class NovedadesSede extends BaseEntity
     private BigDecimal sedeEmpreMision;
 
     @Column(name = "TIPDOC_EMPRE_MISION")
-    private BigDecimal tipDocEmpreMision;
+    private String tipDocEmpreMision;
 
     @Column(name = "NUMDOC_EMPRE_MISION")
-    private BigDecimal numDocEmpreMision;
+    private String numDocEmpreMision;
 
     @Column(name = "EMPRE_MISION_NIT_DESCEN")
-    private BigDecimal empreMisionNitDescen;
+    private String empreMisionNitDescen;
 
     public BigDecimal getNovedadesSedeId() {
         return novedadesSedeId;
@@ -288,30 +288,30 @@ public class NovedadesSede extends BaseEntity
         this.sedeEmpreMision = sedeEmpreMision;
     }
 
-    public BigDecimal getTipDocEmpreMision() {
+    public String getTipDocEmpreMision() {
         return tipDocEmpreMision;
     }
 
     @JsonProperty("TipoDocumentoEmpleadorMs")
-    public void setTipDocEmpreMision(BigDecimal tipDocEmpreMision) {
+    public void setTipDocEmpreMision(String tipDocEmpreMision) {
         this.tipDocEmpreMision = tipDocEmpreMision;
     }
 
-    public BigDecimal getNumDocEmpreMision() {
+    public String getNumDocEmpreMision() {
         return numDocEmpreMision;
     }
 
     @JsonProperty("NumeroDocumentoEmpleadorMs")
-    public void setNumDocEmpreMision(BigDecimal numDocEmpreMision) {
+    public void setNumDocEmpreMision(String numDocEmpreMision) {
         this.numDocEmpreMision = numDocEmpreMision;
     }
 
-    public BigDecimal getEmpreMisionNitDescen() {
+    public String getEmpreMisionNitDescen() {
         return empreMisionNitDescen;
     }
 
     @JsonProperty("ConsecutivoNITEmpleadorMs")
-    public void setEmpreMisionNitDescen(BigDecimal empreMisionNitDescen) {
+    public void setEmpreMisionNitDescen(String empreMisionNitDescen) {
         this.empreMisionNitDescen = empreMisionNitDescen;
     }
 }
