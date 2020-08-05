@@ -14,7 +14,7 @@ import java.util.List;
 
 import static javax.persistence.CascadeType.*;
 
-@JsonPropertyOrder({ "CodigoArl", "TipoDocumentoEmpleador", "NumeroDocumentoEmpleador", "ConsecutivoNITEmpleador",
+@JsonPropertyOrder({ "CodigoARL", "TipoDocumentoEmpleador", "NumeroDocumentoEmpleador", "ConsecutivoNITEmpleador",
         "CodigoSede", "CodigoCentroTrabajo", "NombreCentroTrabajo", "ActividadEconomicaCentro",
         "MunicipioCentro", "DireccionCentro", "ZonaCentro", "TelefonoCentro", "CorreoCentro",
         "TipoDocumentoResponsable", "NumeroDocumentoResponsable", "PrimerNombreResponsable", "PrimerApellidoResponsable", "IndicadorActualizacion"})
@@ -172,7 +172,7 @@ public class NovedadesCentro extends BaseEntity
         return codActCentroTrabajo;
     }
 
-    @JsonProperty("ActividadEconomicaCentro ")
+    @JsonProperty("ActividadEconomicaCentro")
     public void setCodActCentroTrabajo(BigDecimal codActCentroTrabajo) {
         this.codActCentroTrabajo = codActCentroTrabajo;
     }
