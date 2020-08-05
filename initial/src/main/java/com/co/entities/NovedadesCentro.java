@@ -20,7 +20,7 @@ import static javax.persistence.CascadeType.*;
         "TipoDocumentoResponsable", "NumeroDocumentoResponsable", "PrimerNombreResponsable", "PrimerApellidoResponsable", "IndicadorActualizacion"})
 @JsonIgnoreProperties(value = { "id",
         "empreForm", "tokenMin", "fecCaptura", "fecReporte",
-        "fecRespuesta", "estadoMin", "estadoMin" })
+        "fecRespuesta", "estadoMin", "estadoMin", "idPersonaResp" })
 @Entity
 @Table(name = "SRV_CENTROS_TRABAJO")
 public class NovedadesCentro extends BaseEntity
@@ -93,9 +93,9 @@ public class NovedadesCentro extends BaseEntity
     @Column(name = "RESP_CENTRAB_SEGNOM")
     private String respCentrabSegundoNombre;
 
-    @JsonSerialize(using = SerializerCustom.class)
-    @Column(name = "id_resp_centrab")
-    private String idPersonaResp;
+   /* @JsonSerialize(using = SerializerCustom.class)
+    @Column(name = "ID_PERSONA_RESP")
+    private String idPersonaResp;*/
 
     @OneToMany(cascade = {PERSIST, MERGE, REMOVE}, mappedBy = "centro", fetch = FetchType.LAZY)
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
@@ -244,14 +244,14 @@ public class NovedadesCentro extends BaseEntity
         this.respCentrabSegundoNombre = respCentrabSegundoNombre;
     }
 
-    public String getIdPersonaResp() {
+   /* public String getIdPersonaResp() {
         return idPersonaResp;
     }
 
     @JsonProperty("id_PersonaResponsable")
     public void setIdPersonaResp(String idPersonaResp) {
         this.idPersonaResp = idPersonaResp;
-    }
+    }*/
 
     public String getEmpreNitDescent() {
         return empreNitDescent;
