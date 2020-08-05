@@ -94,7 +94,7 @@ public class NovedadesCentro extends BaseEntity
     private String respCentrabSegundoNombre;
 
     @JsonSerialize(using = SerializerCustom.class)
-    @Column(name = "ID_PERSONA_RESP")
+    @Column(name = "id_resp_centrab")
     private String idPersonaResp;
 
     @OneToMany(cascade = {PERSIST, MERGE, REMOVE}, mappedBy = "centro", fetch = FetchType.LAZY)
