@@ -13,6 +13,7 @@ import java.math.BigDecimal;
         "consecutivoNITEmpleador"})
 @JsonIgnoreProperties(value = { "id",
         "empreForm", "tokenMinIni", "fecCapturaTokenIni", "fecRespuestaTokenIni",
+        "empre_form",  "tokenMin", "fechaCaptura", "fechaReporte", "fechaRespuesta", "estadoMin",
         "tipoReporte", "tokenMinFin", "fecCapturaTokenFin", "fecRespuestaTokenFin", "tipoReporteTokenFin", "tipoReporteMinTokenIni",
         "fechaSolicitud", "fecIniCobertura", "fechaFinAfiliacion", "afiliacionEmpresaId" , "tipoReporteMinTokenFin"})
 @Entity

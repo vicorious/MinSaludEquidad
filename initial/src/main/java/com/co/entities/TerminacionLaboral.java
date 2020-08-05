@@ -14,8 +14,8 @@ import java.time.LocalDateTime;
         "CodigoSede", "CodigoCentroTrabajo", "FechaFinNovedad", "TipoDocumentoEmpleado",
         "NumeroDocumentoEmpleado", "PrimerNombreEmpleado", "PrimerApellidoEmpleado", "TipoCotizante", "SubTipoCotizante"})
 @JsonIgnoreProperties(value = { "id",
-        "empreForm", "tokenMin", "fecCaptura", "fecReporte",
-        "fecRespuesta", "estadoMin", "estadoMin" })
+        "empreForm", "tokenMin", "fechaCaptura", "fecReporte",
+        "fecRespuesta", "estadoMin", "estadoMin", "empre_form",  "tokenMin", "fechaCaptura", "fechaReporte", "fechaRespuesta", "estadoMin" })
 @Entity
 @Table(name = "SRV_TERMINACION_LABORAL")
 public class TerminacionLaboral extends BaseEntity

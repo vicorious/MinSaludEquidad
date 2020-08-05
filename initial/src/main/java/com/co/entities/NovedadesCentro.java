@@ -20,7 +20,8 @@ import static javax.persistence.CascadeType.*;
         "TipoDocumentoResponsable", "NumeroDocumentoResponsable", "PrimerNombreResponsable", "PrimerApellidoResponsable", "IndicadorActualizacion"})
 @JsonIgnoreProperties(value = { "id",
         "empreForm", "tokenMin", "fecCaptura", "fecReporte",
-        "fecRespuesta", "estadoMin", "estadoMin", "idPersonaResp" })
+        "fecRespuesta", "estadoMin", "estadoMin", "idPersonaResp",
+        "empre_form",  "tokenMin", "fechaCaptura", "fechaReporte", "fechaRespuesta", "estadoMin"})
 @Entity
 @Table(name = "SRV_CENTROS_TRABAJO")
 public class NovedadesCentro extends BaseEntity

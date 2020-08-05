@@ -16,7 +16,8 @@ import java.math.BigDecimal;
         "IBC", "TipoSalario"})
 @JsonIgnoreProperties(value = { "id",
         "empreForm", "tokenMin", "fecCaptura", "fecReporte",
-        "fecRespuesta", "estadoMin", "estadoMin" })
+        "fecRespuesta", "estadoMin", "estadoMin",
+        "empre_form",  "tokenMin", "fechaCaptura", "fechaReporte", "fechaRespuesta", "estadoMin"})
 @Entity
 @Table(name = "SRV_INICIO_LABORAL")
 public class InicioLaboral extends BaseEntity

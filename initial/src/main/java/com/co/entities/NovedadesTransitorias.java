@@ -1,5 +1,6 @@
 package com.co.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -11,6 +12,9 @@ import java.time.LocalDateTime;
         "FechaInicioNovedad", "FechaFinNovedad", "TipoNovedad", "TipoDocumentoTrabajador",
         "NumeroDocumentoTrabajador", "PrimerApellidoTrabajador", "PrimerNombreTrabajador", "TipoCotizante", "TipoCotizante",
         "IndicadorNovedad"})
+@JsonIgnoreProperties(value = { "id",
+        "empreForm", "tokenMin", "fechaCaptura", "fecReporte",
+        "fecRespuesta", "estadoMin", "estadoMin" })
 @Entity
 @Table(name = "SRV_NOVEDADES_TRANSITORIAS")
 public class NovedadesTransitorias extends BaseEntity
