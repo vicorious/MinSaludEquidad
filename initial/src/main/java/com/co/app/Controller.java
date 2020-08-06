@@ -120,6 +120,12 @@ public class Controller extends BaseController
 			@ApiResponse(code = 500, message = "Failure", response = InternalServerErrorDTO.class),
 	})
 	@PostMapping(path = "/token", consumes = "application/x-www-form-urlencoded", produces = "application/json")
+	/*@ServiceConfig(protocol = "https", domain = "sisafitra.sispropreprod.gov.co", port = "8062",
+			name = "Token", clientId = "9160f6412fad4b7fbc5f86d37a8dd680",
+			uri = "/token", headers = {"Content-Type=application/x-www-form-urlencoded"},
+			params = {"username=830008686", "password=830008686", "grant_type=password",
+					"client_id=9160f6412fad4b7fbc5f86d37a8dd680"},
+			method = RequestMethod.POST)*/
 	@ServiceConfig(protocol = "https", domain = "sisafitra.sispropreprod.gov.co", port = "8062",
 			name = "Token", clientId = "9160f6412fad4b7fbc5f86d37a8dd680",
 			uri = "/token", headers = {"Content-Type=application/x-www-form-urlencoded"},
@@ -165,8 +171,12 @@ public class Controller extends BaseController
 			@ApiResponse(code = 500, message = "Failure", response = InternalServerErrorDTO.class),
 	})
 	@PostMapping(path = "/AfiliacionARL", consumes = "application/json", produces = "application/json")
-	@ServiceConfig(protocol = "https", domain = "sisafitra.sispropreprod.gov.co", port = "8062",
+	/*@ServiceConfig(protocol = "https", domain = "sisafitra.sispropreprod.gov.co", port = "8062",
 			name = "AfiliacionARL", clientId = "f45d4049f9a44f839e692f2ca331ec77",
+			uri = "/AfiliacionARL", headers = {"Content-Type=application/json"},
+			method = RequestMethod.POST)*/
+	@ServiceConfig(protocol = "https", domain = "miseguridadsocial.gov.co", port = "8062",
+			name = "AfiliacionARL", clientId = "1cb2d1aeafa94a7b84f7b83cda27d971",
 			uri = "/AfiliacionARL", headers = {"Content-Type=application/json"},
 			method = RequestMethod.POST)
 	public Object afiliacionARL(@RequestHeader("Authorization") String authorization)
@@ -459,8 +469,12 @@ public class Controller extends BaseController
 			@ApiResponse(code = 500, message = "Failure", response = InternalServerErrorDTO.class),
 	})
 	@PostMapping(path = "/ConsultaEmpresasTrasladadas", consumes = "application/json", produces = "application/json")
-	@ServiceConfig(protocol = "https", domain = "sisafitra.sispropreprod.gov.co", port = "8062",
+	/*@ServiceConfig(protocol = "https", domain = "sisafitra.sispropreprod.gov.co", port = "8062",
 			name = "ConsultaEmpresasTrasladadas", clientId = "147171ef46c44b41b77b2aaac10ae39b",
+			uri = "/ConsultaEmpresasTrasladadas", headers = {"Content-Type=application/json"},
+			method = RequestMethod.POST)*/
+	@ServiceConfig(protocol = "https", domain = "miseguridadsocial.gov.co", port = "8062",
+			name = "ConsultaEmpresasTrasladadas", clientId = "9b2d90782dc9475ab38cb244dd088d30",
 			uri = "/ConsultaEmpresasTrasladadas", headers = {"Content-Type=application/json"},
 			method = RequestMethod.POST)
 	public Object consultaEmpresa(@RequestHeader("Authorization") String authorization, @RequestBody String entity_body)
@@ -534,8 +548,12 @@ public class Controller extends BaseController
 			@ApiResponse(code = 500, message = "Failure", response = String.class),
 	})
 	@PostMapping(path = "/ConsultaEstructuraEmpresa", consumes = "application/json", produces = "application/json")
-	@ServiceConfig(protocol = "https", domain = "sisafitra.sispropreprod.gov.co", port = "8062",
+	/*@ServiceConfig(protocol = "https", domain = "sisafitra.sispropreprod.gov.co", port = "8062",
 			name = "ConsultaEstructuraEmpresa", clientId = "d99d20985fde4150b924c8d0177691b6",
+			uri = "/ConsultaEstructuraEmpresa", headers = {"Content-Type=application/json"},
+			method = RequestMethod.POST)*/
+	@ServiceConfig(protocol = "https", domain = "miseguridadsocial.gov.co", port = "8062",
+			name = "ConsultaEstructuraEmpresa", clientId = "f8af5a3156c94e10b9ba1901053f807c",
 			uri = "/ConsultaEstructuraEmpresa", headers = {"Content-Type=application/json"},
 			method = RequestMethod.POST)
 	public Object consultaEstructuraEmpresa(@RequestHeader("Authorization") String authorization) throws MinSaludBusinessException {
