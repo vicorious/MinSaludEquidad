@@ -78,7 +78,7 @@ public class ConsultaEmpresaService
                 BeanUtils.copyProperties(consultaEmpresa, empresa);
                 consultaEmpresa.setTokenMinIni(token);
                 consultaEmpresa.setFecCapturaTokenIni(LocalDateTime.now().toString());
-                consultaEmpresa.setFecIniCobertura(calculateCoberturaDate(calculateDate(empresa.getFechaSolicitud()), CalculoFechas.valueOf(empresa.getTipoReporte())).toString());
+                //consultaEmpresa.setFecIniCobertura(calculateCoberturaDate(calculateDate(empresa.getFechaSolicitud()), CalculoFechas.valueOf(empresa.getTipoReporte())).toString());
                 empresas.add(consultaEmpresa);
             }else
             {
