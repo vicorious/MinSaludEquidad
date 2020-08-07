@@ -67,9 +67,6 @@ public class ConsultaEmpresa
     @Column(name = "FECSOLICITUD")
     private String fechaSolicitud;
 
-    @Column(name = "FECINI_COBERTURA")
-    private String fecIniCobertura;
-
     @Column(name = "FECFIN_AFILIACION")
     private String fechaFinAfiliacion;
 
@@ -207,14 +204,6 @@ public class ConsultaEmpresa
         this.fechaSolicitud = fechaSolicitud;
     }
 
-    public String getFecIniCobertura() {
-        return fecIniCobertura;
-    }
-
-    public void setFecIniCobertura(String fecIniCobertura) {
-        this.fecIniCobertura = fecIniCobertura;
-    }
-
     public String getFechaFinAfiliacion() {
         return fechaFinAfiliacion;
     }
@@ -240,7 +229,6 @@ public class ConsultaEmpresa
                 ", numeroDocumentoEmpleador='" + numeroDocumentoEmpleador + '\'' +
                 ", consecutivoNitDescentralizado='" + consecutivoNitDescentralizado + '\'' +
                 ", fechaSolicitud='" + fechaSolicitud + '\'' +
-                ", fecIniCobertura='" + fecIniCobertura + '\'' +
                 ", fechaFinAfiliacion='" + fechaFinAfiliacion + '\'' +
                 '}';
     }
