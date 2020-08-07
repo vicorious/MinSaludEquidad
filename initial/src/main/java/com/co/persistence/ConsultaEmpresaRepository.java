@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface ConsultaEmpresaRepository extends CrudRepository<ConsultaEmpresa, Long>
 {
-    @Query("SELECT a FROM ConsultaEmpresa a WHERE a.fecIniCobertura BETWEEN :fecToday AND :today")
+    @Query("SELECT a FROM ConsultaEmpresa a WHERE a.fechaSolicitud BETWEEN :fecToday AND :today")
     List<ConsultaEmpresa> consultaEmpresaPorFechaCobertura( @Param("fecToday") String fecToday, @Param("today") String today);
 
     @Query("SELECT a FROM ConsultaEmpresa a WHERE a.tipoDocumentoEmpleador = :tipoDocumento AND a.numeroDocumentoEmpleador = :numeroDocumentoEmpleador")
