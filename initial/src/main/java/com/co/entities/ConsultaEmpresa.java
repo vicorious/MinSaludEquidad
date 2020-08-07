@@ -28,29 +28,11 @@ public class ConsultaEmpresa
     @Column(name = "EMPRE_FORM")
     private String empreForm;
 
-    @Column(name = "TOKEN_MIN_INI")
+    @Column(name = "TOKEN_MIN")
     private String tokenMinIni;
 
-    @Column(name = "FECCAPTURA_TOKEN_INI")
+    @Column(name = "FECCAPTURA_TOKEN")
     private String fecCapturaTokenIni;
-
-    @Column(name = "FECRESPUESTA_TOKEN_INI")
-    private String fecRespuestaTokenIni;
-
-    @Column(name = "TIPOREPORTE_MIN_TOKEN_INI")
-    private String tipoReporte;
-
-    @Column(name = "TOKEN_MIN_FIN")
-    private String tokenMinFin;
-
-    @Column(name = "FECCAPTURA_TOKEN_FIN")
-    private String fecCapturaTokenFin;
-
-    @Column(name = "FECRESPUESTA_TOKEN_FIN")
-    private String fecRespuestaTokenFin;
-
-    @Column(name = "TIPOREPORTE_MIN_TOKEN_FIN")
-    private String tipoReporteTokenFin;
 
     @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "EMPRE_TIPDOC")
@@ -67,7 +49,7 @@ public class ConsultaEmpresa
     @Column(name = "FECSOLICITUD")
     private String fechaSolicitud;
 
-    @Column(name = "FECFIN_AFILIACION")
+    @Column(name = "FECFINAFILIACION")
     private String fechaFinAfiliacion;
 
     public ConsultaEmpresa() {
@@ -105,69 +87,6 @@ public class ConsultaEmpresa
         this.fecCapturaTokenIni = fecCapturaTokenIni;
     }
 
-    public String getFecRespuestaTokenIni() {
-        return fecRespuestaTokenIni;
-    }
-
-    public void setFecRespuestaTokenIni(String fecRespuestaTokenIni) {
-        this.fecRespuestaTokenIni = fecRespuestaTokenIni;
-    }
-
-    public String getTipoReporteMinTokenIni() {
-        return tipoReporte;
-    }
-
-    public void setTipoReporteMinTokenIni(String tipoReporteMinTokenIni) {
-        this.tipoReporte = tipoReporteMinTokenIni;
-    }
-
-    public String getTokenMinFin() {
-        return tokenMinFin;
-    }
-
-    public void setTokenMinFin(String tokenMinFin) {
-        this.tokenMinFin = tokenMinFin;
-    }
-
-    public String getTipoReporte() {
-        return tipoReporte;
-    }
-
-    public void setTipoReporte(String tipoReporte) {
-        this.tipoReporte = tipoReporte;
-    }
-
-    public String getTipoReporteTokenFin() {
-        return tipoReporteTokenFin;
-    }
-
-    public void setTipoReporteTokenFin(String tipoReporteTokenFin) {
-        this.tipoReporteTokenFin = tipoReporteTokenFin;
-    }
-
-    public String getFecCapturaTokenFin() {
-        return fecCapturaTokenFin;
-    }
-
-    public void setFecCapturaTokenFin(String fecCapturaTokenFin) {
-        this.fecCapturaTokenFin = fecCapturaTokenFin;
-    }
-
-    public String getFecRespuestaTokenFin() {
-        return fecRespuestaTokenFin;
-    }
-
-    public void setFecRespuestaTokenFin(String fecRespuestaTokenFin) {
-        this.fecRespuestaTokenFin = fecRespuestaTokenFin;
-    }
-
-    public String getTipoReporteMinTokenFin() {
-        return tipoReporte;
-    }
-
-    public void setTipoReporteMinTokenFin(String tipoReporteMinTokenFin) {
-        this.tipoReporte = tipoReporteMinTokenFin;
-    }
 
     public String getTipoDocumentoEmpleador() {
         return tipoDocumentoEmpleador;
@@ -219,12 +138,6 @@ public class ConsultaEmpresa
                 ", empreForm='" + empreForm + '\'' +
                 ", tokenMinIni='" + tokenMinIni + '\'' +
                 ", fecCapturaTokenIni='" + fecCapturaTokenIni + '\'' +
-                ", fecRespuestaTokenIni='" + fecRespuestaTokenIni + '\'' +
-                ", tipoReporte='" + tipoReporte + '\'' +
-                ", tokenMinFin='" + tokenMinFin + '\'' +
-                ", fecCapturaTokenFin='" + fecCapturaTokenFin + '\'' +
-                ", fecRespuestaTokenFin='" + fecRespuestaTokenFin + '\'' +
-                ", tipoReporteTokenFin='" + tipoReporteTokenFin + '\'' +
                 ", tipoDocumentoEmpleador='" + tipoDocumentoEmpleador + '\'' +
                 ", numeroDocumentoEmpleador='" + numeroDocumentoEmpleador + '\'' +
                 ", consecutivoNitDescentralizado='" + consecutivoNitDescentralizado + '\'' +
