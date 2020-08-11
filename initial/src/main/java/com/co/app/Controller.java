@@ -209,9 +209,9 @@ public class Controller extends BaseController
 					{
 						this.logService.save(writeLogSATARL(afiliacion.getEmpre_form(),
 								new BigDecimal(parametro.getValor().trim()), afiliacion.getAfiliacionEmpresaId(),
-								EstadosEnum.ERROR.getName(), ((ErrorDTO)response).getError_description(),
+								EstadosEnum.FALLIDO.getName(), ((ErrorDTO)response).getError_description(),
 								authorization));
-						afiliacion.setEstadoMin(EstadosEnum.ERROR.getName());
+						afiliacion.setEstadoMin(EstadosEnum.FALLIDO.getName());
 						afiliacionesInCorrectas.add(afiliacion.getNumeroDocumentoEmpleador().trim());
 					} else if(response instanceof ResponseMinSaludDTO)
 					{
