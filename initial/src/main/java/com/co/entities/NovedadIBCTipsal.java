@@ -23,11 +23,11 @@ import java.time.LocalDateTime;
         "empre_form", "tokenMin", "fechaCaptura", "fechaReporte",
         "fechaRespuesta", "estadoMin", "naturalezaJuridica", "tipoAportante", "actividadEconomica" })
 @Entity
-@Table(name = "SRV_NOVEDAD_IBC_TIPSAL")
+@Table(name = "SRV_VARIACION_IBC")
 public class NovedadIBCTipsal extends BaseEntity
 {
     @Id
-    @Column(name = "RV_NOVEDAD_IBC_TIPSAL_ID")
+    @Column(name = "SRV_VARIACION_IBC_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigDecimal id;
 
@@ -36,18 +36,19 @@ public class NovedadIBCTipsal extends BaseEntity
     private String consecDesent;
 
     @JsonSerialize(using = SerializerCustom.class)
-    @Column(name = "SEDE_COD")
+    @Column(name = "COD_SEDE")
     private String sedeCod;
 
     @JsonSerialize(using = SerializerCustom.class)
-    @Column(name = "CENTRO_COD")
+    @Column(name = "COD_CENTRO")
     private String centroCod;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    /*@JsonFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
-    @JsonSerialize(using = LocalDateSerializer.class)
-    @Column(name = "FEC_NOV_IBC")
-    private LocalDate fecIniNov;
+    @JsonSerialize(using = LocalDateSerializer.class)*/
+    @JsonSerialize(using = SerializerCustom.class)
+    @Column(name = "FECINI_NOV")
+    private String fecIniNov;
 
     @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "EMPLE_TIPDOC")
@@ -112,12 +113,12 @@ public class NovedadIBCTipsal extends BaseEntity
         this.centroCod = centroCod;
     }
 
-    public LocalDate getFecIniNov() {
+    public String getFecIniNov() {
         return fecIniNov;
     }
 
     @JsonProperty("FechaNovedaCambioIBC")
-    public void setFecIniNov(LocalDate fecIniNov) {
+    public void setFecIniNov(String fecIniNov) {
         this.fecIniNov = fecIniNov;
     }
 

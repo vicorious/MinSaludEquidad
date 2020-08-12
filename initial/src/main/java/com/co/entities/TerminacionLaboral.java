@@ -48,6 +48,14 @@ public class TerminacionLaboral extends BaseEntity
     @Column(name = "EMPLE_ID")
     private String empleId;
 
+    @JsonSerialize(using = SerializerCustom.class)
+    @Column(name = "EMPLE_PAPELLIDO")
+    private String empleApellido;
+
+    @JsonSerialize(using = SerializerCustom.class)
+    @Column(name = "EMPLE_PNOMBRE")
+    private String empleNombre;
+
     @Column(name = "TIPO_COTIZANTE")
     private BigDecimal tipoCotizante;
 
@@ -132,5 +140,23 @@ public class TerminacionLaboral extends BaseEntity
     @JsonProperty("SubTipoCotizante")
     public void setSubTipoCotizante(BigDecimal subTipoCotizante) {
         this.subTipoCotizante = subTipoCotizante;
+    }
+
+    public String getEmpleApellido() {
+        return empleApellido;
+    }
+
+    @JsonProperty("PrimerNombreEmpleado")
+    public void setEmpleApellido(String empleApellido) {
+        this.empleApellido = empleApellido;
+    }
+
+    public String getEmpleNombre() {
+        return empleNombre;
+    }
+
+    @JsonProperty("PrimerApellidoEmpleado")
+    public void setEmpleNombre(String empleNombre) {
+        this.empleNombre = empleNombre;
     }
 }
