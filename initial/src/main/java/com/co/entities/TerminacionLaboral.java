@@ -146,7 +146,7 @@ public class TerminacionLaboral extends BaseEntity
         return empleApellido;
     }
 
-    @JsonProperty("PrimerNombreEmpleado")
+    @JsonProperty("PrimerApellidoEmpleado")
     public void setEmpleApellido(String empleApellido) {
         this.empleApellido = empleApellido;
     }
@@ -155,7 +155,7 @@ public class TerminacionLaboral extends BaseEntity
         return empleNombre;
     }
 
-    @JsonProperty("PrimerApellidoEmpleado")
+    @JsonProperty("PrimerNombreEmpleado")
     public void setEmpleNombre(String empleNombre) {
         this.empleNombre = empleNombre;
     }
