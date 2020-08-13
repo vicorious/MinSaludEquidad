@@ -29,7 +29,7 @@ public class TransladoEmpresaArl extends BaseEntity
     private String consecDesent;
 
     @Column(name = "fecsolicitud_tras")
-    private LocalDateTime fechaSolicitudTranslado;
+    private String fechaSolicitudTranslado;
 
     public BigDecimal getTransladoEmpresId() {
         return transladoEmpresId;
@@ -48,12 +48,12 @@ public class TransladoEmpresaArl extends BaseEntity
         this.consecDesent = consecDesent;
     }
 
-    public LocalDateTime getFechaSolicitudTranslado() {
+    public String getFechaSolicitudTranslado() {
         return fechaSolicitudTranslado;
     }
 
     @JsonProperty("FechaNovedad")
-    public void setFechaSolicitudTranslado(LocalDateTime fechaSolicitudTranslado) {
+    public void setFechaSolicitudTranslado(String fechaSolicitudTranslado) {
         this.fechaSolicitudTranslado = fechaSolicitudTranslado;
     }
 }
