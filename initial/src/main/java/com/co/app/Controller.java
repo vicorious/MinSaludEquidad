@@ -287,7 +287,7 @@ public class Controller extends BaseController
             log.info("InicioRelacionLaboral init with authorization ".concat(authorization));
             List<String> inicioRelacionCorrectas = new ArrayList<>();
             List<String> inicioRelacionInCorrectas = new ArrayList<>();
-            ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
+            ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPLEADO);
             log.info("Consultamos inicioRelacionLaboral en estado EN_TRAMITE o FALLIDO ");
             for(InicioLaboral inicioLaboral: this.inicioLaboralService.getIniciosLaborales(EstadosEnum.FALLIDO.getName(), EstadosEnum.EN_TRAMITE.getName()))
             {
@@ -317,86 +317,6 @@ public class Controller extends BaseController
                                     EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO)response).getCodigo(),
                                     authorization));
                             inicioLaboral.setEstadoMin(EstadosEnum.EXITOSO.getName());
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                             inicioRelacionCorrectas.add(inicioLaboral.getNumeroDocumentoEmpleador().trim());
                         }
 
@@ -465,7 +385,7 @@ public class Controller extends BaseController
             log.info("terminacionRelacion init with authorization ".concat(authorization));
             List<String> terminacionRelacionCorrectas = new ArrayList<>();
             List<String> terminacionRelacionInCorrectas = new ArrayList<>();
-            ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
+            ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPLEADO);
             log.info("Consultamos terminacionRelacion en estado EN_TRAMITE o FALLIDO ");
             for(TerminacionLaboral terminacionLaboral: this.terminacionLaboralService.getTerminacionesLaborales(EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName()))
 			{
@@ -720,8 +640,7 @@ public class Controller extends BaseController
 		Object response = null;
 		List<String> trasladoCorrectas = new ArrayList<>();
 		List<String> trasladoInCorrectas = new ArrayList<>();
-        ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
-                SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
+        ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPLEADO);                SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
         try
 		{
 			for (TransladoEmpresaArl transladoEmpresaArl : this.transladoEmpresaService.getAll(EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName()))
@@ -809,8 +728,7 @@ public class Controller extends BaseController
 		Object response = null;
 		List<String> retractoCorrectas = new ArrayList<>();
 		List<String> retractoInCorrectas = new ArrayList<>();
-        ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
-                SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
+        ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPLEADO);
         try
 		{
 			for (Retractacion retractacion : this.retractionService.getAll(EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName())) {
