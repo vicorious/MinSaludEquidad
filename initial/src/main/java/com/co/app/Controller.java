@@ -305,7 +305,7 @@ public class Controller extends BaseController
                         if(response instanceof ErrorDTO)
                         {
                             this.logService.save(writeLogSATARL(inicioLaboral.getEmpre_form(),
-                                    new BigDecimal(parametro.getValor().trim()), inicioLaboral.getId(),
+                                    new BigDecimal("2"), inicioLaboral.getId(),
                                     EstadosEnum.FALLIDO.getName(), ((ErrorDTO)response).getError_description(),
                                     authorization));
                             inicioLaboral.setEstadoMin(EstadosEnum.FALLIDO.getName());
@@ -313,7 +313,7 @@ public class Controller extends BaseController
                         } else if(response instanceof ResponseMinSaludDTO)
                         {
                             this.logService.save(writeLogSATARL(inicioLaboral.getEmpre_form(),
-                                    new BigDecimal(parametro.getValor().trim()), inicioLaboral.getId(),
+                                    new BigDecimal("2"), inicioLaboral.getId(),
                                     EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO)response).getCodigo(),
                                     authorization));
                             inicioLaboral.setEstadoMin(EstadosEnum.EXITOSO.getName());
@@ -324,7 +324,7 @@ public class Controller extends BaseController
                     catch (Exception e)
                     {
                         this.logService.save(writeLogSATARL(inicioLaboral.getEmpre_form(),
-                                new BigDecimal(parametro.getValor().trim()), inicioLaboral.getId(),
+                                new BigDecimal("2"), inicioLaboral.getId(),
                                 EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
                                         : "FAIL", authorization));
                         inicioLaboral.setEstadoMin(EstadosEnum.FALLIDO.getName());
@@ -401,7 +401,7 @@ public class Controller extends BaseController
 					if(response instanceof ErrorDTO)
 					{
 						this.logService.save(writeLogSATARL(terminacionLaboral.getEmpre_form(),
-								new BigDecimal(parametro.getValor().trim()), terminacionLaboral.getId(),
+								new BigDecimal("3"), terminacionLaboral.getId(),
 								EstadosEnum.FALLIDO.getName(), ((ErrorDTO)response).getError_description(),
 								authorization));
 						terminacionLaboral.setEstadoMin(EstadosEnum.FALLIDO.getName());
@@ -409,7 +409,7 @@ public class Controller extends BaseController
 					} else if(response instanceof ResponseMinSaludDTO)
 					{
 						this.logService.save(writeLogSATARL(terminacionLaboral.getEmpre_form(),
-								new BigDecimal(parametro.getValor().trim()), terminacionLaboral.getId(),
+								new BigDecimal("3"), terminacionLaboral.getId(),
 								EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO)response).getCodigo(),
 								authorization));
 						terminacionLaboral.setEstadoMin(EstadosEnum.EXITOSO.getName());
@@ -419,7 +419,7 @@ public class Controller extends BaseController
 				} catch (Exception e)
 				{
 					this.logService.save(writeLogSATARL(terminacionLaboral.getEmpre_form(),
-							new BigDecimal(parametro.getValor().trim()), terminacionLaboral.getId(),
+							new BigDecimal("3"), terminacionLaboral.getId(),
 							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
 									: "FAIL", authorization));
 					terminacionLaboral.setEstadoMin(EstadosEnum.FALLIDO.getName());
@@ -501,11 +501,11 @@ public class Controller extends BaseController
 					this.consultaEmpresaService.save(consultaEmpresa);
 					log.info("Consulta empresa Save Ok!");
 					empresasConsultadas.add(consultaEmpresa.getNumeroDocumentoEmpleador());
-					this.logService.save(writeLogSATARL(consultaEmpresa.getEmpreForm(), new BigDecimal(parametro.getValor()), consultaEmpresa.getId(), EstadosEnum.EXITOSO.getName(), "OK", authorization));
+					this.logService.save(writeLogSATARL(consultaEmpresa.getEmpreForm(), new BigDecimal("4"), consultaEmpresa.getId(), EstadosEnum.EXITOSO.getName(), "OK", authorization));
 				}catch (Exception ex)
 				{
 					empresasIncorrectas.add(consultaEmpresa.getNumeroDocumentoEmpleador());
-					this.logService.save(writeLogSATARL(consultaEmpresa.getEmpreForm(), new BigDecimal(parametro.getValor()), consultaEmpresa.getId(), EstadosEnum.FALLIDO.getName(), "FAIL", authorization));
+					this.logService.save(writeLogSATARL(consultaEmpresa.getEmpreForm(), new BigDecimal("4"), consultaEmpresa.getId(), EstadosEnum.FALLIDO.getName(), "FAIL", authorization));
 					log.info("Consulta empresa Save fail! ".concat(ex.getMessage()));
 				}
 			}
@@ -585,26 +585,26 @@ public class Controller extends BaseController
 					this.estructuraEmpresaService.save(estructuraEmpresa);
 					log.info("Consulta Estructura persistida correctamente ".concat(estructuraEmpresa.getEmpreId()));
 					documentosFull.add(consultaEmpresa.getNumeroDocumentoEmpleador());
-					this.logService.save(writeLogSATARL(consultaEmpresa.getEmpreForm(), new BigDecimal(parametro.getValor().trim()),  consultaEmpresa.getId(),  EstadosEnum.EXITOSO.getName(), "OK", authorization));
+					this.logService.save(writeLogSATARL(consultaEmpresa.getEmpreForm(), new BigDecimal("5"),  consultaEmpresa.getId(),  EstadosEnum.EXITOSO.getName(), "OK", authorization));
 				} catch (NoSuchMethodException e)
 				{
 					log.error("Configuracion @ServiceConfig invalida: ERROR: ".concat(e.getMessage()));
-					this.logService.save(writeLogSATARL(consultaEmpresa.getEmpreForm(), new BigDecimal(parametro.getValor().trim()), consultaEmpresa.getId(), EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description() : "FAIL" , authorization));
+					this.logService.save(writeLogSATARL(consultaEmpresa.getEmpreForm(), new BigDecimal("5"), consultaEmpresa.getId(), EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description() : "FAIL" , authorization));
 					estructurasIncorrectas.add(consultaEmpresa.getNumeroDocumentoEmpleador().trim());
 				}catch (IllegalAccessException | NoSuchFieldException e)
 				{
 					log.error("Response es invalido para el objeto ResponseMinSaludDTO: ERROR: ".concat(e.getMessage()));
-					this.logService.save(writeLogSATARL(consultaEmpresa.getEmpreForm(), new BigDecimal(parametro.getValor().trim()), consultaEmpresa.getId(), EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description() : "FAIL" , authorization));
+					this.logService.save(writeLogSATARL(consultaEmpresa.getEmpreForm(), new BigDecimal("5"), consultaEmpresa.getId(), EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description() : "FAIL" , authorization));
 					estructurasIncorrectas.add(consultaEmpresa.getNumeroDocumentoEmpleador().trim());
 				} catch (IOException e)
 				{
 					log.error("Error de conexion con el servicio: ERROR: ".concat(e.getMessage()));
-					this.logService.save(writeLogSATARL(consultaEmpresa.getEmpreForm(), new BigDecimal(parametro.getValor().trim()), consultaEmpresa.getId(), EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description() : "FAIL" , authorization));
+					this.logService.save(writeLogSATARL(consultaEmpresa.getEmpreForm(), new BigDecimal("5"), consultaEmpresa.getId(), EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description() : "FAIL" , authorization));
 					estructurasIncorrectas.add(consultaEmpresa.getNumeroDocumentoEmpleador());
 				} catch (MinSaludBusinessException e)
 				{
 					log.error("Error de negocio: ".concat(e.getMessage()));
-					this.logService.save(writeLogSATARL(consultaEmpresa.getEmpreForm(), new BigDecimal(parametro.getValor().trim()), consultaEmpresa.getId(), EstadosEnum.FALLIDO.getName(), "FAIL", authorization));
+					this.logService.save(writeLogSATARL(consultaEmpresa.getEmpreForm(), new BigDecimal("5"), consultaEmpresa.getId(), EstadosEnum.FALLIDO.getName(), "FAIL", authorization));
 					estructurasIncorrectas.add(consultaEmpresa.getNumeroDocumentoEmpleador().trim());
 				}
 			}
@@ -640,7 +640,7 @@ public class Controller extends BaseController
 		Object response = null;
 		List<String> trasladoCorrectas = new ArrayList<>();
 		List<String> trasladoInCorrectas = new ArrayList<>();
-        ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPLEADO);                SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
+        ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPLEADO);
         try
 		{
 			for (TransladoEmpresaArl transladoEmpresaArl : this.transladoEmpresaService.getAll(EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName()))
@@ -656,7 +656,7 @@ public class Controller extends BaseController
 					if(response instanceof ErrorDTO)
 					{
 						this.logService.save(writeLogSATARL(transladoEmpresaArl.getEmpre_form(),
-								new BigDecimal(parametro.getValor().trim()), transladoEmpresaArl.getTransladoEmpresId(),
+								new BigDecimal("6"), transladoEmpresaArl.getTransladoEmpresId(),
 								EstadosEnum.FALLIDO.getName(), ((ErrorDTO)response).getError_description(),
 								authorization));
 						transladoEmpresaArl.setEstadoMin(EstadosEnum.FALLIDO.getName());
@@ -664,7 +664,7 @@ public class Controller extends BaseController
 					} else if(response instanceof ResponseMinSaludDTO)
 					{
 						this.logService.save(writeLogSATARL(transladoEmpresaArl.getEmpre_form(),
-								new BigDecimal(parametro.getValor().trim()), transladoEmpresaArl.getTransladoEmpresId(),
+								new BigDecimal("6"), transladoEmpresaArl.getTransladoEmpresId(),
 								EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO)response).getCodigo(),
 								authorization));
 						transladoEmpresaArl.setEstadoMin(EstadosEnum.EXITOSO.getName());
@@ -673,7 +673,7 @@ public class Controller extends BaseController
 				} catch (Exception e)
 				{
 					this.logService.save(writeLogSATARL(transladoEmpresaArl.getEmpre_form(),
-							new BigDecimal(parametro.getValor().trim()), transladoEmpresaArl.getTransladoEmpresId(),
+							new BigDecimal("6"), transladoEmpresaArl.getTransladoEmpresId(),
 							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
 									: "FAIL", authorization));
 					transladoEmpresaArl.setEstadoMin(EstadosEnum.FALLIDO.getName());
@@ -743,7 +743,7 @@ public class Controller extends BaseController
 					if(response instanceof ErrorDTO)
 					{
 						this.logService.save(writeLogSATARL(retractacion.getEmpre_form(),
-								new BigDecimal(parametro.getValor().trim()), retractacion.getRetractacionId(),
+								new BigDecimal("7"), retractacion.getRetractacionId(),
 								EstadosEnum.FALLIDO.getName(), ((ErrorDTO)response).getError_description(),
 								authorization));
 						retractacion.setEstadoMin(EstadosEnum.FALLIDO.getName());
@@ -751,7 +751,7 @@ public class Controller extends BaseController
 					} else if(response instanceof ResponseMinSaludDTO)
 					{
 						this.logService.save(writeLogSATARL(retractacion.getEmpre_form(),
-								new BigDecimal(parametro.getValor().trim()), retractacion.getRetractacionId(),
+								new BigDecimal("7"), retractacion.getRetractacionId(),
 								EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO)response).getCodigo(),
 								authorization));
 						retractacion.setEstadoMin(EstadosEnum.EXITOSO.getName());
@@ -760,7 +760,7 @@ public class Controller extends BaseController
 				} catch (Exception e)
 				{
 					this.logService.save(writeLogSATARL(retractacion.getEmpre_form(),
-							new BigDecimal(parametro.getValor().trim()), retractacion.getRetractacionId(),
+							new BigDecimal("7"), retractacion.getRetractacionId(),
 							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
 									: "FAIL", authorization));
 					retractacion.setEstadoMin(EstadosEnum.FALLIDO.getName());
@@ -835,7 +835,7 @@ public class Controller extends BaseController
 					if (response instanceof ErrorDTO)
 					{
 						this.logService.save(writeLogSATARL(retiroDefinitivoSGRL.getEmpre_form(),
-								new BigDecimal(parametro.getValor().trim()), retiroDefinitivoSGRL.getId(),
+								new BigDecimal("8"), retiroDefinitivoSGRL.getId(),
 								EstadosEnum.FALLIDO.getName(), ((ErrorDTO) response).getError_description(),
 								authorization));
 						retiroDefinitivoSGRL.setEstadoMin(EstadosEnum.FALLIDO.getName());
@@ -843,7 +843,7 @@ public class Controller extends BaseController
 					} else if (response instanceof ResponseMinSaludDTO)
 					{
 						this.logService.save(writeLogSATARL(retiroDefinitivoSGRL.getEmpre_form(),
-								new BigDecimal(parametro.getValor().trim()), retiroDefinitivoSGRL.getId(),
+								new BigDecimal("8"), retiroDefinitivoSGRL.getId(),
 								EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO) response).getCodigo(),
 								authorization));
 						retiroDefinitivoSGRL.setEstadoMin(EstadosEnum.EXITOSO.getName());
@@ -853,7 +853,7 @@ public class Controller extends BaseController
 				} catch (Exception e)
 				{
 					this.logService.save(writeLogSATARL(retiroDefinitivoSGRL.getEmpre_form(),
-							new BigDecimal(parametro.getValor().trim()), retiroDefinitivoSGRL.getId(),
+							new BigDecimal("8"), retiroDefinitivoSGRL.getId(),
 							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
 									: "FAIL", authorization));
 					retiroDefinitivoSGRL.setEstadoMin(EstadosEnum.FALLIDO.getName());
@@ -927,7 +927,7 @@ public class Controller extends BaseController
 					if (response instanceof ErrorDTO)
 					{
 						this.logService.save(writeLogSATARL(novedadesSede.getEmpre_form(),
-								new BigDecimal(parametro.getValor().trim()), novedadesSede.getNovedadesSedeId(),
+								new BigDecimal("9"), novedadesSede.getNovedadesSedeId(),
 								EstadosEnum.FALLIDO.getName(), ((ErrorDTO) response).getError_description(),
 								authorization));
 						novedadesSede.setEstadoMin(EstadosEnum.FALLIDO.getName());
@@ -935,7 +935,7 @@ public class Controller extends BaseController
 					} else if (response instanceof ResponseMinSaludDTO)
 					{
 						this.logService.save(writeLogSATARL(novedadesSede.getEmpre_form(),
-								new BigDecimal(parametro.getValor().trim()), novedadesSede.getNovedadesSedeId(),
+								new BigDecimal("9"), novedadesSede.getNovedadesSedeId(),
 								EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO) response).getCodigo(),
 								authorization));
 						novedadesSede.setEstadoMin(EstadosEnum.EXITOSO.getName());
@@ -944,7 +944,7 @@ public class Controller extends BaseController
 				} catch (Exception e)
 				{
 					this.logService.save(writeLogSATARL(novedadesSede.getEmpre_form(),
-							new BigDecimal(parametro.getValor().trim()), novedadesSede.getNovedadesSedeId(),
+							new BigDecimal("9"), novedadesSede.getNovedadesSedeId(),
 							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
 									: "FAIL", authorization));
 					novedadesSede.setEstadoMin(EstadosEnum.FALLIDO.getName());
@@ -1011,7 +1011,7 @@ public class Controller extends BaseController
 					if (response instanceof ErrorDTO)
 					{
 						this.logService.save(writeLogSATARL(novedadesCentro.getEmpre_form(),
-								new BigDecimal(parametro.getValor().trim()), novedadesCentro.getId(),
+								new BigDecimal("10"), novedadesCentro.getId(),
 								EstadosEnum.FALLIDO.getName(), ((ErrorDTO) response).getError_description(),
 								authorization));
 						novedadesCentro.setEstadoMin(EstadosEnum.FALLIDO.getName());
@@ -1019,7 +1019,7 @@ public class Controller extends BaseController
 					} else if (response instanceof ResponseMinSaludDTO)
 					{
 						this.logService.save(writeLogSATARL(novedadesCentro.getEmpre_form(),
-								new BigDecimal(parametro.getValor().trim()), novedadesCentro.getId(),
+								new BigDecimal("10"), novedadesCentro.getId(),
 								EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO) response).getCodigo(),
 								authorization));
 						novedadesCentro.setEstadoMin(EstadosEnum.EXITOSO.getName());
@@ -1029,7 +1029,7 @@ public class Controller extends BaseController
 				} catch (Exception e)
 				{
 					this.logService.save(writeLogSATARL(novedadesCentro.getEmpre_form(),
-							new BigDecimal(parametro.getValor().trim()), novedadesCentro.getId(),
+							new BigDecimal("10"), novedadesCentro.getId(),
 							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
 									: "FAIL", authorization));
 					novedadesCentro.setEstadoMin(EstadosEnum.FALLIDO.getName());
@@ -1097,7 +1097,7 @@ public class Controller extends BaseController
 					if (response instanceof ErrorDTO)
 					{
 						this.logService.save(writeLogSATARL(reclasificacionCentroTrabajo.getEmpre_form(),
-								new BigDecimal(parametro.getValor().trim()), reclasificacionCentroTrabajo.getId(),
+								new BigDecimal("11"), reclasificacionCentroTrabajo.getId(),
 								EstadosEnum.FALLIDO.getName(), ((ErrorDTO) response).getError_description(),
 								authorization));
 						reclasificacionCentroTrabajo.setEstadoMin(EstadosEnum.FALLIDO.getName());
@@ -1105,7 +1105,7 @@ public class Controller extends BaseController
 					} else if (response instanceof ResponseMinSaludDTO)
 					{
 						this.logService.save(writeLogSATARL(reclasificacionCentroTrabajo.getEmpre_form(),
-								new BigDecimal(parametro.getValor().trim()), reclasificacionCentroTrabajo.getId(),
+								new BigDecimal("11"), reclasificacionCentroTrabajo.getId(),
 								EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO) response).getCodigo(),
 								authorization));
 						reclasificacionCentroTrabajo.setEstadoMin(EstadosEnum.EXITOSO.getName());
@@ -1114,7 +1114,7 @@ public class Controller extends BaseController
 				} catch (Exception e)
 				{
 					this.logService.save(writeLogSATARL(reclasificacionCentroTrabajo.getEmpre_form(),
-							new BigDecimal(parametro.getValor().trim()), reclasificacionCentroTrabajo.getId(),
+							new BigDecimal("11"), reclasificacionCentroTrabajo.getId(),
 							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
 									: "FAIL", authorization));
 					reclasificacionCentroTrabajo.setEstadoMin(EstadosEnum.FALLIDO.getName());
@@ -1183,7 +1183,7 @@ public class Controller extends BaseController
 					if (response instanceof ErrorDTO)
 					{
 						this.logService.save(writeLogSATARL(novedadesTransitorias.getEmpre_form(),
-								new BigDecimal(parametro.getValor().trim()), novedadesTransitorias.getId(),
+								new BigDecimal("12"), novedadesTransitorias.getId(),
 								EstadosEnum.FALLIDO.getName(), ((ErrorDTO) response).getError_description(),
 								authorization));
 						novedadesTransitorias.setEstadoMin(EstadosEnum.FALLIDO.getName());
@@ -1191,7 +1191,7 @@ public class Controller extends BaseController
 					} else if (response instanceof ResponseMinSaludDTO)
 					{
 						this.logService.save(writeLogSATARL(novedadesTransitorias.getEmpre_form(),
-								new BigDecimal(parametro.getValor().trim()), novedadesTransitorias.getId(),
+								new BigDecimal("12"), novedadesTransitorias.getId(),
 								EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO) response).getCodigo(),
 								authorization));
 						novedadesTransitorias.setEstadoMin(EstadosEnum.EXITOSO.getName());
@@ -1201,7 +1201,7 @@ public class Controller extends BaseController
 				} catch (Exception e)
 				{
 					this.logService.save(writeLogSATARL(novedadesTransitorias.getEmpre_form(),
-							new BigDecimal(parametro.getValor().trim()), novedadesTransitorias.getId(),
+							new BigDecimal("12"), novedadesTransitorias.getId(),
 							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
 									: "FAIL", authorization));
 					novedadesTransitorias.setEstadoMin(EstadosEnum.FALLIDO.getName());
@@ -1267,7 +1267,7 @@ public class Controller extends BaseController
 					if (response instanceof ErrorDTO)
 					{
 						this.logService.save(writeLogSATARL(novedadIBCTipsal.getEmpre_form(),
-								new BigDecimal(parametro.getValor().trim()), novedadIBCTipsal.getId(),
+								new BigDecimal("13"), novedadIBCTipsal.getId(),
 								EstadosEnum.FALLIDO.getName(), ((ErrorDTO) response).getError_description(),
 								authorization));
 						novedadIBCTipsal.setEstadoMin(EstadosEnum.FALLIDO.getName());
@@ -1275,7 +1275,7 @@ public class Controller extends BaseController
 					} else if (response instanceof ResponseMinSaludDTO)
 					{
 						this.logService.save(writeLogSATARL(novedadIBCTipsal.getEmpre_form(),
-								new BigDecimal(parametro.getValor().trim()), novedadIBCTipsal.getId(),
+								new BigDecimal("13"), novedadIBCTipsal.getId(),
 								EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO) response).getCodigo(),
 								authorization));
 						novedadIBCTipsal.setEstadoMin(EstadosEnum.EXITOSO.getName());
@@ -1285,7 +1285,7 @@ public class Controller extends BaseController
 				} catch (Exception e)
 				{
 					this.logService.save(writeLogSATARL(novedadIBCTipsal.getEmpre_form(),
-							new BigDecimal(parametro.getValor().trim()), novedadIBCTipsal.getId(),
+							new BigDecimal("13"), novedadIBCTipsal.getId(),
 							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
 									: "FAIL", authorization));
 					novedadIBCTipsal.setEstadoMin(EstadosEnum.FALLIDO.getName());
