@@ -78,6 +78,9 @@ public class Controller extends BaseController
 	@Autowired
 	private IBService ibcService;
 
+	@Autowired
+	private ReporteMoraService reporteMoraService;
+
 	/**
 	 *
 	 */
@@ -98,6 +101,7 @@ public class Controller extends BaseController
 		this.novedadesTransitoriasService = new NovedadesTransitoriasService();
 		this.novedadesCentroTrabajoService = new NovedadesCentroTrabajoService();
 		this.ibcService = new IBService();
+		this.reporteMoraService = new ReporteMoraService();
 
 	}
 
@@ -1341,6 +1345,100 @@ public class Controller extends BaseController
             log.error("Error de negocio. ERROR: ".concat(e.getMessage()));
             return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
         }
+	}
+
+
+
+	@ApiOperation(value = "Modificacion IBC",  response = ResponseContentExitFailDTO.class)
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "Authorization", value = "Header con la autenticacion", paramType = "header", dataType = "string")
+	})
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Success", response = ResponseContentExitFailDTO.class),
+			@ApiResponse(code = 201, message = "Created", response = void.class),
+			@ApiResponse(code = 400, message = "Bad Request", response = String.class),
+			@ApiResponse(code = 401, message = "Unauthorized", response = String.class),
+			@ApiResponse(code = 401, message = "Forbidden", response = String.class),
+			@ApiResponse(code = 404, message = "Not found", response = ErrorDTO.class),
+			@ApiResponse(code = 500, message = "Failure", response = InternalServerErrorDTO.class),
+	})
+	@PostMapping(path = "/ReporteMora", consumes = "application/json", produces = "application/json")
+	@ServiceConfig(protocol = "https", domain = "sisafitra.sispropreprod.gov.co", port = "8062",
+			name = "ReporteMora", clientId = "83d16bb59dc548cb8a75bc43c8da68c6",
+			uri = "/ReporteMora", headers = {"Content-Type=application/json"},
+			method = RequestMethod.POST)
+	public Object mora(@RequestHeader("Authorization")String authorization)
+	{
+		log.info("modificacionIBC init with authorization ".concat(authorization));
+		Object response = null;
+		ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
+		List<String> moraCorrectas = new ArrayList<>();
+		List<String> moraInCorrectas = new ArrayList<>();
+		try
+		{
+			for (ReporteMora reporteMora : this.reporteMoraService.reporteMoraPorEstados(EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName())) {
+				Method method = new Object() {}.getClass().getEnclosingMethod();
+				RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(mapperBody(reporteMora), method.getName(), this.getClass(), method.getParameterTypes());
+				request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
+				log.info("reporteMora request ".concat(request_body.toString()));
+				try
+				{
+					response = super.responseFromPostRequest(request_body, ResponseMinSaludDTO.class);
+					log.info("reporteMora response ".concat(response.toString()));
+					if (response instanceof ErrorDTO)
+					{
+						this.logService.save(writeLogSATARL(reporteMora.getEmpre_form(),
+								new BigDecimal("14"), reporteMora.getId(),
+								EstadosEnum.FALLIDO.getName(), ((ErrorDTO) response).getError_description(),
+								authorization));
+						reporteMora.setEstadoMin(EstadosEnum.FALLIDO.getName());
+						moraCorrectas.add(reporteMora.getNumeroDocumentoEmpleador().trim());
+					} else if (response instanceof ResponseMinSaludDTO)
+					{
+						this.logService.save(writeLogSATARL(reporteMora.getEmpre_form(),
+								new BigDecimal("14"), reporteMora.getId(),
+								EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO) response).getCodigo(),
+								authorization));
+						reporteMora.setEstadoMin(EstadosEnum.EXITOSO.getName());
+						moraCorrectas.add(reporteMora.getNumeroDocumentoEmpleador().trim());
+					}
+
+				} catch (Exception e)
+				{
+					this.logService.save(writeLogSATARL(reporteMora.getEmpre_form(),
+							new BigDecimal("14"), reporteMora.getId(),
+							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
+									: "FAIL", authorization));
+					reporteMora.setEstadoMin(EstadosEnum.FALLIDO.getName());
+					log.error("Error interno: ".concat(e.getMessage()));
+					moraInCorrectas.add(reporteMora.getNumeroDocumentoEmpleador().trim());
+				}
+
+				reporteMora.setTokenMin(authorization);
+				reporteMora.setFechaReporte(LocalDateTime.now());
+				reporteMora.setFechaRespuesta(LocalDateTime.now());
+				this.reporteMoraService.add(reporteMora);
+			}
+
+			ResponseContentExitFailDTO responseContentExitFailDTO = new ResponseContentExitFailDTO();
+			responseContentExitFailDTO.setExito(moraCorrectas);
+			responseContentExitFailDTO.setFail(moraInCorrectas);
+
+			return responseContentExitFailDTO;
+
+		} catch (NoSuchMethodException e)
+		{
+			log.error("Configuracion @ServiceConfig invalida: ERROR: ".concat(e.getMessage()));
+			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}catch (IOException e)
+		{
+			log.error("Error de conexion con el servicio: ERROR: ".concat(e.getMessage()));
+			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (MinSaludBusinessException e)
+		{
+			log.error("Error de negocio. ERROR: ".concat(e.getMessage()));
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		}
 	}
 	
 }

@@ -96,12 +96,12 @@ public class ReclasificacionCentroTrabajo extends BaseEntity
         this.codNuevaactividad = codNuevaactividad;
     }
 
-    /*public BigDecimal getSolicitanteReClasif() {
+    public BigDecimal getSolicitanteReClasif() {
         return solicitanteReClasif;
     }
 
-    @JsonProperty("CodigoActividadEconomicaAnterior")
+    @JsonProperty("SolicitanteReclasificacion")
     public void setSolicitanteReClasif(BigDecimal solicitanteReClasif) {
         this.solicitanteReClasif = solicitanteReClasif;
-    }*/
+    }
 }
