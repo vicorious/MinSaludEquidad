@@ -753,6 +753,7 @@ public class Controller extends BaseController
 						retractoCorrectas.add(retractacion.getNumeroDocumentoEmpleador().trim());
 					} else if(response instanceof ResponseMinSaludDTO)
 					{
+						log.info("retractoTrasladoEmpleador response ResponseMinSaludDTO".concat(((ResponseMinSaludDTO)response).getCodigo()));
 						this.logService.save(writeLogSATARL(retractacion.getEmpre_form(),
 								new BigDecimal("7"), retractacion.getRetractacionId(),
 								EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO)response).getCodigo(),
@@ -764,9 +765,9 @@ public class Controller extends BaseController
 				{
 					this.logService.save(writeLogSATARL(retractacion.getEmpre_form(),
 							new BigDecimal("7"), retractacion.getRetractacionId(),
-							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
+							EstadosEnum.ERROR.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
 									: "FAIL", authorization));
-					retractacion.setEstadoMin(EstadosEnum.FALLIDO.getName());
+					retractacion.setEstadoMin(EstadosEnum.ERROR.getName());
 					log.error("Error interno: ".concat(e.getMessage()));
 					retractoInCorrectas.add(retractacion.getNumeroDocumentoEmpleador().trim());
 				}
