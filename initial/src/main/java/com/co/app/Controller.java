@@ -764,9 +764,9 @@ public class Controller extends BaseController
 				{
 					this.logService.save(writeLogSATARL(retractacion.getEmpre_form(),
 							new BigDecimal("7"), retractacion.getRetractacionId(),
-							EstadosEnum.ERROR.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
+							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
 									: "FAIL", authorization));
-					retractacion.setEstadoMin(EstadosEnum.ERROR.getName());
+					retractacion.setEstadoMin(EstadosEnum.FALLIDO.getName());
 					log.error("Error interno: ".concat(e.getMessage()));
 					retractoInCorrectas.add(retractacion.getNumeroDocumentoEmpleador().trim());
 				}
