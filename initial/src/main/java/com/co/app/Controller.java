@@ -1134,9 +1134,9 @@ public class Controller extends BaseController
 				{
 					this.logService.save(writeLogSATARL(reclasificacionCentroTrabajo.getEmpre_form(),
 							new BigDecimal("11"), reclasificacionCentroTrabajo.getId(),
-							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
+							EstadosEnum.ERROR.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
 									: "FAIL", authorization));
-					reclasificacionCentroTrabajo.setEstadoMin(EstadosEnum.FALLIDO.getName());
+					reclasificacionCentroTrabajo.setEstadoMin(EstadosEnum.ERROR.getName());
 					log.error("Error interno: ".concat(e.getMessage()));
 					reclasificacionInCorrectas.add(reclasificacionCentroTrabajo.getNumeroDocumentoEmpleador().trim());
 				}

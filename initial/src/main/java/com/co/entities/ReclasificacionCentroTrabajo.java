@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@JsonPropertyOrder({ "TipoDocumentoEmpleador", "NumeroDocumentoEmpleador",
+@JsonPropertyOrder({"CodigoARL" ,"TipoDocumentoEmpleador", "NumeroDocumentoEmpleador",
         "ConsecutivoNITEmpleador", "CodigoSede", "CodigoCentroTrabajo", "NombreCentroTrabajo",
         "CodigoActividadEconomicaAnterior", "CodigoActividadEconomicaNueva", "SolicitanteReclasificacion"})
 @JsonIgnoreProperties(value = { "id", "empre_form", "tokenMin", "fechaCaptura", "fechaReporte",
@@ -33,6 +33,10 @@ public class ReclasificacionCentroTrabajo extends BaseEntity
     @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "CENTRO_COD")
     private String codCentro;
+
+    @JsonSerialize(using = SerializerCustom.class)
+    @Column(name = "CENTRO_NOMBRE")
+    private String nomCentro;
 
     @Column(name = "COD_ANTE_ACTIVIDAD")
     private BigDecimal codAnteactividad;
@@ -73,9 +77,18 @@ public class ReclasificacionCentroTrabajo extends BaseEntity
         return codCentro;
     }
 
-    @JsonProperty("NombreCentroTrabajo")
+    @JsonProperty("CodigoCentroTrabajo")
     public void setCodCentro(String codCentro) {
         this.codCentro = codCentro;
+    }
+
+    public String getNomCentro() {
+        return nomCentro;
+    }
+
+    @JsonProperty("NombreCentroTrabajo")
+    public void setNomCentro(String nomCentro) {
+        this.nomCentro = nomCentro;
     }
 
     public BigDecimal getCodAnteactividad() {
