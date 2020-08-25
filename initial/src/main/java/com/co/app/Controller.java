@@ -329,9 +329,9 @@ public class Controller extends BaseController
                     {
                         this.logService.save(writeLogSATARL(inicioLaboral.getEmpre_form(),
                                 new BigDecimal("2"), inicioLaboral.getId(),
-                                EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
+                                EstadosEnum.ERROR.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
                                         : "FAIL", authorization));
-                        inicioLaboral.setEstadoMin(EstadosEnum.FALLIDO.getName());
+                        inicioLaboral.setEstadoMin(EstadosEnum.ERROR.getName());
                         log.error("Error interno: ".concat(e.getMessage()));
                         inicioRelacionInCorrectas.add(inicioLaboral.getNumeroDocumentoEmpleador().trim());
                     }
@@ -424,9 +424,9 @@ public class Controller extends BaseController
 				{
 					this.logService.save(writeLogSATARL(terminacionLaboral.getEmpre_form(),
 							new BigDecimal("3"), terminacionLaboral.getId(),
-							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
+							EstadosEnum.ERROR.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
 									: "FAIL", authorization));
-					terminacionLaboral.setEstadoMin(EstadosEnum.FALLIDO.getName());
+					terminacionLaboral.setEstadoMin(EstadosEnum.ERROR.getName());
 					log.error("Error interno: ".concat(e.getMessage()));
 					terminacionRelacionInCorrectas.add(terminacionLaboral.getNumeroDocumentoEmpleador().trim());
 				}
@@ -677,9 +677,9 @@ public class Controller extends BaseController
 				{
 					this.logService.save(writeLogSATARL(transladoEmpresaArl.getEmpre_form(),
 							new BigDecimal("6"), transladoEmpresaArl.getTransladoEmpresId(),
-							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
+							EstadosEnum.ERROR.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
 									: "FAIL", authorization));
-					transladoEmpresaArl.setEstadoMin(EstadosEnum.FALLIDO.getName());
+					transladoEmpresaArl.setEstadoMin(EstadosEnum.ERROR.getName());
 					log.error("Error interno: ".concat(e.getMessage()));
 					trasladoInCorrectas.add(transladoEmpresaArl.getNumeroDocumentoEmpleador().trim());
 				}
@@ -764,9 +764,9 @@ public class Controller extends BaseController
 				{
 					this.logService.save(writeLogSATARL(retractacion.getEmpre_form(),
 							new BigDecimal("7"), retractacion.getRetractacionId(),
-							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
+							EstadosEnum.ERROR.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
 									: "FAIL", authorization));
-					retractacion.setEstadoMin(EstadosEnum.FALLIDO.getName());
+					retractacion.setEstadoMin(EstadosEnum.ERROR.getName());
 					log.error("Error interno: ".concat(e.getMessage()));
 					retractoInCorrectas.add(retractacion.getNumeroDocumentoEmpleador().trim());
 				}
@@ -857,9 +857,9 @@ public class Controller extends BaseController
 				{
 					this.logService.save(writeLogSATARL(retiroDefinitivoSGRL.getEmpre_form(),
 							new BigDecimal("8"), retiroDefinitivoSGRL.getId(),
-							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
+							EstadosEnum.ERROR.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
 									: "FAIL", authorization));
-					retiroDefinitivoSGRL.setEstadoMin(EstadosEnum.FALLIDO.getName());
+					retiroDefinitivoSGRL.setEstadoMin(EstadosEnum.ERROR.getName());
 					log.error("Error interno: ".concat(e.getMessage()));
 					retiroInCorrectas.add(retiroDefinitivoSGRL.getNumeroDocumentoEmpleador().trim());
 				}
@@ -948,9 +948,9 @@ public class Controller extends BaseController
 				{
 					this.logService.save(writeLogSATARL(novedadesSede.getEmpre_form(),
 							new BigDecimal("9"), novedadesSede.getNovedadesSedeId(),
-							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
+							EstadosEnum.ERROR.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
 									: "FAIL", authorization));
-					novedadesSede.setEstadoMin(EstadosEnum.FALLIDO.getName());
+					novedadesSede.setEstadoMin(EstadosEnum.ERROR.getName());
 					log.error("Error interno: ".concat(e.getMessage()));
 					novedadesSedesInCorrectas.add(novedadesSede.getNumeroDocumentoEmpleador().trim());
 
@@ -1041,9 +1041,9 @@ public class Controller extends BaseController
 				{
 					this.logService.save(writeLogSATARL(novedadesCentro.getEmpre_form(),
 							new BigDecimal("10"), novedadesCentro.getId(),
-							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
+							EstadosEnum.ERROR.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
 									: "FAIL", authorization));
-					novedadesCentro.setEstadoMin(EstadosEnum.FALLIDO.getName());
+					novedadesCentro.setEstadoMin(EstadosEnum.ERROR.getName());
 					log.error("Error interno: ".concat(e.getMessage()));
 					novedadesCentroInCorrectas.add(novedadesCentro.getNumeroDocumentoEmpleador().trim());
 				}
@@ -1221,9 +1221,9 @@ public class Controller extends BaseController
 				{
 					this.logService.save(writeLogSATARL(novedadesTransitorias.getEmpre_form(),
 							new BigDecimal("12"), novedadesTransitorias.getId(),
-							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
+							EstadosEnum.ERROR.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
 									: "FAIL", authorization));
-					novedadesTransitorias.setEstadoMin(EstadosEnum.FALLIDO.getName());
+					novedadesTransitorias.setEstadoMin(EstadosEnum.ERROR.getName());
 					log.error("Error interno: ".concat(e.getMessage()));
 					novedadesTransitoriasInCorrectas.add(novedadesTransitorias.getNumeroDocumentoEmpleador().trim());
 				}
@@ -1313,9 +1313,9 @@ public class Controller extends BaseController
 				{
 					this.logService.save(writeLogSATARL(novedadIBCTipsal.getEmpre_form(),
 							new BigDecimal("13"), novedadIBCTipsal.getId(),
-							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
+							EstadosEnum.ERROR.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
 									: "FAIL", authorization));
-					novedadIBCTipsal.setEstadoMin(EstadosEnum.FALLIDO.getName());
+					novedadIBCTipsal.setEstadoMin(EstadosEnum.ERROR.getName());
 					log.error("Error interno: ".concat(e.getMessage()));
 					IBCInCorrectas.add(novedadIBCTipsal.getNumeroDocumentoEmpleador().trim());
 				}
@@ -1369,7 +1369,7 @@ public class Controller extends BaseController
 			method = RequestMethod.POST)
 	public Object mora(@RequestHeader("Authorization")String authorization)
 	{
-		log.info("modificacionIBC init with authorization ".concat(authorization));
+		log.info("ReporteMora init with authorization ".concat(authorization));
 		Object response = null;
 		ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
 		List<String> moraCorrectas = new ArrayList<>();
@@ -1407,9 +1407,9 @@ public class Controller extends BaseController
 				{
 					this.logService.save(writeLogSATARL(reporteMora.getEmpre_form(),
 							new BigDecimal("14"), reporteMora.getId(),
-							EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
+							EstadosEnum.ERROR.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description()
 									: "FAIL", authorization));
-					reporteMora.setEstadoMin(EstadosEnum.FALLIDO.getName());
+					reporteMora.setEstadoMin(EstadosEnum.ERROR.getName());
 					log.error("Error interno: ".concat(e.getMessage()));
 					moraInCorrectas.add(reporteMora.getNumeroDocumentoEmpleador().trim());
 				}
