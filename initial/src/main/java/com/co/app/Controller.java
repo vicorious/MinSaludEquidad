@@ -439,8 +439,7 @@ public class Controller extends BaseController
 
 			return responseContentExitFailDTO;
 
-			} catch (NoSuchMethodException e)
-		{
+		} catch (NoSuchMethodException e) {
 			log.error("Configuracion @ServiceConfig invalida: ERROR: ".concat(e.getMessage()));
 			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}catch (IOException e)
@@ -965,11 +964,19 @@ public class Controller extends BaseController
 
 			return responseContentExitFailDTO;
 
-		} catch (NoSuchMethodException | IOException | MinSaludBusinessException e)
-		{
-			log.error("Error de conexion con el servicio: ERROR: ".concat(e.getMessage()));
-			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		} catch (NoSuchMethodException e)
+        {
+            log.error("Configuracion @ServiceConfig invalida: ERROR: ".concat(e.getMessage()));
+            return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }catch (IOException e)
+        {
+            log.error("Error de conexion con el servicio: ERROR: ".concat(e.getMessage()));
+            return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (MinSaludBusinessException e)
+        {
+            log.error("Error de negocio. ERROR: ".concat(e.getMessage()));
+            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        }
 	}
 
     @ApiOperation(value = "Novedades centro de trabajo",  response = ResponseContentExitFailDTO.class)
@@ -1049,11 +1056,19 @@ public class Controller extends BaseController
 
 			return responseContentExitFailDTO;
 
-		} catch (NoSuchMethodException | JsonProcessingException | MinSaludBusinessException e)
-		{
-			log.error("Error de negocio. ERROR: ".concat(e.getMessage()));
-			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		} catch (NoSuchMethodException e)
+        {
+            log.error("Configuracion @ServiceConfig invalida: ERROR: ".concat(e.getMessage()));
+            return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }catch (IOException e)
+        {
+            log.error("Error de conexion con el servicio: ERROR: ".concat(e.getMessage()));
+            return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (MinSaludBusinessException e)
+        {
+            log.error("Error de negocio. ERROR: ".concat(e.getMessage()));
+            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        }
 	}
 
     @ApiOperation(value = "Reclasificacion de centro de trabajo",  response = ResponseContentExitFailDTO.class)
@@ -1221,11 +1236,19 @@ public class Controller extends BaseController
 
 			return responseContentExitFailDTO;
 
-		} catch (NoSuchMethodException | JsonProcessingException | MinSaludBusinessException e)
-		{
-			log.error("Error de negocio. ERROR: ".concat(e.getMessage()));
-			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		} catch (NoSuchMethodException e)
+        {
+            log.error("Configuracion @ServiceConfig invalida: ERROR: ".concat(e.getMessage()));
+            return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }catch (IOException e)
+        {
+            log.error("Error de conexion con el servicio: ERROR: ".concat(e.getMessage()));
+            return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (MinSaludBusinessException e)
+        {
+            log.error("Error de negocio. ERROR: ".concat(e.getMessage()));
+            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        }
 	}
 
     @ApiOperation(value = "Modificacion IBC",  response = ResponseContentExitFailDTO.class)
@@ -1305,11 +1328,19 @@ public class Controller extends BaseController
 
 			return responseContentExitFailDTO;
 
-		} catch (NoSuchMethodException | JsonProcessingException | MinSaludBusinessException e)
-		{
-			log.error("Error de negocio. ERROR: ".concat(e.getMessage()));
-			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		} catch (NoSuchMethodException e)
+        {
+            log.error("Configuracion @ServiceConfig invalida: ERROR: ".concat(e.getMessage()));
+            return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }catch (IOException e)
+        {
+            log.error("Error de conexion con el servicio: ERROR: ".concat(e.getMessage()));
+            return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (MinSaludBusinessException e)
+        {
+            log.error("Error de negocio. ERROR: ".concat(e.getMessage()));
+            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        }
 	}
 	
 }
