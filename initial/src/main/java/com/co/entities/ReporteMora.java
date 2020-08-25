@@ -13,18 +13,21 @@ import java.math.BigDecimal;
         "empre_form", "tokenMin", "fechaCaptura", "fechaReporte",
         "fechaRespuesta", "estadoMin", "naturalezaJuridica", "tipoAportante", "tipoRetractacion" })
 @Entity
-@Table(name = "SRV_REPORTE_MORA")
+@Table(name = "SRV_MORA_APORTES_SGRL")
 public class ReporteMora extends BaseEntity
 {
     @Id
-    @Column(name = "SRV_REPORTE_MORA_ID")
+    @Column(name = "SRV_MORA_APORTES_SGRL_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigDecimal id;
 
     @Column(name = "CONSEC_DESENT")
+    private String consec;
+
+    @Column(name = "PERIODO")
     private String periodo;
 
-    @Column(name = "SEDE_COD")
+    @Column(name = "TIPO_REPORTE")
     private String tipoRporte;
 
     public BigDecimal getId() {
@@ -51,5 +54,13 @@ public class ReporteMora extends BaseEntity
     @JsonProperty("TipoReporte")
     public void setTipoRporte(String tipoRporte) {
         this.tipoRporte = tipoRporte;
+    }
+
+    public String getConsec() {
+        return consec;
+    }
+    @JsonProperty("ConsecutivoNITEmpleador")
+    public void setConsec(String consec) {
+        this.consec = consec;
     }
 }

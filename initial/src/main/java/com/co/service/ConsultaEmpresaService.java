@@ -56,7 +56,7 @@ public class ConsultaEmpresaService
     }
 
 
-    public List<ConsultaEmpresa> consultaEmpresaPorFecha(String date, String fecToday)
+    public List<ConsultaEmpresa> consultaEmpresaPorFecha(LocalDateTime date, LocalDateTime fecToday)
     {
         return this.consultaEmpresaRepository.consultaEmpresaPorFechaCobertura(fecToday ,date);
     }

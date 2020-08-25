@@ -567,7 +567,7 @@ public class Controller extends BaseController
 			LocalDateTime now = LocalDateTime.now();
             log.info("Fecha para buscar estructuras Empresa es: ".concat(now.toString()));
 
-			List<ConsultaEmpresa> empresasAConsultar = this.consultaEmpresaService.consultaEmpresaPorFecha(now.toString(), LocalDate.now().toString());
+			List<ConsultaEmpresa> empresasAConsultar = this.consultaEmpresaService.consultaEmpresaPorFecha(now, now);
         ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
                 SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
 		for(ConsultaEmpresa consultaEmpresa: empresasAConsultar) {

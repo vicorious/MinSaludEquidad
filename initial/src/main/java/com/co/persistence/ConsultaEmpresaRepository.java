@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Transactional
@@ -14,7 +15,7 @@ import java.util.List;
 public interface ConsultaEmpresaRepository extends CrudRepository<ConsultaEmpresa, Long>
 {
     @Query("SELECT a FROM ConsultaEmpresa a WHERE a.fechaSolicitud BETWEEN :fecToday AND :today")
-    List<ConsultaEmpresa> consultaEmpresaPorFechaCobertura( @Param("fecToday") String fecToday, @Param("today") String today);
+    List<ConsultaEmpresa> consultaEmpresaPorFechaCobertura(@Param("fecToday") LocalDateTime fecToday, @Param("today") LocalDateTime today);
 
     @Query("SELECT a FROM ConsultaEmpresa a WHERE a.tipoDocumentoEmpleador = :tipoDocumento AND a.numeroDocumentoEmpleador = :numeroDocumentoEmpleador")
     ConsultaEmpresa consultaEmpresaPorTipoYNumeroDocumento(@Param("tipoDocumento") String tipoDocumento, @Param("numeroDocumentoEmpleador") String numeroDocumentoEmpleador);
