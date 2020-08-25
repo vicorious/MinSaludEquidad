@@ -6,9 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -20,9 +18,14 @@ import java.time.LocalDateTime;
         "tipoReporte", "tokenMinFin", "fecCapturaTokenFin", "fecRespuestaTokenFin", "tipoReporteTokenFin", "tipoReporteMinTokenIni",
         "fechaSolicitud", "fecIniCobertura", "fechaFinAfiliacion", "afiliacionEmpresaId" , "tipoReporteMinTokenFin"})
 @Entity
-@Table(name = "SRV_CONSULTA_EMPRESA")
+@Table(name = "CONTROL_ESTRUCTURA_EMPRESA")
 public class ControlEstructuraEmpresa
 {
+    @Id
+    @Column(name = "CONTROL_ESTRUCTURA_EMPRESA_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private BigDecimal id;
+
     @Column(name = "TOKEN_MIN")
     private String tokenMin;
 
@@ -70,6 +73,14 @@ public class ControlEstructuraEmpresa
     @JsonProperty("NumeroDocumentoEmpleador")
     public void setNumeroDocumentoEmpleador(String numeroDocumentoEmpleador) {
         NumeroDocumentoEmpleador = numeroDocumentoEmpleador;
+    }
+
+    public BigDecimal getId() {
+        return id;
+    }
+
+    public void setId(BigDecimal id) {
+        this.id = id;
     }
 
     public String getCodArl() {

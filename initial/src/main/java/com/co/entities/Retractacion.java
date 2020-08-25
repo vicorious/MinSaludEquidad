@@ -1,8 +1,10 @@
 package com.co.entities;
 
+import com.co.builder.SerializerCustom;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -22,12 +24,15 @@ public class Retractacion extends BaseEntity
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigDecimal retractacionId;
 
+    @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "CONSEC_DESENT")
     private String consecDesent;
 
+    @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "TIPO_RETRACTACION")
     private String tipoRetractacion;
 
+    @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "FECRETRACTACION")
     private String fechaRetractacion;
 
