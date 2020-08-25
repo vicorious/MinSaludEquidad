@@ -3,10 +3,7 @@ package com.co.service;
 import com.co.dto.ConsultaEmpresaDTO;
 import com.co.entities.*;
 import com.co.enums.CalculoFechas;
-import com.co.persistence.CentroRepository;
-import com.co.persistence.ConsultaEmpresaRepository;
-import com.co.persistence.EmpleadoRepository;
-import com.co.persistence.SedesRepository;
+import com.co.persistence.*;
 import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +26,9 @@ public class ConsultaEmpresaService
 {
     @Autowired
     ConsultaEmpresaRepository consultaEmpresaRepository;
+
+    @Autowired
+    ControlEmpresaRepository controlEmpresaRepository;
 
     @Autowired
     EstructuraEmpresaService estructuraEmpresaService;
@@ -148,6 +148,10 @@ public class ConsultaEmpresaService
     public ConsultaEmpresa empresaPorTipoDocumentoYNumeroDocumento(String tipoDocumento, String numeroDocumento)
     {
         return this.consultaEmpresaRepository.consultaEmpresaPorTipoYNumeroDocumento(tipoDocumento, numeroDocumento);
+    }
+
+    public List<ControlEstructuraEmpresa> getControl(){
+        return (List<ControlEstructuraEmpresa>) this.controlEmpresaRepository.findAll();
     }
 
     private LocalDateTime calculateDate(String date)
