@@ -1,5 +1,6 @@
 package com.co.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -15,6 +16,7 @@ public class ConsultaEmpresaDTO
 
     private String consecutivoNitDescentralizado;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDateTime fechaSolicitud;
 
     private String fechaFinAfiliacion;

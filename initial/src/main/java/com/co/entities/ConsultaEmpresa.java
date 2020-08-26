@@ -1,6 +1,7 @@
 package com.co.entities;
 
 import com.co.builder.SerializerCustom;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -47,6 +48,7 @@ public class ConsultaEmpresa
     @Column(name = "EMPRE_NIT_DESCEN")
     private String consecutivoNitDescentralizado;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "FECSOLICITUD")
     private LocalDateTime fechaSolicitud;
 
