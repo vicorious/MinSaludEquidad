@@ -55,6 +55,7 @@ public class ConsultaEmpresa
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECSOLICITUD")
     private LocalDate fechaSolicitud;
 
@@ -150,8 +151,8 @@ public class ConsultaEmpresa
                 ", tipoDocumentoEmpleador='" + tipoDocumentoEmpleador + '\'' +
                 ", numeroDocumentoEmpleador='" + numeroDocumentoEmpleador + '\'' +
                 ", consecutivoNitDescentralizado='" + consecutivoNitDescentralizado + '\'' +
-                ", fechaSolicitud='" + fechaSolicitud + '\'' +
-                ", fechaFinAfiliacion='" + fechaFinAfiliacion + '\'' +
+                ", fechaSolicitud='" + fechaSolicitud.toString() + '\'' +
+                ", fechaFinAfiliacion='" + fechaFinAfiliacion.toString() + '\'' +
                 '}';
     }
 }

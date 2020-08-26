@@ -503,6 +503,7 @@ public class Controller extends BaseController
             for(ConsultaEmpresa consultaEmpresa: empresas)
             {
 				try {
+					log.info("Consulta empresa ------------".concat(consultaEmpresa.toString()));
 					this.consultaEmpresaService.save(consultaEmpresa);
 					log.info("Consulta empresa Save Ok!");
 					empresasConsultadas.add(consultaEmpresa.getNumeroDocumentoEmpleador());
