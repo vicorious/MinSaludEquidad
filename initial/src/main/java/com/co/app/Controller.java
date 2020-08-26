@@ -585,7 +585,7 @@ public class Controller extends BaseController
 						throw new MinSaludBusinessException(response.toString());
 					log.info("Consulta estructura empresa RESPONSE: ".concat(response.toString()));
 					EstructuraEmpresa estructuraEmpresa = this.consultaEmpresaService.mapEstructura((EstructuraEmpresa) response, authorization);
-					//estructuraEmpresa.setConsultaEmpresa(consultaEmpresa);
+					estructuraEmpresa.setConsultaEmpresa(consultaEmpresa);
 					log.info("Consulta Estructura MAP: ".concat(estructuraEmpresa.toString()));
 					this.estructuraEmpresaService.save(estructuraEmpresa);
 					log.info("Consulta Estructura persistida correctamente ".concat(estructuraEmpresa.getEmpreId()));

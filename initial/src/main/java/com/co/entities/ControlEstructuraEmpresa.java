@@ -35,9 +35,6 @@ public class ControlEstructuraEmpresa
     @Column(name = "FECREPORTE")
     private LocalDateTime  fechaReporte;
 
-    @Column(name = "FECRESPUESTA")
-    private LocalDateTime  fechaRespuesta;
-
     @Column(name = "ESTADO_MIN")
     private BigDecimal estadoMin;
 
@@ -115,15 +112,6 @@ public class ControlEstructuraEmpresa
     public void setFechaReporte(LocalDateTime fechaReporte) {
         this.fechaReporte = fechaReporte;
     }
-
-    public LocalDateTime getFechaRespuesta() {
-        return fechaRespuesta;
-    }
-
-    public void setFechaRespuesta(LocalDateTime fechaRespuesta) {
-        this.fechaRespuesta = fechaRespuesta;
-    }
-
     public BigDecimal getEstadoMin() {
         return estadoMin;
     }

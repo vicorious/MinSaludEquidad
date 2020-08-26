@@ -42,7 +42,7 @@ public class EstructuraEmpresa
 
     @ManyToOne(cascade = MERGE)
     @JoinColumn(name = "SRV_CONSULTA_EMPRESA_ID")
-    private ConsultaEmpresa consultaEmpresa;
+    private ControlEstructuraEmpresa consultaEmpresa;
 
     @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "EMPRE_TIPDOC")
@@ -169,11 +169,11 @@ public class EstructuraEmpresa
         this.fecRespuesta = fecRespuesta;
     }
 
-    public ConsultaEmpresa getConsultaEmpresa() {
+    public ControlEstructuraEmpresa getConsultaEmpresa() {
         return consultaEmpresa;
     }
 
-    public void setConsultaEmpresa(ConsultaEmpresa consultaEmpresa) {
+    public void setConsultaEmpresa(ControlEstructuraEmpresa consultaEmpresa) {
         this.consultaEmpresa = consultaEmpresa;
     }
 
