@@ -10,8 +10,8 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@JsonPropertyOrder({"CodigoArl", "TipoDocumentoEmpleador", "NumeroDocumentoEmpleador",
-        "ConsecutivoNITEmpleador", "FechaNovedad"})
+@JsonPropertyOrder({"CodigoARL", "TipoDocumentoEmpleador", "NumeroDocumentoEmpleador",
+        "ConsecutivoNITEmpleador", "TipoRetracto", "FechaNovedad"})
 @JsonIgnoreProperties(value = { "retractacionId",
         "empre_form", "tokenMin", "fechaCaptura", "fechaReporte",
         "fechaRespuesta", "estadoMin", "naturalezaJuridica", "tipoAportante", "tipoRetractacion" })
@@ -57,6 +57,7 @@ public class Retractacion extends BaseEntity
         return tipoRetractacion;
     }
 
+    @JsonProperty("TipoRetracto")
     public void setTipoRetractacion(String tipoRetractacion) {
         this.tipoRetractacion = tipoRetractacion;
     }

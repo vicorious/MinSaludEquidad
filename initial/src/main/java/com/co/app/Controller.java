@@ -571,9 +571,11 @@ public class Controller extends BaseController
             log.info("Fecha para buscar estructuras Empresa es: ".concat(now.toString()));
 
 			List<ControlEstructuraEmpresa> empresasAConsultar = this.consultaEmpresaService.getControl();
+		log.info("Estructuras a consultar: ".concat(empresasAConsultar.size() + ""));
         ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
                 SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
-		for(ControlEstructuraEmpresa consultaEmpresa: empresasAConsultar) {
+		for(ControlEstructuraEmpresa consultaEmpresa: empresasAConsultar)
+		{
 				try
 				{
 					log.info("Consulta estructura empresa INIT: Empresa a consultar: ".concat(consultaEmpresa.getNumeroDocumentoEmpleador()));
