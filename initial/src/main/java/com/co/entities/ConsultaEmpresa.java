@@ -155,17 +155,6 @@ public class ConsultaEmpresa
 
     @Override
     public String toString() {
-        return "ConsultaEmpresa{" +
-                "id=" + id +
-                ", empreForm='" + empreForm + '\'' +
-                ", tokenMinIni='" + tokenMinIni + '\'' +
-                ", fecCapturaTokenIni='" + fecCapturaTokenIni + '\'' +
-                ", tipoDocumentoEmpleador='" + tipoDocumentoEmpleador + '\'' +
-                ", numeroDocumentoEmpleador='" + numeroDocumentoEmpleador + '\'' +
-                ", consecutivoNitDescentralizado='" + consecutivoNitDescentralizado + '\'' +
-                ", fechaSolicitud='" + fechaSolicitud.toString() + '\'' +
-                ", fechaFinAfiliacion='" + fechaFinAfiliacion.toString() + '\'' +
-                ", TipoReporte='" + tipoReporte+ '\'' +
-                '}';
+        return "" + '\'' + ", TipoReporte='" + tipoReporte + '\'' + '}';
     }
 }
