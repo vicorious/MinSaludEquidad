@@ -3,6 +3,8 @@ package com.co.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDateTime;
+
 @JsonIgnoreProperties({"numero_documento_empleador", "tipo_documento_empleador", "tipo_reporte",
         "fecha_solicitud", "consecutivo_nit_descentralizado", "fecha_fin_afiliacion"})
 public class ConsultaEmpresaDTO
@@ -13,7 +15,7 @@ public class ConsultaEmpresaDTO
 
     private String consecutivoNitDescentralizado;
 
-    private String fechaSolicitud;
+    private LocalDateTime fechaSolicitud;
 
     private String fechaFinAfiliacion;
 
@@ -49,12 +51,12 @@ public class ConsultaEmpresaDTO
         this.consecutivoNitDescentralizado = consecutivoNitDescentralizado;
     }
 
-    public String getFechaSolicitud() {
+    public LocalDateTime getFechaSolicitud() {
         return fechaSolicitud;
     }
 
     @JsonProperty("FechaSolicitud")
-    public void setFechaSolicitud(String fechaSolicitud) {
+    public void setFechaSolicitud(LocalDateTime fechaSolicitud) {
         this.fechaSolicitud = fechaSolicitud;
     }
 
