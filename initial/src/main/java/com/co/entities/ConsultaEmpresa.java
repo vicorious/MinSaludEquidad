@@ -59,7 +59,7 @@ public class ConsultaEmpresa
     private LocalDate fechaSolicitud;
 
     @Column(name = "FECFINAFILIACION")
-    private String fechaFinAfiliacion;
+    private LocalDate fechaFinAfiliacion;
 
     public ConsultaEmpresa() {
     }
@@ -132,11 +132,11 @@ public class ConsultaEmpresa
         this.fechaSolicitud = fechaSolicitud;
     }
 
-    public String getFechaFinAfiliacion() {
+    public LocalDate getFechaFinAfiliacion() {
         return fechaFinAfiliacion;
     }
 
-    public void setFechaFinAfiliacion(String fechaFinAfiliacion) {
+    public void setFechaFinAfiliacion(LocalDate fechaFinAfiliacion) {
         this.fechaFinAfiliacion = fechaFinAfiliacion;
     }
 
