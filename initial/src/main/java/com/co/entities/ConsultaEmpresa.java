@@ -58,6 +58,9 @@ public class ConsultaEmpresa
     @Column(name = "FECSOLICITUD")
     private LocalDate fechaSolicitud;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     @Column(name = "FECFINAFILIACION")
     private LocalDate fechaFinAfiliacion;
 
