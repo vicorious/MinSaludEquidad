@@ -18,5 +18,5 @@ public interface ConsultaEmpresaRepository extends CrudRepository<ConsultaEmpres
     List<ConsultaEmpresa> consultaEmpresaPorFechaCobertura(@Param("fecToday") LocalDateTime fecToday, @Param("today") LocalDateTime today);
 
     @Query("SELECT a FROM ConsultaEmpresa a WHERE a.tipoDocumentoEmpleador = :tipoDocumento AND a.numeroDocumentoEmpleador = :numeroDocumentoEmpleador")
-    ConsultaEmpresa consultaEmpresaPorTipoYNumeroDocumento(@Param("tipoDocumento") String tipoDocumento, @Param("numeroDocumentoEmpleador") String numeroDocumentoEmpleador);
+    List<ConsultaEmpresa> consultaEmpresaPorTipoYNumeroDocumento(@Param("tipoDocumento") String tipoDocumento, @Param("numeroDocumentoEmpleador") String numeroDocumentoEmpleador);
 }

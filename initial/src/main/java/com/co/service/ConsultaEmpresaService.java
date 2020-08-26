@@ -71,11 +71,12 @@ public class ConsultaEmpresaService
         {
             log.info("Consultando empresa por: ".concat(empresa.getTipoDocumentoEmpleador()).concat("Y: ").concat(empresa.getNumeroDocumentoEmpleador()).concat("..."));
 
-            ConsultaEmpresa empresa_o = this.empresaPorTipoDocumentoYNumeroDocumento(empresa.getTipoDocumentoEmpleador(), empresa.getNumeroDocumentoEmpleador());
-            if(empresa_o == null) {
+            List<ConsultaEmpresa> empresa_o = this.empresaPorTipoDocumentoYNumeroDocumento(empresa.getTipoDocumentoEmpleador(), empresa.getNumeroDocumentoEmpleador());
+            for(ConsultaEmpresa consulta: empresa_o)
+            {
                 log.info("La empresa con NumeroIdentificacion: ".concat(empresa.getTipoDocumentoEmpleador()).concat(" Va ser persistida"));
                 ConsultaEmpresa consultaEmpresa = new ConsultaEmpresa();
-                BeanUtils.copyProperties(consultaEmpresa, empresa);
+                BeanUtils.copyProperties(consultaEmpresa, consulta);
                 consultaEmpresa.setTokenMinIni(token);
                 consultaEmpresa.setFecCapturaTokenIni(LocalDateTime.now().toString());
                 //consultaEmpresa.setFecIniCobertura(calculateCoberturaDate(calculateDate(empresa.getFechaSolicitud()), CalculoFechas.valueOf(empresa.getTipoReporte())).toString());
@@ -148,7 +149,7 @@ public class ConsultaEmpresaService
         return empresa;
     }
 
-    public ConsultaEmpresa empresaPorTipoDocumentoYNumeroDocumento(String tipoDocumento, String numeroDocumento)
+    public List<ConsultaEmpresa> empresaPorTipoDocumentoYNumeroDocumento(String tipoDocumento, String numeroDocumento)
     {
         return this.consultaEmpresaRepository.consultaEmpresaPorTipoYNumeroDocumento(tipoDocumento, numeroDocumento);
     }
