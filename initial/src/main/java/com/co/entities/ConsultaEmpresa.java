@@ -1,10 +1,7 @@
 package com.co.entities;
 
 import com.co.builder.SerializerCustom;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
@@ -63,6 +60,10 @@ public class ConsultaEmpresa
     @JsonSerialize(using = LocalDateSerializer.class)
     @Column(name = "FECFINAFILIACION")
     private LocalDate fechaFinAfiliacion;
+
+    @JsonSerialize(using = SerializerCustom.class)
+    @Column(name = "TIPOREPORTE")
+    public String tipoReporte;
 
     public ConsultaEmpresa() {
     }
@@ -143,6 +144,15 @@ public class ConsultaEmpresa
         this.fechaFinAfiliacion = fechaFinAfiliacion;
     }
 
+    public String getTipoReporte() {
+        return tipoReporte;
+    }
+
+    @JsonProperty("TipoReporte")
+    public void setTipoReporte(String tipoReporte) {
+        this.tipoReporte = tipoReporte;
+    }
+
     @Override
     public String toString() {
         return "ConsultaEmpresa{" +
@@ -155,6 +165,7 @@ public class ConsultaEmpresa
                 ", consecutivoNitDescentralizado='" + consecutivoNitDescentralizado + '\'' +
                 ", fechaSolicitud='" + fechaSolicitud.toString() + '\'' +
                 ", fechaFinAfiliacion='" + fechaFinAfiliacion.toString() + '\'' +
+                ", TipoReporte='" + tipoReporte+ '\'' +
                 '}';
     }
 }

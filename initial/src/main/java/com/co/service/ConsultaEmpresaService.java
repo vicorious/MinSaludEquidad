@@ -80,15 +80,18 @@ public class ConsultaEmpresaService
                 consultaEmpresa.setFecCapturaTokenIni(LocalDateTime.now().toString());
                 //consultaEmpresa.setFecIniCobertura(calculateCoberturaDate(calculateDate(empresa.getFechaSolicitud()), CalculoFechas.valueOf(empresa.getTipoReporte())).toString());
                 empresas.add(consultaEmpresa);
-            }else
+            }
+
+            /*else
             {
                 empresa_o.setTokenMinIni(token);
                 empresa_o.setFecCapturaTokenIni(LocalDateTime.now().toString());
                 BeanUtils.copyProperties(empresa_o, empresa);
                 log.info("Se actualizara la empresa con NumeroIdentificacion: ".concat(empresa_o.getNumeroDocumentoEmpleador()));
                 this.save(empresa_o);
+
                 log.info("Empresa actualizada correctamente!");
-            }
+            }*/
         }
         return empresas;
     }
