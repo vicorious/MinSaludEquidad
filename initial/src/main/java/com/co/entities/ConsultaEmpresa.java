@@ -12,6 +12,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @JsonPropertyOrder({  "tipoDocumentoEmpleador", "numeroDocumentoEmpleador",
@@ -55,7 +56,7 @@ public class ConsultaEmpresa
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     @Column(name = "FECSOLICITUD")
-    private LocalDateTime fechaSolicitud;
+    private LocalDate fechaSolicitud;
 
     @Column(name = "FECFINAFILIACION")
     private String fechaFinAfiliacion;
@@ -123,11 +124,11 @@ public class ConsultaEmpresa
         this.consecutivoNitDescentralizado = consecutivoNitDescentralizado;
     }
 
-    public LocalDateTime getFechaSolicitud() {
+    public LocalDate getFechaSolicitud() {
         return fechaSolicitud;
     }
 
-    public void setFechaSolicitud(LocalDateTime fechaSolicitud) {
+    public void setFechaSolicitud(LocalDate fechaSolicitud) {
         this.fechaSolicitud = fechaSolicitud;
     }
 

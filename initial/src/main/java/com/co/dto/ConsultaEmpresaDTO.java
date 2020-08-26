@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @JsonIgnoreProperties({"numero_documento_empleador", "tipo_documento_empleador", "tipo_reporte",
@@ -23,7 +24,7 @@ public class ConsultaEmpresaDTO
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
-    private LocalDateTime fechaSolicitud;
+    private LocalDate fechaSolicitud;
 
     private String fechaFinAfiliacion;
 
@@ -59,12 +60,12 @@ public class ConsultaEmpresaDTO
         this.consecutivoNitDescentralizado = consecutivoNitDescentralizado;
     }
 
-    public LocalDateTime getFechaSolicitud() {
+    public LocalDate getFechaSolicitud() {
         return fechaSolicitud;
     }
 
     @JsonProperty("FechaSolicitud")
-    public void setFechaSolicitud(LocalDateTime fechaSolicitud) {
+    public void setFechaSolicitud(LocalDate fechaSolicitud) {
         this.fechaSolicitud = fechaSolicitud;
     }
 
