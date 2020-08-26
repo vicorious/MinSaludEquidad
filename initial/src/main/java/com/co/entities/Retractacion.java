@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 @JsonPropertyOrder({"CodigoARL", "TipoDocumentoEmpleador", "NumeroDocumentoEmpleador",
         "ConsecutivoNITEmpleador", "TipoRetracto", "FechaNovedad"})
-@JsonIgnoreProperties(value = { "retractacionId",
+@JsonIgnoreProperties(value = { "retractacionId", 
         "empre_form", "tokenMin", "fechaCaptura", "fechaReporte",
         "fechaRespuesta", "estadoMin", "naturalezaJuridica", "tipoAportante", "tipoRetractacion" })
 @Entity
