@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @JsonPropertyOrder({  "tipoDocumentoEmpleador", "numeroDocumentoEmpleador",
         "consecutivoNITEmpleador"})
@@ -47,7 +48,7 @@ public class ConsultaEmpresa
     private String consecutivoNitDescentralizado;
 
     @Column(name = "FECSOLICITUD")
-    private String fechaSolicitud;
+    private LocalDateTime fechaSolicitud;
 
     @Column(name = "FECFINAFILIACION")
     private String fechaFinAfiliacion;
@@ -115,11 +116,11 @@ public class ConsultaEmpresa
         this.consecutivoNitDescentralizado = consecutivoNitDescentralizado;
     }
 
-    public String getFechaSolicitud() {
+    public LocalDateTime getFechaSolicitud() {
         return fechaSolicitud;
     }
 
-    public void setFechaSolicitud(String fechaSolicitud) {
+    public void setFechaSolicitud(LocalDateTime fechaSolicitud) {
         this.fechaSolicitud = fechaSolicitud;
     }
 
