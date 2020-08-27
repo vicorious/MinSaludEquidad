@@ -589,7 +589,7 @@ public class Controller extends BaseController
 					estructuraEmpresa.setConsultaEmpresa(consultaEmpresa);
 					log.info("Consulta Estructura MAP: ".concat(estructuraEmpresa.toString()));
 					this.estructuraEmpresaService.save(estructuraEmpresa);
-					log.info("Consulta Estructura persistida correctamente ".concat(estructuraEmpresa.getEmpreId()));
+					log.info("Consulta Estructura persistida correctamente ");
 					documentosFull.add(consultaEmpresa.getNumeroDocumentoEmpleador());
 					this.logService.save(writeLogSATARL("consultaEmpresa", new BigDecimal("5"),  consultaEmpresa.getId(),  EstadosEnum.EXITOSO.getName(), "OK", authorization));
 				} catch (NoSuchMethodException e)
