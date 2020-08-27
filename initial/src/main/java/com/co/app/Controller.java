@@ -594,22 +594,22 @@ public class Controller extends BaseController
 				} catch (NoSuchMethodException e)
 				{
 					log.error("Configuracion @ServiceConfig invalida: ERROR: ".concat(e.getMessage()));
-					this.logService.save(writeLogSATARL("consultaEmpresa.getEmpreForm()", new BigDecimal("5"), consultaEmpresa.getId(), EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description() : "FAIL" , authorization));
+					this.logService.save(writeLogSATARL("consultaEmpresa", new BigDecimal("5"), consultaEmpresa.getId(), EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description() : "FAIL" , authorization));
 					estructurasIncorrectas.add(consultaEmpresa.getNumeroDocumentoEmpleador().trim());
 				}catch (IllegalAccessException | NoSuchFieldException e)
 				{
 					log.error("Response es invalido para el objeto ResponseMinSaludDTO: ERROR: ".concat(e.getMessage()));
-					this.logService.save(writeLogSATARL("consultaEmpresa.getEmpreForm()", new BigDecimal("5"), consultaEmpresa.getId(), EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description() : "FAIL" , authorization));
+					this.logService.save(writeLogSATARL("consultaEmpresa", new BigDecimal("5"), consultaEmpresa.getId(), EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description() : "FAIL" , authorization));
 					estructurasIncorrectas.add(consultaEmpresa.getNumeroDocumentoEmpleador().trim());
 				} catch (IOException e)
 				{
 					log.error("Error de conexion con el servicio: ERROR: ".concat(e.getMessage()));
-					this.logService.save(writeLogSATARL("consultaEmpresa.getEmpreForm()", new BigDecimal("5"), consultaEmpresa.getId(), EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description() : "FAIL" , authorization));
+					this.logService.save(writeLogSATARL("consultaEmpresa.", new BigDecimal("5"), consultaEmpresa.getId(), EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description() : "FAIL" , authorization));
 					estructurasIncorrectas.add(consultaEmpresa.getNumeroDocumentoEmpleador());
 				} catch (MinSaludBusinessException e)
 				{
 					log.error("Error de negocio: ".concat(e.getMessage()));
-					this.logService.save(writeLogSATARL("consultaEmpresa.getEmpreForm()", new BigDecimal("5"), consultaEmpresa.getId(), EstadosEnum.FALLIDO.getName(), "FAIL", authorization));
+					this.logService.save(writeLogSATARL("consultaEmpresa", new BigDecimal("5"), consultaEmpresa.getId(), EstadosEnum.FALLIDO.getName(), "FAIL", authorization));
 					estructurasIncorrectas.add(consultaEmpresa.getNumeroDocumentoEmpleador().trim());
 				}
 			}
