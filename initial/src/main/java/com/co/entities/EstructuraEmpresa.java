@@ -48,9 +48,9 @@ public class EstructuraEmpresa
     @Column(name = "FECCAPTURA")
     private String fecCaptura;
 
-    @ManyToOne(cascade = MERGE)
+    /*@ManyToOne(cascade = MERGE)
     @JoinColumn(name = "SRV_CONSULTA_EMPRESA_ID")
-    private ControlEstructuraEmpresa consultaEmpresa;
+    private ControlEstructuraEmpresa consultaEmpresa;*/
 
     @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "EMPRE_TIPDOC")
@@ -168,13 +168,13 @@ public class EstructuraEmpresa
     public void setFecCaptura(String fecCaptura) {
         this.fecCaptura = fecCaptura;
     }
-    public ControlEstructuraEmpresa getConsultaEmpresa() {
+    /*public ControlEstructuraEmpresa getConsultaEmpresa() {
         return consultaEmpresa;
     }
 
     public void setConsultaEmpresa(ControlEstructuraEmpresa consultaEmpresa) {
         this.consultaEmpresa = consultaEmpresa;
-    }
+    }*/
 
     public String getEmpreTipDoc() {
         return empreTipDoc;
@@ -395,7 +395,7 @@ public class EstructuraEmpresa
                 "id=" + id +
                 ", tokenMin='" + tokenMin + '\'' +
                 ", fecCaptura='" + fecCaptura + '\'' +
-                ", consultaEmpresa=" + consultaEmpresa +
+                //", consultaEmpresa=" + consultaEmpresa +
                 ", empreTipDoc='" + empreTipDoc + '\'' +
                 ", empreId='" + empreId + '\'' +
                 ", empreNitDescen='" + empreNitDescen + '\'' +
