@@ -757,7 +757,7 @@ public class Controller extends BaseController
 					} else if(response instanceof ResponseMinSaludDTO)
 					{
 						log.error("Response OK ResponseMinSaludDTO: ".concat(((ResponseMinSaludDTO)response).getCodigo()));
-						if(((ResponseMinSaludDTO)response).getCodigo().contains("CN") || ((ResponseMinSaludDTO)response).getCodigo().contains("CE"))
+						if(((ResponseMinSaludDTO)response).getCodigo().contains("GN") || ((ResponseMinSaludDTO)response).getCodigo().contains("GE"))
 						{
 							this.logService.save(writeLogSATARL(retractacion.getEmpre_form(),
 									new BigDecimal("7"), retractacion.getRetractacionId(),
