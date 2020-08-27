@@ -17,13 +17,24 @@ import static javax.persistence.CascadeType.*;
 
 @JsonIgnoreProperties(value = { "id",
         "empre_form", "tokenMin", "fechaCaptura", "fechaReporte",
-        "fechaRespuesta", "consultaEmpresa", "sedes", "estadoMin", "tipoAportante", "actividadEconomica", "afiliacionEmpresaId" })
+        "fechaRespuesta", "consultaEmpresa", "sedes", "estadoMin", "status_code", "tipoAportante", "actividadEconomica", "afiliacionEmpresaId" })
 @Entity
 @Table(name = "SRV_ESTRUCTURA_EMPRESA")
 public class EstructuraEmpresa
 {
     public EstructuraEmpresa() {
         this.sedes = new ArrayList<>();
+    }
+
+    @Transient
+    private int status_code;
+
+    public int getStatus_code() {
+        return status_code;
+    }
+
+    public void setStatus_code(int status_code) {
+        this.status_code = status_code;
     }
 
     @Id

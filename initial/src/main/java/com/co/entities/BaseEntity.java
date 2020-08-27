@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 public class BaseEntity implements Serializable
 {
+
     @Column(name = "EMPRE_FORM")
     private String empre_form;
 
