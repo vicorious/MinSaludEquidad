@@ -111,7 +111,7 @@ public class ConsultaEmpresaService
             e.setFecRespuesta(LocalDateTime.now().toString());
         })));
 
-        log.info("Mapeo de estructura completo exitosamente!");
+        log.info("Mapeo de estructura completo exitosamente! ".concat(empresa.toString()));
         log.info("Consultando si la estructura esta en la base de datos...");
 
         EstructuraEmpresa estructuraEmpresa = null;
