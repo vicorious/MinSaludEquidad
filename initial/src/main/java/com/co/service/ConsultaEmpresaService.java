@@ -70,29 +70,13 @@ public class ConsultaEmpresaService
         for(ConsultaEmpresaDTO empresa: resultados)
         {
             log.info("Consultando empresa por: ".concat(empresa.getTipoDocumentoEmpleador()).concat(" Y: ").concat(empresa.getNumeroDocumentoEmpleador()).concat("..."));
-
-            List<ConsultaEmpresa> empresa_o = this.empresaPorTipoDocumentoYNumeroDocumento(empresa.getTipoDocumentoEmpleador(), empresa.getNumeroDocumentoEmpleador());
-            for(ConsultaEmpresa consulta: empresa_o)
-            {
-                log.info("La empresa con NumeroIdentificacion: ".concat(empresa.getTipoDocumentoEmpleador()).concat(" Va ser persistida"));
-                ConsultaEmpresa consultaEmpresa = new ConsultaEmpresa();
-                BeanUtils.copyProperties(consultaEmpresa, consulta);
-                consultaEmpresa.setTokenMinIni(token);
-                consultaEmpresa.setFecCapturaTokenIni(LocalDateTime.now().toString());
-                //consultaEmpresa.setFecIniCobertura(calculateCoberturaDate(calculateDate(empresa.getFechaSolicitud()), CalculoFechas.valueOf(empresa.getTipoReporte())).toString());
-                empresas.add(consultaEmpresa);
-            }
-
-            /*else
-            {
-                empresa_o.setTokenMinIni(token);
-                empresa_o.setFecCapturaTokenIni(LocalDateTime.now().toString());
-                BeanUtils.copyProperties(empresa_o, empresa);
-                log.info("Se actualizara la empresa con NumeroIdentificacion: ".concat(empresa_o.getNumeroDocumentoEmpleador()));
-                this.save(empresa_o);
-
-                log.info("Empresa actualizada correctamente!");
-            }*/
+            log.info("La empresa con NumeroIdentificacion: ".concat(empresa.getTipoDocumentoEmpleador()).concat(" Va ser persistida"));
+            ConsultaEmpresa consultaEmpresa = new ConsultaEmpresa();
+            BeanUtils.copyProperties(consultaEmpresa, empresa);
+            consultaEmpresa.setTokenMinIni(token);
+            consultaEmpresa.setFecCapturaTokenIni(LocalDateTime.now().toString());
+            //consultaEmpresa.setFecIniCobertura(calculateCoberturaDate(calculateDate(empresa.getFechaSolicitud()), CalculoFechas.valueOf(empresa.getTipoReporte())).toString());
+            empresas.add(consultaEmpresa);
         }
         return empresas;
     }
