@@ -581,7 +581,7 @@ public class Controller extends BaseController
 					RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(mapperBody(consultaEmpresa), method.getName(), this.getClass(), method.getParameterTypes());
 					request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
 					log.info("Consulta estructura empresa REQUEST: ".concat(request_body.toString()));
-					response = super.responseFromPostRequestWithPossibleMappingError(request_body, EstructuraEmpresa.class);
+					response = super.responseFromPostRequest(request_body, EstructuraEmpresa.class);
 					if(response instanceof ErrorDTO)
 						throw new MinSaludBusinessException(response.toString());
 					log.info("Consulta estructura empresa RESPONSE: ".concat(response.toString()));
@@ -756,13 +756,23 @@ public class Controller extends BaseController
 						retractoCorrectas.add(retractacion.getNumeroDocumentoEmpleador().trim());
 					} else if(response instanceof ResponseMinSaludDTO)
 					{
-						log.info("retractoTrasladoEmpleador response ResponseMinSaludDTO".concat(((ResponseMinSaludDTO)response).getCodigo()));
-						this.logService.save(writeLogSATARL(retractacion.getEmpre_form(),
-								new BigDecimal("7"), retractacion.getRetractacionId(),
-								EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO)response).getCodigo(),
-								authorization));
-						retractacion.setEstadoMin(EstadosEnum.EXITOSO.getName());
-						retractoCorrectas.add(retractacion.getNumeroDocumentoEmpleador().trim());
+						if(((ResponseMinSaludDTO)response).getCodigo().equalsIgnoreCase("0"))
+						{
+							this.logService.save(writeLogSATARL(retractacion.getEmpre_form(),
+									new BigDecimal("7"), retractacion.getRetractacionId(),
+									EstadosEnum.ERROR.getName(), "FAIL", authorization));
+							retractacion.setEstadoMin(EstadosEnum.ERROR.getName());
+							log.error("Error interno: ".concat(((ResponseMinSaludDTO)response).getMensaje()));
+							retractoInCorrectas.add(retractacion.getNumeroDocumentoEmpleador().trim());
+						}else {
+							log.info("retractoTrasladoEmpleador response ResponseMinSaludDTO".concat(((ResponseMinSaludDTO) response).getCodigo()));
+							this.logService.save(writeLogSATARL(retractacion.getEmpre_form(),
+									new BigDecimal("7"), retractacion.getRetractacionId(),
+									EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO) response).getCodigo(),
+									authorization));
+							retractacion.setEstadoMin(EstadosEnum.EXITOSO.getName());
+							retractoCorrectas.add(retractacion.getNumeroDocumentoEmpleador().trim());
+						}
 					}
 				} catch (Exception e)
 				{
