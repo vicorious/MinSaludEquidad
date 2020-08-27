@@ -581,7 +581,7 @@ public class Controller extends BaseController
 					RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(mapperBody(consultaEmpresa), method.getName(), this.getClass(), method.getParameterTypes());
 					request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
 					log.info("Consulta estructura empresa REQUEST: ".concat(request_body.toString()));
-					response = super.responseFromPostRequest(request_body, EstructuraEmpresa.class);
+					response = super.responseFromPostRequestWithPossibleMappingError(request_body, EstructuraEmpresa.class);
 					if(response instanceof ErrorDTO)
 						throw new MinSaludBusinessException(response.toString());
 					log.info("Consulta estructura empresa RESPONSE: ".concat(response.toString()));
