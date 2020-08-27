@@ -497,9 +497,7 @@ public class Controller extends BaseController
 			if(response instanceof ErrorDTO)
 				return response;
 			List<ConsultaEmpresa> empresas =  this.consultaEmpresaService.transformConsultaEmpresa((List<ConsultaEmpresaDTO>) response, authorization);
-			log.info("Consulta empresa Transform: ".concat(empresas.toString()));
-            ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(
-                    SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
+			log.info("Consulta empresa Transform: ".concat(empresas.size() + ""));
             for(ConsultaEmpresa consultaEmpresa: empresas)
             {
 				try {

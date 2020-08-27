@@ -69,7 +69,7 @@ public class ConsultaEmpresaService
         List<ConsultaEmpresa> empresas = new ArrayList<>();
         for(ConsultaEmpresaDTO empresa: resultados)
         {
-            log.info("Consultando empresa por: ".concat(empresa.getTipoDocumentoEmpleador()).concat("Y: ").concat(empresa.getNumeroDocumentoEmpleador()).concat("..."));
+            log.info("Consultando empresa por: ".concat(empresa.getTipoDocumentoEmpleador()).concat(" Y: ").concat(empresa.getNumeroDocumentoEmpleador()).concat("..."));
 
             List<ConsultaEmpresa> empresa_o = this.empresaPorTipoDocumentoYNumeroDocumento(empresa.getTipoDocumentoEmpleador(), empresa.getNumeroDocumentoEmpleador());
             for(ConsultaEmpresa consulta: empresa_o)
