@@ -4,6 +4,8 @@ public class ResponseMinSaludDTO extends ResponseDTO
 {
     private int resultado;
 
+    private int status_code;
+
     private String mensaje;
 
     private String codigo;
@@ -18,6 +20,11 @@ public class ResponseMinSaludDTO extends ResponseDTO
 
     public String getCodigo() {
         return codigo;
+    }
+
+    @Override
+    public int getStatus_code() {
+        return status_code;
     }
 
     @Override

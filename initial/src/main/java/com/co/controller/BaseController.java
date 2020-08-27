@@ -188,8 +188,12 @@ public class BaseController
                         statusCodeField = returning.getClass().getSuperclass().getDeclaredField(SisafitraConstant.STATUS_CODE);
                     }
 
-                    statusCodeField.setAccessible(true);
-                    statusCodeField.set(returning, response.getStatusLine().getStatusCode());
+                    if(statusCodeField != null)
+                    {
+                        statusCodeField.setAccessible(true);
+                        statusCodeField.set(returning, response.getStatusLine().getStatusCode());
+                    }
+
                 }
             }
         }
