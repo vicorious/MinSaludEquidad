@@ -48,9 +48,6 @@ public class EstructuraEmpresa
     @Column(name = "FECCAPTURA")
     private String fecCaptura;
 
-    @Column(name = "FECRESPUESTA")
-    private String fecRespuesta;
-
     @ManyToOne(cascade = MERGE)
     @JoinColumn(name = "SRV_CONSULTA_EMPRESA_ID")
     private ControlEstructuraEmpresa consultaEmpresa;
@@ -171,15 +168,6 @@ public class EstructuraEmpresa
     public void setFecCaptura(String fecCaptura) {
         this.fecCaptura = fecCaptura;
     }
-
-    public String getFecRespuesta() {
-        return fecRespuesta;
-    }
-
-    public void setFecRespuesta(String fecRespuesta) {
-        this.fecRespuesta = fecRespuesta;
-    }
-
     public ControlEstructuraEmpresa getConsultaEmpresa() {
         return consultaEmpresa;
     }
@@ -407,7 +395,6 @@ public class EstructuraEmpresa
                 "id=" + id +
                 ", tokenMin='" + tokenMin + '\'' +
                 ", fecCaptura='" + fecCaptura + '\'' +
-                ", fecRespuesta='" + fecRespuesta + '\'' +
                 ", consultaEmpresa=" + consultaEmpresa +
                 ", empreTipDoc='" + empreTipDoc + '\'' +
                 ", empreId='" + empreId + '\'' +
