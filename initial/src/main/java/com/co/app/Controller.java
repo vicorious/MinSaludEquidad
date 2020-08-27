@@ -586,7 +586,7 @@ public class Controller extends BaseController
 						throw new MinSaludBusinessException(response.toString());
 					log.info("Consulta estructura empresa RESPONSE: ".concat(response.toString()));
 					EstructuraEmpresa estructuraEmpresa = this.consultaEmpresaService.mapEstructura((EstructuraEmpresa) response, authorization);
-					//estructuraEmpresa.setConsultaEmpresa(consultaEmpresa);
+					estructuraEmpresa.setConsultaEmpresa(consultaEmpresa);
 					log.info("Consulta Estructura MAP: ".concat(estructuraEmpresa.toString()));
 					this.estructuraEmpresaService.save(estructuraEmpresa);
 					log.info("Consulta Estructura persistida correctamente ".concat(estructuraEmpresa.getEmpreId()));
@@ -761,7 +761,7 @@ public class Controller extends BaseController
 						{
 							this.logService.save(writeLogSATARL(retractacion.getEmpre_form(),
 									new BigDecimal("7"), retractacion.getRetractacionId(),
-									EstadosEnum.ERROR.getName(), "FAIL", authorization));
+									EstadosEnum.ERROR.getName(), ((ResponseMinSaludDTO)response).getCodigo(), authorization));
 							retractacion.setEstadoMin(EstadosEnum.ERROR.getName());
 							log.error("Error interno: ".concat(((ResponseMinSaludDTO)response).getMensaje()));
 							retractoInCorrectas.add(retractacion.getNumeroDocumentoEmpleador().trim());
