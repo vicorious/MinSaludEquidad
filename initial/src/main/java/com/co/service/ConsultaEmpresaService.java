@@ -84,7 +84,7 @@ public class ConsultaEmpresaService
 
     public EstructuraEmpresa mapEstructura(EstructuraEmpresa empresa, String token)
     {
-        log.info("Mapeando estructura");
+        log.info("Mapeando estructura".concat(empresa.toString()));
         empresa.setTokenMin(token);
         empresa.setFecCaptura(LocalDateTime.now());
         if(empresa.getTipoAporte() != null && empresa.getTipoAporte().equalsIgnoreCase("null"))

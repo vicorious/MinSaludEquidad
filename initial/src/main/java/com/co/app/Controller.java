@@ -587,7 +587,6 @@ public class Controller extends BaseController
 					log.info("Consulta estructura empresa RESPONSE: ".concat(response.toString()));
 					EstructuraEmpresa estructuraEmpresa = this.consultaEmpresaService.mapEstructura((EstructuraEmpresa) response, authorization);
 					estructuraEmpresa.setConsultaEmpresa(consultaEmpresa);
-					log.info("Consulta Estructura MAP: ".concat(estructuraEmpresa.toString()));
 					this.estructuraEmpresaService.save(estructuraEmpresa);
 					log.info("Consulta Estructura persistida correctamente ");
 					documentosFull.add(consultaEmpresa.getNumeroDocumentoEmpleador());
