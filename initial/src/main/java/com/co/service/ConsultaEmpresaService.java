@@ -103,7 +103,6 @@ public class ConsultaEmpresaService
             e.setFecCaptura(LocalDateTime.now().toString());
             e.setFecRespuesta(LocalDateTime.now().toString());
         })));
-        empresa.setFecRespuesta(LocalDateTime.now().toString());
 
         log.info("Mapeo de estructura completo exitosamente!");
         log.info("Consultando si la estructura esta en la base de datos...");
