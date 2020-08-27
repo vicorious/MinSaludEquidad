@@ -591,7 +591,7 @@ public class Controller extends BaseController
 					this.estructuraEmpresaService.save(estructuraEmpresa);
 					log.info("Consulta Estructura persistida correctamente ".concat(estructuraEmpresa.getEmpreId()));
 					documentosFull.add(consultaEmpresa.getNumeroDocumentoEmpleador());
-					this.logService.save(writeLogSATARL("consultaEmpresa.getEmpreForm()", new BigDecimal("5"),  consultaEmpresa.getId(),  EstadosEnum.EXITOSO.getName(), "OK", authorization));
+					this.logService.save(writeLogSATARL("consultaEmpresa", new BigDecimal("5"),  consultaEmpresa.getId(),  EstadosEnum.EXITOSO.getName(), "OK", authorization));
 				} catch (NoSuchMethodException e)
 				{
 					log.error("Configuracion @ServiceConfig invalida: ERROR: ".concat(e.getMessage()));
