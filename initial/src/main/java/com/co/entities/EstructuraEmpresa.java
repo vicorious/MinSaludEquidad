@@ -1,13 +1,18 @@
 package com.co.entities;
 
 import com.co.builder.SerializerCustom;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -45,8 +50,11 @@ public class EstructuraEmpresa
     @Column(name = "TOKEN_MIN")
     private String tokenMin;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     @Column(name = "FECCAPTURA")
-    private String fecCaptura;
+    private LocalDateTime fecCaptura;
 
     @ManyToOne(cascade = MERGE)
     @JoinColumn(name = "SRV_CONSULTA_EMPRESA_ID")
@@ -161,11 +169,11 @@ public class EstructuraEmpresa
         this.tokenMin = tokenMin;
     }
 
-    public String getFecCaptura() {
+    public LocalDateTime getFecCaptura() {
         return fecCaptura;
     }
 
-    public void setFecCaptura(String fecCaptura) {
+    public void setFecCaptura(LocalDateTime fecCaptura) {
         this.fecCaptura = fecCaptura;
     }
     public ControlEstructuraEmpresa getConsultaEmpresa() {
