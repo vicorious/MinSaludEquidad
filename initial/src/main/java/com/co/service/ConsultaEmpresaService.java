@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.InvocationTargetException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -84,6 +85,11 @@ public class ConsultaEmpresaService
     public EstructuraEmpresa mapEstructura(EstructuraEmpresa empresa, String token)
     {
         empresa.setTokenMin(token);
+        empresa.setFecCaptura(LocalDate.now().toString());
+        if(empresa.getTipoAporte().equalsIgnoreCase("null"))
+        {
+            empresa.setTipoAporte("");
+        }
         empresa.getSedes().forEach(p -> {
             p.setEstructuraEmpresa(empresa);
             p.setTokenMin(token);
