@@ -756,7 +756,7 @@ public class Controller extends BaseController
 						retractoCorrectas.add(retractacion.getNumeroDocumentoEmpleador().trim());
 					} else if(response instanceof ResponseMinSaludDTO)
 					{
-						if(((ResponseMinSaludDTO)response).getCodigo().equalsIgnoreCase("0"))
+						if(((ResponseMinSaludDTO)response).getCodigo().contains("CN") || ((ResponseMinSaludDTO)response).getCodigo().contains("CE"))
 						{
 							this.logService.save(writeLogSATARL(retractacion.getEmpre_form(),
 									new BigDecimal("7"), retractacion.getRetractacionId(),
