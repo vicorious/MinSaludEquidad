@@ -19,4 +19,13 @@ public class ResponseMinSaludDTO extends ResponseDTO
     public String getCodigo() {
         return codigo;
     }
+
+    @Override
+    public String toString() {
+        return "ResponseMinSaludDTO{" +
+                "resultado=" + resultado +
+                ", mensaje='" + mensaje + '\'' +
+                ", codigo='" + codigo + '\'' +
+                '}';
+    }
 }
