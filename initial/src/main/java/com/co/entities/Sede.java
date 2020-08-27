@@ -21,7 +21,7 @@ import static javax.persistence.CascadeType.*;
         "fechaRespuesta", "estructuraEmpresa", "NumeroDocumentoEmpleador", "centros", "centrosTrabajo", "estadoMin", "naturalezaJuridica", "tipoAportante", "actividadEconomica" })
 @Entity
 @Table(name = "SRV_ESTRUCTURA_SEDE")
-public class Sede extends BaseEntity
+public class Sede
 {
     public Sede() {
         this.centros = new ArrayList<>();
@@ -107,6 +107,28 @@ public class Sede extends BaseEntity
     @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "EMPRE_MISION_NIT_DESCEN")
     private String empreMisionNitDescen;
+
+    @Column(name = "EMPRE_FORM")
+    private String empre_form;
+
+    @Column(name = "TOKEN_MIN")
+    private String tokenMin;
+
+    @Column(name = "FECCAPTURA")
+    private LocalDateTime fechaCaptura;
+
+    @Column(name = "FECREPORTE")
+    private LocalDateTime  fechaReporte;
+
+    @Column(name = "FECRESPUESTA")
+    private LocalDateTime  fechaRespuesta;
+
+    @Column(name = "ESTADO_MIN")
+    private BigDecimal estadoMin;
+
+    @JsonSerialize(using = SerializerCustom.class)
+    @Column(name = "COD_ARL")
+    private String codArl;
 
     @OneToMany(cascade = {PERSIST, MERGE, REMOVE}, mappedBy = "sede", fetch = FetchType.LAZY)
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
@@ -297,6 +319,63 @@ public class Sede extends BaseEntity
     @JsonProperty("centrosTrabajo")
     public void setCentros(List<CentroTrabajo> centros) {
         this.centros = centros;
+    }
+
+    public String getEmpre_form() {
+        return empre_form;
+    }
+
+    public void setEmpre_form(String empre_form) {
+        this.empre_form = empre_form;
+    }
+
+    public String getTokenMin() {
+        return tokenMin;
+    }
+
+    public void setTokenMin(String tokenMin) {
+        this.tokenMin = tokenMin;
+    }
+
+    public LocalDateTime getFechaCaptura() {
+        return fechaCaptura;
+    }
+
+    public void setFechaCaptura(LocalDateTime fechaCaptura) {
+        this.fechaCaptura = fechaCaptura;
+    }
+
+    public LocalDateTime getFechaReporte() {
+        return fechaReporte;
+    }
+
+    public void setFechaReporte(LocalDateTime fechaReporte) {
+        this.fechaReporte = fechaReporte;
+    }
+
+    public LocalDateTime getFechaRespuesta() {
+        return fechaRespuesta;
+    }
+
+    public void setFechaRespuesta(LocalDateTime fechaRespuesta) {
+        this.fechaRespuesta = fechaRespuesta;
+    }
+
+    public BigDecimal getEstadoMin() {
+        return estadoMin;
+    }
+
+    public void setEstadoMin(BigDecimal estadoMin) {
+        this.estadoMin = estadoMin;
+    }
+
+    public String getCodArl() {
+        return codArl;
+    }
+
+    @JsonProperty("CodigoARL")
+    public void setCodArl(String codArl) {
+        this.codArl = codArl;
     }
 
     public void addCentro(CentroTrabajo centro){
