@@ -1,9 +1,12 @@
 package com.co.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class ResponseMinSaludDTO extends ResponseDTO
 {
     private int resultado;
 
+    @JsonIgnore
     private int status_code;
 
     private String mensaje;
