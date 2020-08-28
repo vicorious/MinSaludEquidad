@@ -186,7 +186,7 @@ public class BaseController
                     try
                     {
                         returning = mapper.readValue(json_string, ResponseMinSaludDTO.class);
-                        if(returning == null)
+                        if(((ResponseMinSaludDTO)returning).getCodigo() == null && ((ResponseMinSaludDTO)returning).getCodigo().equalsIgnoreCase("null"))
                             returning = mapper.readValue(json_string, type);
                     }catch(Exception ex)
                     {
