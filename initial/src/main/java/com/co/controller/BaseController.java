@@ -159,13 +159,14 @@ public class BaseController
 
     private <T> Object sendGeneralRequest(HttpUriRequest request, Class<T> type, boolean isArray, boolean isPossibleMappingError) throws IOException, NoSuchFieldException, IllegalAccessException {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         Object returning;
         try (CloseableHttpClient httpClient = HttpClients.createDefault();
              CloseableHttpResponse response = httpClient.execute(request))
         {
             int status_code = response.getStatusLine().getStatusCode();
+            log.info("STATUS CODE".concat(status_code + ""));
             String json_string = EntityUtils.toString(response.getEntity());
+            log.info("JSON RESPONSE".concat(json_string + ""));
             Field statusCodeField;
             if (status_code != 200 && status_code != 204)
             {
