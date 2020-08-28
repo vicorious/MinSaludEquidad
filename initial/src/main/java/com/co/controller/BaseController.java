@@ -186,11 +186,13 @@ public class BaseController
                     try
                     {
                         returning = mapper.readValue(json_string, ResponseMinSaludDTO.class);
+                        if(returning == null)
+                            returning = mapper.readValue(json_string, type);
                     }catch(Exception ex)
                     {
                         returning = mapper.readValue(json_string, type);
                     }
-                    
+
                     try {
                         statusCodeField = returning.getClass().getDeclaredField(SisafitraConstant.STATUS_CODE);
                     }catch(NoSuchFieldException ex)
