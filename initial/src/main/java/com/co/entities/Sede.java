@@ -318,14 +318,6 @@ public class Sede
         this.centros = centros;
     }
 
-    public String getEmpre_form() {
-        return empre_form;
-    }
-
-    public void setEmpre_form(String empre_form) {
-        this.empre_form = empre_form;
-    }
-
     public String getTokenMin() {
         return tokenMin;
     }
