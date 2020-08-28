@@ -120,9 +120,6 @@ public class Sede
     @Column(name = "FECRESPUESTA")
     private LocalDateTime  fechaRespuesta;
 
-    @Column(name = "ESTADO_MIN")
-    private BigDecimal estadoMin;
-
     @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "COD_ARL")
     private String codArl;
@@ -348,14 +345,6 @@ public class Sede
 
     public void setFechaRespuesta(LocalDateTime fechaRespuesta) {
         this.fechaRespuesta = fechaRespuesta;
-    }
-
-    public BigDecimal getEstadoMin() {
-        return estadoMin;
-    }
-
-    public void setEstadoMin(BigDecimal estadoMin) {
-        this.estadoMin = estadoMin;
     }
 
     public String getCodArl() {
