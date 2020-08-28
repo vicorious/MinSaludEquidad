@@ -22,6 +22,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import com.co.utils.SisafitraConstant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.IOException;
@@ -44,6 +46,8 @@ import java.util.stream.IntStream;
  */
 public class BaseController
 {
+
+    Logger log = LoggerFactory.getLogger(this.getClass().getName());
     List<ParametroGeneral> parametros;
 
     public <T> Object responseFromPostRequest(RequestBodyDTO request, Class<T> type) throws IOException, NoSuchFieldException, IllegalAccessException {
@@ -186,6 +190,7 @@ public class BaseController
                     try
                     {
                         returning = mapper.readValue(json_string, ResponseMinSaludDTO.class);
+                        log.info("FULL DTO".concat(returning.toString()));
                         if(((ResponseMinSaludDTO)returning).getCodigo() == null ||((ResponseMinSaludDTO)returning).getCodigo().equalsIgnoreCase("null")) {
                             returning = mapper.readValue(json_string, type);
                         }
