@@ -590,12 +590,13 @@ public class Controller extends BaseController
 					log.info("RESPONSE ".concat(response.toString()));
 					this.consultaEmpresaService.mapEstructura((EstructuraEmpresa) response, consultaEmpresa, authorization);
 					this.logService.save(writeLogSATARL("consultaEmpresa", new BigDecimal("5"),  consultaEmpresa.getId(),  EstadosEnum.EXITOSO.getName(), "OK", authorization));
+					documentosFull.add(consultaEmpresa.getNumeroDocumentoEmpleador().trim());
 				} catch (NoSuchMethodException e)
 				{
 					log.error("Configuracion @ServiceConfig invalida: ERROR: ".concat(e.getMessage()));
 					this.logService.save(writeLogSATARL("consultaEmpresa", new BigDecimal("5"), consultaEmpresa.getId(), EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description() : "FAIL" , authorization));
 					estructurasIncorrectas.add(consultaEmpresa.getNumeroDocumentoEmpleador().trim());
-				}catch (IllegalAccessException | NoSuchFieldException e)
+				}catch (IllegalAccessException | NoSuchFieldException | MinSaludBusinessException e)
 				{
 					log.error("Response es invalido para el objeto ResponseMinSaludDTO: ERROR: ".concat(e.getMessage()));
 					this.logService.save(writeLogSATARL("consultaEmpresa", new BigDecimal("5"), consultaEmpresa.getId(), EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description() : "FAIL" , authorization));
