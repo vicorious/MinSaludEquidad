@@ -93,9 +93,9 @@ public class ConsultaEmpresaService
         }
         empresa.getSedes().forEach(p -> {
             p.setEstructuraEmpresa(empresa);
-            p.setTokenMin(token);
+            /*p.setTokenMin(token);
             p.setFechaCaptura(LocalDateTime.now());
-            p.setFechaRespuesta(LocalDateTime.now());
+            p.setFechaRespuesta(LocalDateTime.now());*/
             p.setCodSede(p.getCodSede().length() == 1 ? "0".concat(p.getCodSede()) : p.getCodSede());
         });
         empresa.getSedes().forEach(p -> p.getCentros().forEach(c -> {
