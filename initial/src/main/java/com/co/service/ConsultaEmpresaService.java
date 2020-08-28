@@ -137,7 +137,7 @@ public class ConsultaEmpresaService
         log.info("Lista para guardar ");
 
         empresa.setConsultaEmpresa(consultaEmpresa);
-        this.estructuraEmpresaService.save(estructuraEmpresa);
+        this.estructuraEmpresaService.save(empresa);
         log.info("Estructura persistida correctamente ");
     }
 
