@@ -82,7 +82,7 @@ public class ConsultaEmpresaService
         return empresas;
     }
 
-    public synchronized EstructuraEmpresa mapEstructura(EstructuraEmpresa empresa, String token)
+    public synchronized void mapEstructura(EstructuraEmpresa empresa, ControlEstructuraEmpresa consultaEmpresa, String token)
     {
         log.info("Mapeando estructura".concat(empresa.toString()));
         empresa.setTokenMin(token);
@@ -136,7 +136,9 @@ public class ConsultaEmpresaService
         }
         log.info("Lista para guardar ");
 
-        return empresa;
+        empresa.setConsultaEmpresa(consultaEmpresa);
+        this.estructuraEmpresaService.save(estructuraEmpresa);
+        log.info("Estructura persistida correctamente ");
     }
 
     public List<ConsultaEmpresa> empresaPorTipoDocumentoYNumeroDocumento(String tipoDocumento, String numeroDocumento)

@@ -585,11 +585,7 @@ public class Controller extends BaseController
 					if(response instanceof ErrorDTO)
 						throw new MinSaludBusinessException(response.toString());
 					log.info("Consulta estructura empresa RESPONSE: ".concat(response.toString()));
-					EstructuraEmpresa estructuraEmpresa = this.consultaEmpresaService.mapEstructura((EstructuraEmpresa) response, authorization);
-					estructuraEmpresa.setConsultaEmpresa(consultaEmpresa);
-					this.estructuraEmpresaService.save(estructuraEmpresa);
-					log.info("Consulta Estructura persistida correctamente ");
-					documentosFull.add(estructuraEmpresa.getStatus_code() + " ");
+					this.consultaEmpresaService.mapEstructura((EstructuraEmpresa) response, consultaEmpresa, authorization);
 					this.logService.save(writeLogSATARL("consultaEmpresa", new BigDecimal("5"),  consultaEmpresa.getId(),  EstadosEnum.EXITOSO.getName(), "OK", authorization));
 				} catch (NoSuchMethodException e)
 				{
