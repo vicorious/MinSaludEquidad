@@ -583,7 +583,7 @@ public class Controller extends BaseController
 					EstructuraEmpresa respo = null;
 					log.info("Consulta estructura empresa REQUEST: ".concat(request_body.toString()));
 					respo = (EstructuraEmpresa) super.responseFromPostRequest(request_body, EstructuraEmpresa.class);
-					log.info("Afuera: ".concat(respo.getEmpreTipDoc()));
+					log.info("RESPONSE ".concat(respo.toString()));
 					this.consultaEmpresaService.mapEstructura(respo, consultaEmpresa, authorization);
 					this.logService.save(writeLogSATARL("consultaEmpresa", new BigDecimal("5"),  consultaEmpresa.getId(),  EstadosEnum.EXITOSO.getName(), "OK", authorization));
 				} catch (NoSuchMethodException e)
