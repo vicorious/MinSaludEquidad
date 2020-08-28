@@ -108,9 +108,6 @@ public class Sede
     @Column(name = "EMPRE_MISION_NIT_DESCEN")
     private String empreMisionNitDescen;
 
-    @Column(name = "EMPRE_FORM")
-    private String empre_form;
-
     @Column(name = "TOKEN_MIN")
     private String tokenMin;
 
