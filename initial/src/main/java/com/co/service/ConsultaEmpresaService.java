@@ -84,7 +84,7 @@ public class ConsultaEmpresaService
 
     public synchronized void mapEstructura(EstructuraEmpresa empresa, ControlEstructuraEmpresa consultaEmpresa, String token)
     {
-        log.info("Mapeando estructura".concat(empresa.toString()));
+        log.info("Consulta estructura empresa RESPONSE: ".concat(empresa.getEmpreId()));
         empresa.setTokenMin(token);
         empresa.setFecCaptura(LocalDateTime.now());
         if(empresa.getTipoAporte() != null && empresa.getTipoAporte().equalsIgnoreCase("null"))
@@ -135,8 +135,8 @@ public class ConsultaEmpresaService
             log.warn("Borrado exitoso!");
         }
         log.info("Lista para guardar ");
-
         empresa.setConsultaEmpresa(consultaEmpresa);
+        log.info("Antes de guardar!!!!!!!!!!!!!!".concat(empresa.toString()));
         this.estructuraEmpresaService.save(empresa);
         log.info("Estructura persistida correctamente ");
     }

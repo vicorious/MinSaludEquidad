@@ -580,12 +580,10 @@ public class Controller extends BaseController
 					Method method = new Object(){}.getClass().getEnclosingMethod();
 					RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(mapperBody(consultaEmpresa), method.getName(), this.getClass(), method.getParameterTypes());
 					request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
+					EstructuraEmpresa respo = null;
 					log.info("Consulta estructura empresa REQUEST: ".concat(request_body.toString()));
-					response = super.responseFromPostRequest(request_body, EstructuraEmpresa.class);
-					if(response instanceof ErrorDTO)
-						throw new MinSaludBusinessException(response.toString());
-					log.info("Consulta estructura empresa RESPONSE: ".concat(response.toString()));
-					this.consultaEmpresaService.mapEstructura((EstructuraEmpresa) response, consultaEmpresa, authorization);
+					respo = (EstructuraEmpresa) super.responseFromPostRequest(request_body, EstructuraEmpresa.class);
+					this.consultaEmpresaService.mapEstructura( respo, consultaEmpresa, authorization);
 					this.logService.save(writeLogSATARL("consultaEmpresa", new BigDecimal("5"),  consultaEmpresa.getId(),  EstadosEnum.EXITOSO.getName(), "OK", authorization));
 				} catch (NoSuchMethodException e)
 				{
@@ -602,11 +600,6 @@ public class Controller extends BaseController
 					log.error("Error de conexion con el servicio: ERROR: ".concat(e.getMessage()));
 					this.logService.save(writeLogSATARL("consultaEmpresa.", new BigDecimal("5"), consultaEmpresa.getId(), EstadosEnum.FALLIDO.getName(), response instanceof ErrorDTO ? ((ErrorDTO)response).getError_description() : "FAIL" , authorization));
 					estructurasIncorrectas.add(consultaEmpresa.getNumeroDocumentoEmpleador());
-				} catch (MinSaludBusinessException e)
-				{
-					log.error("Error de negocio: ".concat(e.getMessage()));
-					this.logService.save(writeLogSATARL("consultaEmpresa", new BigDecimal("5"), consultaEmpresa.getId(), EstadosEnum.FALLIDO.getName(), "FAIL", authorization));
-					estructurasIncorrectas.add(consultaEmpresa.getNumeroDocumentoEmpleador().trim());
 				}
 			}
 
