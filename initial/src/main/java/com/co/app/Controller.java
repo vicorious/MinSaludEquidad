@@ -552,14 +552,14 @@ public class Controller extends BaseController
 			@ApiResponse(code = 500, message = "Failure", response = String.class),
 	})
 	@PostMapping(path = "/ConsultaEstructuraEmpresa", consumes = "application/json", produces = "application/json")
-	/*@ServiceConfig(protocol = "https", domain = "sisafitra.sispropreprod.gov.co", port = "8062",
+	@ServiceConfig(protocol = "https", domain = "sisafitra.sispropreprod.gov.co", port = "8062",
 			name = "ConsultaEstructuraEmpresa", clientId = "d99d20985fde4150b924c8d0177691b6",
 			uri = "/ConsultaEstructuraEmpresa", headers = {"Content-Type=application/json"},
-			method = RequestMethod.POST)*/
-	@ServiceConfig(protocol = "https", domain = "miseguridadsocial.gov.co", port = "8062",
+			method = RequestMethod.POST)
+	/*@ServiceConfig(protocol = "https", domain = "miseguridadsocial.gov.co", port = "8062",
 			name = "ConsultaEstructuraEmpresa", clientId = "f8af5a3156c94e10b9ba1901053f807c",
 			uri = "/ConsultaEstructuraEmpresa", headers = {"Content-Type=application/json"},
-			method = RequestMethod.POST)
+			method = RequestMethod.POST)*/
 	public Object consultaEstructuraEmpresa(@RequestHeader("Authorization") String authorization) throws MinSaludBusinessException {
 			List<String> documentosFull = new ArrayList<>();
 			List<String> estructurasIncorrectas = new ArrayList<>();
