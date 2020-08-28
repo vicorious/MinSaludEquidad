@@ -82,7 +82,7 @@ public class ConsultaEmpresaService
         return empresas;
     }
 
-    public EstructuraEmpresa mapEstructura(EstructuraEmpresa empresa, String token)
+    public synchronized EstructuraEmpresa mapEstructura(EstructuraEmpresa empresa, String token)
     {
         log.info("Mapeando estructura".concat(empresa.toString()));
         empresa.setTokenMin(token);
