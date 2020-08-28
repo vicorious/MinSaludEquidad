@@ -189,6 +189,7 @@ public class BaseController
                     }
                     try
                     {
+                        log.info("JSON ANTES".concat(json_string));
                         returning = mapper.readValue(json_string, ResponseMinSaludDTO.class);
                         log.info("FULL DTO".concat(returning.toString()));
                         if(((ResponseMinSaludDTO)returning).getCodigo() == null ||((ResponseMinSaludDTO)returning).getCodigo().equalsIgnoreCase("null")) {
@@ -198,6 +199,7 @@ public class BaseController
                     {
                         returning = mapper.readValue(json_string, type);
                     }
+                    log.info("JSON DESPUES".concat(returning.toString()));
 
                     try {
                         statusCodeField = returning.getClass().getDeclaredField(SisafitraConstant.STATUS_CODE);
