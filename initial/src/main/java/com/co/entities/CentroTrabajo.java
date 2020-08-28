@@ -95,10 +95,6 @@ public class CentroTrabajo
     @Column(name = "RESP_CENTRAB_SEGNOM")
     private String respCentrabSegundoNombre;
 
-    @JsonSerialize(using = SerializerCustom.class)
-    @Column(name = "ID_PERSONA_RESP")
-    private String idPersonaResp;
-
     @Column(name = "TOKEN_MIN")
     private String tokenMin;
 
@@ -265,15 +261,6 @@ public class CentroTrabajo
     @JsonProperty("segundoNombreResponsableCT")
     public void setRespCentrabSegundoNombre(String respCentrabSegundoNombre) {
         this.respCentrabSegundoNombre = respCentrabSegundoNombre;
-    }
-
-    public String getIdPersonaResp() {
-        return idPersonaResp;
-    }
-
-    @JsonProperty("id_PersonaResponsable")
-    public void setIdPersonaResp(String idPersonaResp) {
-        this.idPersonaResp = idPersonaResp;
     }
 
     public List<Empleado> getEmpleados() {
