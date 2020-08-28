@@ -1,6 +1,7 @@
 package com.co.controller;
 
 import com.co.dto.ErrorDTO;
+import com.co.dto.ResponseMinSaludDTO;
 import com.co.entities.ParametroGeneral;
 import com.co.entities.RespuestaSATARL;
 import com.co.exception.MinSaludBusinessException;
@@ -182,7 +183,14 @@ public class BaseController
                     {
                         return json_string;
                     }
-                    returning = mapper.readValue(json_string, type);
+                    try
+                    {
+                        returning = mapper.readValue(json_string, ResponseMinSaludDTO.class);
+                    }catch(Exception ex)
+                    {
+                        returning = mapper.readValue(json_string, type);
+                    }
+                    
                     try {
                         statusCodeField = returning.getClass().getDeclaredField(SisafitraConstant.STATUS_CODE);
                     }catch(NoSuchFieldException ex)
