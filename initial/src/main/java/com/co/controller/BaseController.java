@@ -168,7 +168,7 @@ public class BaseController
             String json_string = EntityUtils.toString(response.getEntity(), "UTF-8");
             log.info("JSON RESPONSE".concat(json_string + ""));
             Field statusCodeField;
-            if (status_code != 200 && status_code != 204 || json_string.isEmpty())
+            if (status_code != 200 && status_code != 204 || json_string.equalsIgnoreCase("{}"))
             {
                 if(isPossibleMappingError)
                 {
