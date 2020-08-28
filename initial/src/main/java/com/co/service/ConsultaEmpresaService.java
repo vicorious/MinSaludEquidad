@@ -84,7 +84,7 @@ public class ConsultaEmpresaService
 
     public synchronized void mapEstructura(EstructuraEmpresa empresa, ControlEstructuraEmpresa consultaEmpresa, String token)
     {
-        log.info("Consulta estructura empresa RESPONSE: ".concat(empresa.getEmpreId()));
+        log.info("Consulta estructura empresa RESPONSE: ".concat(empresa.getEmpreTipDoc()));
         empresa.setTokenMin(token);
         empresa.setFecCaptura(LocalDateTime.now());
         if(empresa.getTipoAporte() != null && empresa.getTipoAporte().equalsIgnoreCase("null"))
