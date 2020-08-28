@@ -18,9 +18,10 @@ import java.util.List;
 import static javax.persistence.CascadeType.*;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+
 @JsonIgnoreProperties(value = { "id",
         "empre_form", "tokenMin", "fechaCaptura", "fechaReporte",
-        "fechaRespuesta", "estructuraEmpresa", "NumeroDocumentoEmpleador", "centros", "centrosTrabajo", "estadoMin", "naturalezaJuridica", "tipoAportante", "actividadEconomica" })
+        "fechaRespuesta", "estructuraEmpresa", "NumeroDocumentoEmpleador", "centros", "estadoMin", "naturalezaJuridica", "tipoAportante", "actividadEconomica" })
 @Entity
 @Table(name = "SRV_ESTRUCTURA_SEDE")
 public class Sede
@@ -310,7 +311,6 @@ public class Sede
         return codArl;
     }
 
-    @JsonProperty("CodigoARL")
     public void setCodArl(String codArl) {
         this.codArl = codArl;
     }

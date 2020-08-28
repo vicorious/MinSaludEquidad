@@ -24,7 +24,7 @@ import static javax.persistence.CascadeType.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(value = { "id",
         "empre_form", "tokenMin", "fechaCaptura", "fechaReporte",
-        "fechaRespuesta", "consultaEmpresa", "sedes", "estadoMin", "status_code", "tipoAportante", "actividadEconomica", "afiliacionEmpresaId" })
+        "fechaRespuesta", "consultaEmpresa", "estadoMin", "status_code", "tipoAportante", "actividadEconomica", "afiliacionEmpresaId" })
 @Entity
 @Table(name = "SRV_ESTRUCTURA_EMPRESA")
 public class EstructuraEmpresa
