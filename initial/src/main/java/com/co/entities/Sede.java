@@ -108,18 +108,6 @@ public class Sede
     @Column(name = "EMPRE_MISION_NIT_DESCEN")
     private String empreMisionNitDescen;
 
-    @Column(name = "TOKEN_MIN")
-    private String tokenMin;
-
-    @Column(name = "FECCAPTURA")
-    private LocalDateTime fechaCaptura;
-
-    @Column(name = "FECREPORTE")
-    private LocalDateTime  fechaReporte;
-
-    @Column(name = "FECRESPUESTA")
-    private LocalDateTime  fechaRespuesta;
-
     @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "COD_ARL")
     private String codArl;
@@ -313,38 +301,6 @@ public class Sede
     @JsonProperty("centrosTrabajo")
     public void setCentros(List<CentroTrabajo> centros) {
         this.centros = centros;
-    }
-
-    public String getTokenMin() {
-        return tokenMin;
-    }
-
-    public void setTokenMin(String tokenMin) {
-        this.tokenMin = tokenMin;
-    }
-
-    public LocalDateTime getFechaCaptura() {
-        return fechaCaptura;
-    }
-
-    public void setFechaCaptura(LocalDateTime fechaCaptura) {
-        this.fechaCaptura = fechaCaptura;
-    }
-
-    public LocalDateTime getFechaReporte() {
-        return fechaReporte;
-    }
-
-    public void setFechaReporte(LocalDateTime fechaReporte) {
-        this.fechaReporte = fechaReporte;
-    }
-
-    public LocalDateTime getFechaRespuesta() {
-        return fechaRespuesta;
-    }
-
-    public void setFechaRespuesta(LocalDateTime fechaRespuesta) {
-        this.fechaRespuesta = fechaRespuesta;
     }
 
     public String getCodArl() {
