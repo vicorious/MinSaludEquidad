@@ -3,6 +3,7 @@ package com.co.entities;
 import com.co.builder.SerializerCustom;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -20,6 +21,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static javax.persistence.CascadeType.*;
 
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(value = { "id",
         "empre_form", "tokenMin", "fechaCaptura", "fechaReporte",
         "fechaRespuesta", "consultaEmpresa", "sedes", "estadoMin", "status_code", "tipoAportante", "actividadEconomica", "afiliacionEmpresaId" })
@@ -144,6 +146,7 @@ public class EstructuraEmpresa
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     private List<Sede> sedes;
 
+    @JsonProperty("sedes")
     public List<Sede> getSedes() {
         return sedes;
     }

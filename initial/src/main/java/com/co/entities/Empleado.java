@@ -2,12 +2,14 @@ package com.co.entities;
 
 import com.co.builder.SerializerCustom;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(value = { "id",
         "empre_form", "tokenMin", "fechaCaptura", "fechaReporte",
         "fechaRespuesta", "centro", "estadoMin", "naturalezaJuridica", "tipoAportante", "actividadEconomica" })

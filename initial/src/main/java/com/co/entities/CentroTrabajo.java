@@ -2,6 +2,7 @@ package com.co.entities;
 
 import com.co.builder.SerializerCustom;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.annotations.Cascade;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import static javax.persistence.CascadeType.*;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(value = { "id",
         "empre_form", "tokenMin", "fechaCaptura", "fechaReporte",
         "fechaRespuesta", "sede", "empleados", "estadoMin", "naturalezaJuridica", "tipoAportante", "actividadEconomica" })
