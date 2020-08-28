@@ -9,6 +9,7 @@ import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ import static javax.persistence.CascadeType.*;
         "fechaRespuesta", "sede", "estadoMin", "naturalezaJuridica", "tipoAportante", "actividadEconomica" })
 @Entity
 @Table(name = "SRV_ESTRUCTURA_CENTRO")
-public class CentroTrabajo extends BaseEntity
+public class CentroTrabajo
 {
     public CentroTrabajo() {
         this.empleados = new ArrayList<>();
@@ -97,6 +98,19 @@ public class CentroTrabajo extends BaseEntity
     @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "ID_PERSONA_RESP")
     private String idPersonaResp;
+
+    @Column(name = "TOKEN_MIN")
+    private String tokenMin;
+
+    @Column(name = "FECCAPTURA")
+    private LocalDateTime fechaCaptura;
+
+    @Column(name = "FECRESPUESTA")
+    private LocalDateTime  fechaRespuesta;
+
+    @JsonSerialize(using = SerializerCustom.class)
+    @Column(name = "COD_ARL")
+    private String codArl;
 
     @OneToMany(cascade = {PERSIST, MERGE, REMOVE}, mappedBy = "centro", fetch = FetchType.LAZY)
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
@@ -277,5 +291,37 @@ public class CentroTrabajo extends BaseEntity
 
     public int empleados() {
         return this.getEmpleados() == null ? 0 : this.getEmpleados().size();
+    }
+
+    public String getTokenMin() {
+        return tokenMin;
+    }
+
+    public void setTokenMin(String tokenMin) {
+        this.tokenMin = tokenMin;
+    }
+
+    public LocalDateTime getFechaCaptura() {
+        return fechaCaptura;
+    }
+
+    public void setFechaCaptura(LocalDateTime fechaCaptura) {
+        this.fechaCaptura = fechaCaptura;
+    }
+
+    public LocalDateTime getFechaRespuesta() {
+        return fechaRespuesta;
+    }
+
+    public void setFechaRespuesta(LocalDateTime fechaRespuesta) {
+        this.fechaRespuesta = fechaRespuesta;
+    }
+
+    public String getCodArl() {
+        return codArl;
+    }
+
+    public void setCodArl(String codArl) {
+        this.codArl = codArl;
     }
 }
