@@ -133,7 +133,7 @@ public class Controller extends BaseController
 	@ServiceConfig(protocol = "https", domain = "sisafitra.sispropreprod.gov.co", port = "8062",
 			name = "Token", clientId = "9160f6412fad4b7fbc5f86d37a8dd680",
 			uri = "/token", headers = {"Content-Type=application/x-www-form-urlencoded"},
-			params = {"username=830008686", "password=830008686", "grant_type=password",
+				params = {"username=830008686", "password=830008686", "grant_type=password",
 					"client_id=9160f6412fad4b7fbc5f86d37a8dd680"},
 			method = RequestMethod.POST)
 	public Object token()
@@ -580,11 +580,13 @@ public class Controller extends BaseController
 					Method method = new Object(){}.getClass().getEnclosingMethod();
 					RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(mapperBody(consultaEmpresa), method.getName(), this.getClass(), method.getParameterTypes());
 					request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
-					EstructuraEmpresa respo = null;
 					log.info("Consulta estructura empresa REQUEST: ".concat(request_body.toString()));
-					respo = (EstructuraEmpresa) super.responseFromPostRequest(request_body, EstructuraEmpresa.class);
-					log.info("RESPONSE ".concat(respo.toString()));
-					this.consultaEmpresaService.mapEstructura(respo, consultaEmpresa, authorization);
+					response =  super.responseFromPostRequest(request_body, EstructuraEmpresa.class);
+					if(response instanceof ResponseMinSaludDTO){
+						throw new MinSaludBusinessException(((ResponseMinSaludDTO)response).getCodigo());
+					}
+					log.info("RESPONSE ".concat(response.toString()));
+					this.consultaEmpresaService.mapEstructura((EstructuraEmpresa) response, consultaEmpresa, authorization);
 					this.logService.save(writeLogSATARL("consultaEmpresa", new BigDecimal("5"),  consultaEmpresa.getId(),  EstadosEnum.EXITOSO.getName(), "OK", authorization));
 				} catch (NoSuchMethodException e)
 				{
