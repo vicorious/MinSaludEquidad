@@ -44,10 +44,6 @@ public class CentroTrabajo
     @Column(name = "CENTRO_TRAB")
     private String centroTrab;
 
-    @JsonSerialize(using = SerializerCustom.class)
-    @Column(name = "INDICADOR_ACT")
-    private String indicadorAct;
-
     @Column(name = "CODACT_CENTRO_TRAB")
     private BigDecimal codActCentroTrabajo;
 
@@ -144,15 +140,6 @@ public class CentroTrabajo
     @JsonProperty("nombreCentroTrabajo")
     public void setCentroTrab(String centroTrab) {
         this.centroTrab = centroTrab;
-    }
-
-    public String getIndicadorAct() {
-        return indicadorAct;
-    }
-
-    @JsonProperty("idCodigoActividadEconomica")
-    public void setIndicadorAct(String indicadorAct) {
-        this.indicadorAct = indicadorAct;
     }
 
     public BigDecimal getCodActCentroTrabajo() {
