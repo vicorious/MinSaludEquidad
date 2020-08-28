@@ -582,8 +582,10 @@ public class Controller extends BaseController
 					request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION, authorization);
 					log.info("Consulta estructura empresa REQUEST: ".concat(request_body.toString()));
 					response =  super.responseFromPostRequest(request_body, EstructuraEmpresa.class);
-					if(response instanceof ResponseMinSaludDTO){
+					if(response instanceof ResponseMinSaludDTO ){
 						throw new MinSaludBusinessException(((ResponseMinSaludDTO)response).getCodigo());
+					}else if(response instanceof ErrorDTO) {
+						throw new MinSaludBusinessException(((ErrorDTO)response).getError());
 					}
 					log.info("RESPONSE ".concat(response.toString()));
 					this.consultaEmpresaService.mapEstructura((EstructuraEmpresa) response, consultaEmpresa, authorization);
