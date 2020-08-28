@@ -6,6 +6,7 @@ import com.co.entities.RespuestaSATARL;
 import com.co.exception.MinSaludBusinessException;
 import com.co.singleton.ConfiguracionSingleton;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.co.dto.RequestBodyDTO;
 import com.co.dto.RequestFormPostDTO;
@@ -153,6 +154,7 @@ public class BaseController
 
     private <T> Object sendGeneralRequest(HttpUriRequest request, Class<T> type, boolean isArray, boolean isPossibleMappingError) throws IOException, NoSuchFieldException, IllegalAccessException {
         ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         Object returning;
         try (CloseableHttpClient httpClient = HttpClients.createDefault();
              CloseableHttpResponse response = httpClient.execute(request))
