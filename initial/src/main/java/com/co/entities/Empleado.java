@@ -79,10 +79,9 @@ public class Empleado
 
     @Column(name = "IBC")
     private BigDecimal ibc;
-
-    @JsonSerialize(using = SerializerCustom.class)
+    
     @Column(name = "TIPO_SALARIO")
-    private String tipoSalario;
+    private BigDecimal tipoSalario;
 
     @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "EMPLE__FECNAC")
