@@ -12,6 +12,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -44,7 +45,7 @@ public class Empleado
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     @Column(name = "FECINI_NOV")
-    private LocalDateTime fechaInicio;
+    private LocalDate fechaInicio;
 
     @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "EMPLE_TIPDOC")
@@ -143,12 +144,12 @@ public class Empleado
         this.centro = centro;
     }
 
-    public LocalDateTime getFechaInicio() {
+    public LocalDate getFechaInicio() {
         return fechaInicio;
     }
 
     @JsonProperty("fechaInicio")
-    public void setFechaInicio(LocalDateTime fechaInicio) {
+    public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
