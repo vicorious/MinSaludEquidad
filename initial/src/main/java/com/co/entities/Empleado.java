@@ -34,16 +34,10 @@ public class Empleado
     @Column(name = "FECCAPTURA")
     private LocalDateTime fecCaptura;
 
-    @Column(name = "FECRESPUESTA")
-    private LocalDateTime fecRespuesta;
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "SRV_ESTRUCTURA_CENTRO_ID")
     private CentroTrabajo centro;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    @JsonDeserialize(using = LocalDateDeserializer.class)
-    @JsonSerialize(using = LocalDateSerializer.class)
     @Column(name = "FECINI_NOV")
     private LocalDate fechaInicio;
 
@@ -85,7 +79,7 @@ public class Empleado
 
     @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "EMPLE__FECNAC")
-    private String empleFecNac;
+    private LocalDate empleFecNac;
 
     @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "EMPLE__GENERO")
@@ -101,7 +95,7 @@ public class Empleado
 
     @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "FECFIN_NOV")
-    private String fechaFin;
+    private LocalDate fechaFin;
 
     public BigDecimal getId() {
         return id;
@@ -125,14 +119,6 @@ public class Empleado
 
     public void setFecCaptura(LocalDateTime fecCaptura) {
         this.fecCaptura = fecCaptura;
-    }
-
-    public LocalDateTime getFecRespuesta() {
-        return fecRespuesta;
-    }
-
-    public void setFecRespuesta(LocalDateTime fecRespuesta) {
-        this.fecRespuesta = fecRespuesta;
     }
 
     public CentroTrabajo getCentro() {
@@ -241,12 +227,12 @@ public class Empleado
         this.tipoSalario = tipoSalario;
     }
 
-    public String getEmpleFecNac() {
+    public LocalDate getEmpleFecNac() {
         return empleFecNac;
     }
 
     @JsonProperty("fechaNacimiento")
-    public void setEmpleFecNac(String empleFecNac) {
+    public void setEmpleFecNac(LocalDate empleFecNac) {
         this.empleFecNac = empleFecNac;
     }
 
@@ -277,12 +263,12 @@ public class Empleado
         this.empleAfp = empleAfp;
     }
 
-    public String getFechaFin() {
+    public LocalDate getFechaFin() {
         return fechaFin;
     }
 
     @JsonProperty("fechafin")
-    public void setFechaFin(String fechaFin) {
+    public void setFechaFin(LocalDate fechaFin) {
         this.fechaFin = fechaFin;
     }
 }

@@ -108,7 +108,6 @@ public class ConsultaEmpresaService
             e.setCentro(c);
             e.setTokenMin(token);
             e.setFecCaptura(LocalDateTime.now());
-            e.setFecRespuesta(LocalDateTime.now());
         })));
 
         log.info("Mapeo de estructura completo exitosamente! ".concat(empresa.toString()));
