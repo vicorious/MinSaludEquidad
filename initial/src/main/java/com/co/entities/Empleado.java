@@ -79,7 +79,7 @@ public class Empleado
 
     @Column(name = "IBC")
     private BigDecimal ibc;
-    
+
     @Column(name = "TIPO_SALARIO")
     private BigDecimal tipoSalario;
 
@@ -232,12 +232,12 @@ public class Empleado
         this.ibc = ibc;
     }
 
-    public String getTipoSalario() {
+    public BigDecimal getTipoSalario() {
         return tipoSalario;
     }
 
     @JsonProperty("tipoSalario")
-    public void setTipoSalario(String tipoSalario) {
+    public void setTipoSalario(BigDecimal tipoSalario) {
         this.tipoSalario = tipoSalario;
     }
 
