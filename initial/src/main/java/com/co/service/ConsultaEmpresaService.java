@@ -93,9 +93,9 @@ public class ConsultaEmpresaService
         }
         empresa.getSedes().forEach(p -> {
             p.setEstructuraEmpresa(empresa);
-            /*p.setTokenMin(token);
-            p.setFechaCaptura(LocalDateTime.now());
-            p.setFechaRespuesta(LocalDateTime.now());*/
+            p.setTokenMin(token);
+            p.setFecCaptura(LocalDateTime.now());
+            p.setFecRespuesta(LocalDateTime.now());
             p.setCodSede(p.getCodSede().length() == 1 ? "0".concat(p.getCodSede()) : p.getCodSede());
         });
         empresa.getSedes().forEach(p -> p.getCentros().forEach(c -> {
@@ -107,8 +107,8 @@ public class ConsultaEmpresaService
         empresa.getSedes().forEach(p -> p.getCentros().forEach(c -> c.getEmpleados().forEach(e -> {
             e.setCentro(c);
             e.setTokenMin(token);
-            e.setFecCaptura(LocalDateTime.now().toString());
-            e.setFecRespuesta(LocalDateTime.now().toString());
+            e.setFecCaptura(LocalDateTime.now());
+            e.setFecRespuesta(LocalDateTime.now());
         })));
 
         log.info("Mapeo de estructura completo exitosamente! ".concat(empresa.toString()));

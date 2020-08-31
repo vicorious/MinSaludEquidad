@@ -1,13 +1,18 @@
 package com.co.entities;
 
 import com.co.builder.SerializerCustom;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(value = { "id",
@@ -26,17 +31,17 @@ public class Empleado
     private String tokenMin;
 
     @Column(name = "FECCAPTURA")
-    private String fecCaptura;
+    private LocalDateTime fecCaptura;
 
     @Column(name = "FECRESPUESTA")
-    private String fecRespuesta;
+    private LocalDateTime fecRespuesta;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "SRV_ESTRUCTURA_CENTRO_ID")
     private CentroTrabajo centro;
 
     @Column(name = "FECINI_NOV")
-    private String fechaInicio;
+    private LocalDateTime fechaInicio;
 
     @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "EMPLE_TIPDOC")
@@ -62,17 +67,14 @@ public class Empleado
     @Column(name = "EMPLE_SNOMBRE")
     private String segundoNombreEmpleado;
 
-    @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "TIPO_COTIZANTE")
-    private String tipoCotizante;
+    private BigDecimal tipoCotizante;
 
-    @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "SUBTIPO_COTIZANTE")
-    private String subTipoCotizante;
+    private BigDecimal subTipoCotizante;
 
-    @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "IBC")
-    private String ibc;
+    private BigDecimal ibc;
 
     @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "TIPO_SALARIO")
@@ -114,19 +116,19 @@ public class Empleado
         this.tokenMin = tokenMin;
     }
 
-    public String getFecCaptura() {
+    public LocalDateTime getFecCaptura() {
         return fecCaptura;
     }
 
-    public void setFecCaptura(String fecCaptura) {
+    public void setFecCaptura(LocalDateTime fecCaptura) {
         this.fecCaptura = fecCaptura;
     }
 
-    public String getFecRespuesta() {
+    public LocalDateTime getFecRespuesta() {
         return fecRespuesta;
     }
 
-    public void setFecRespuesta(String fecRespuesta) {
+    public void setFecRespuesta(LocalDateTime fecRespuesta) {
         this.fecRespuesta = fecRespuesta;
     }
 
@@ -138,12 +140,12 @@ public class Empleado
         this.centro = centro;
     }
 
-    public String getFechaInicio() {
+    public LocalDateTime getFechaInicio() {
         return fechaInicio;
     }
 
     @JsonProperty("fechaInicio")
-    public void setFechaInicio(String fechaInicio) {
+    public void setFechaInicio(LocalDateTime fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
@@ -201,30 +203,27 @@ public class Empleado
         this.segundoNombreEmpleado = segundoNombreEmpleado;
     }
 
-    public String getTipoCotizante() {
+    public BigDecimal getTipoCotizante() {
         return tipoCotizante;
     }
 
     @JsonProperty("tipoCotizante")
-    public void setTipoCotizante(String tipoCotizante) {
+    public void setTipoCotizante(BigDecimal tipoCotizante) {
         this.tipoCotizante = tipoCotizante;
     }
 
-    public String getSubTipoCotizante() {
+    public BigDecimal getSubTipoCotizante() {
         return subTipoCotizante;
     }
 
     @JsonProperty("subtipoCotizante")
-    public void setSubTipoCotizante(String subTipoCotizante) {
+    public void setSubTipoCotizante(BigDecimal subTipoCotizante) {
         this.subTipoCotizante = subTipoCotizante;
     }
 
-    public String getIbc() {
-        return ibc;
-    }
 
     @JsonProperty("ibc")
-    public void setIbc(String ibc) {
+    public void setIbc(BigDecimal  ibc) {
         this.ibc = ibc;
     }
 

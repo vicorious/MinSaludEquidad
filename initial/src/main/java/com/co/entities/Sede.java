@@ -63,9 +63,8 @@ public class Sede
     @Column(name = "SEDE_ZONA_UBI")
     private String sedeZonaUbi;
 
-    @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "SEDE_TEL")
-    private String sedeTel;
+    private BigDecimal sedeTel;
 
     @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "SEDE_EMAIL")
@@ -114,6 +113,15 @@ public class Sede
     @JsonSerialize(using = SerializerCustom.class)
     @Column(name = "COD_ARL")
     private String codArl;
+
+    @Column(name = "TOKEN_MIN")
+    private String tokenMin;
+
+    @Column(name = "FECCAPTURA")
+    private LocalDateTime fecCaptura;
+
+    @Column(name = "FECRESPUESTA")
+    private LocalDateTime fecRespuesta;
 
     @OneToMany(cascade = {PERSIST, MERGE, REMOVE}, mappedBy = "sede", fetch = FetchType.LAZY)
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
@@ -189,12 +197,12 @@ public class Sede
         this.sedeZonaUbi = sedeZonaUbi;
     }
 
-    public String getSedeTel() {
+    public BigDecimal getSedeTel() {
         return sedeTel;
     }
 
     @JsonProperty("telefonoSede")
-    public void setSedeTel(String sedeTel) {
+    public void setSedeTel(BigDecimal sedeTel) {
         this.sedeTel = sedeTel;
     }
 
@@ -320,4 +328,27 @@ public class Sede
         this.centros.add(centro);
     }
 
+    public String getTokenMin() {
+        return tokenMin;
+    }
+
+    public void setTokenMin(String tokenMin) {
+        this.tokenMin = tokenMin;
+    }
+
+    public LocalDateTime getFecCaptura() {
+        return fecCaptura;
+    }
+
+    public void setFecCaptura(LocalDateTime fecCaptura) {
+        this.fecCaptura = fecCaptura;
+    }
+
+    public LocalDateTime getFecRespuesta() {
+        return fecRespuesta;
+    }
+
+    public void setFecRespuesta(LocalDateTime fecRespuesta) {
+        this.fecRespuesta = fecRespuesta;
+    }
 }
