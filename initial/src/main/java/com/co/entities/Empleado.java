@@ -40,6 +40,9 @@ public class Empleado
     @JoinColumn(name = "SRV_ESTRUCTURA_CENTRO_ID")
     private CentroTrabajo centro;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     @Column(name = "FECINI_NOV")
     private LocalDateTime fechaInicio;
 
@@ -221,7 +224,9 @@ public class Empleado
         this.subTipoCotizante = subTipoCotizante;
     }
 
-
+    public BigDecimal getIbc() {
+        return ibc;
+    }
     @JsonProperty("ibc")
     public void setIbc(BigDecimal  ibc) {
         this.ibc = ibc;
