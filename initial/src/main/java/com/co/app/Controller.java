@@ -638,7 +638,6 @@ public class Controller extends BaseController
 		Object response = null;
 		List<String> trasladoCorrectas = new ArrayList<>();
 		List<String> trasladoInCorrectas = new ArrayList<>();
-        ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPLEADO);
         try
 		{
 			for (TransladoEmpresaArl transladoEmpresaArl : this.transladoEmpresaService.getAll(EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName()))
@@ -661,12 +660,24 @@ public class Controller extends BaseController
 						trasladoCorrectas.add(transladoEmpresaArl.getNumeroDocumentoEmpleador().trim());
 					} else if(response instanceof ResponseMinSaludDTO)
 					{
-						this.logService.save(writeLogSATARL(transladoEmpresaArl.getEmpre_form(),
-								new BigDecimal("6"), transladoEmpresaArl.getTransladoEmpresId(),
-								EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO)response).getCodigo(),
-								authorization));
-						transladoEmpresaArl.setEstadoMin(EstadosEnum.EXITOSO.getName());
-						trasladoCorrectas.add(transladoEmpresaArl.getNumeroDocumentoEmpleador().trim());
+						log.error("Response OK ResponseMinSaludDTO: ".concat(((ResponseMinSaludDTO)response).getCodigo()));
+						if(((ResponseMinSaludDTO)response).getCodigo().contains("GN") || ((ResponseMinSaludDTO)response).getCodigo().contains("GE"))
+						{
+							this.logService.save(writeLogSATARL(transladoEmpresaArl.getEmpre_form(),
+									new BigDecimal("6"), transladoEmpresaArl.getTransladoEmpresId(),
+									EstadosEnum.ERROR.getName(), ((ResponseMinSaludDTO)response).getCodigo(), authorization));
+							transladoEmpresaArl.setEstadoMin(EstadosEnum.ERROR.getName());
+							log.error("Error interno: ".concat(((ResponseMinSaludDTO)response).getMensaje()));
+							trasladoInCorrectas.add(transladoEmpresaArl.getNumeroDocumentoEmpleador().trim());
+						}else {
+							log.info("trasladoEmpleador response ResponseMinSaludDTO".concat(((ResponseMinSaludDTO) response).getCodigo()));
+							this.logService.save(writeLogSATARL(transladoEmpresaArl.getEmpre_form(),
+									new BigDecimal("6"), transladoEmpresaArl.getTransladoEmpresId(),
+									EstadosEnum.EXITOSO.getName(), ((ResponseMinSaludDTO) response).getCodigo(),
+									authorization));
+							transladoEmpresaArl.setEstadoMin(EstadosEnum.EXITOSO.getName());
+							trasladoCorrectas.add(transladoEmpresaArl.getNumeroDocumentoEmpleador().trim());
+						}
 					}
 				} catch (Exception e)
 				{
@@ -726,7 +737,6 @@ public class Controller extends BaseController
 		Object response = null;
 		List<String> retractoCorrectas = new ArrayList<>();
 		List<String> retractoInCorrectas = new ArrayList<>();
-        ParametroGeneral parametro = this.parametroGeneralService.getParametroGeneralParametroDocumentoDataBase(SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPLEADO);
         try
 		{
 			for (Retractacion retractacion : this.retractionService.getAll(EstadosEnum.EN_TRAMITE.getName(), EstadosEnum.FALLIDO.getName())) {
