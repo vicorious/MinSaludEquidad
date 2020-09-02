@@ -13,6 +13,6 @@ public class SerializerCustom extends JsonSerializer<String>
     public void serialize(String value, JsonGenerator gen, SerializerProvider serializers) throws IOException
     {
         String val = value.trim();
-        gen.writeString(new String(val.getBytes(), StandardCharsets.UTF_8));
+        gen.writeString(new String(val.getBytes(), StandardCharsets.ISO_8859_1));
     }
 }
