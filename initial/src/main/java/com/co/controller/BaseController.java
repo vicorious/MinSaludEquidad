@@ -142,7 +142,8 @@ public class BaseController
             respuestaSATARL.setIderrorMin(match.group(2));
         } else {
             respuestaSATARL.setIderrorMin(error);
-            respuestaSATARL.setDescerrorMin(description == null ? error : description[0]);
+            assert description != null;
+            respuestaSATARL.setDescerrorMin(description == null | description.length == 0? error : description[0]);
         }
         
         return respuestaSATARL;
