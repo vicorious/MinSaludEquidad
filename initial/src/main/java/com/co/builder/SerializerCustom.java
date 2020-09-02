@@ -21,6 +21,10 @@ public class SerializerCustom extends JsonSerializer<String>
         if(s == null || s.trim().length() == 0) {
             return "";
         }
-        return Normalizer.normalize(s, Normalizer.Form.NFD).replaceAll("[\u0300-\u0301]", "");
+        s = s.replace('ñ', '\001');
+        s = Normalizer.normalize(s, Normalizer.Form.NFD);
+        s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+        s = s.replace('\001', 'ñ');
+        return s;
     }
 }
