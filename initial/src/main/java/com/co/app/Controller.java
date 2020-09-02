@@ -665,7 +665,7 @@ public class Controller extends BaseController
 						{
 							this.logService.save(writeLogSATARL(transladoEmpresaArl.getEmpre_form(),
 									new BigDecimal("6"), transladoEmpresaArl.getTransladoEmpresId(),
-									EstadosEnum.ERROR.getName(), ((ResponseMinSaludDTO)response).getCodigo(), authorization));
+									EstadosEnum.ERROR.getName(), ((ResponseMinSaludDTO)response).getCodigo(), authorization, ((ResponseMinSaludDTO)response).getMensaje()));
 							transladoEmpresaArl.setEstadoMin(EstadosEnum.ERROR.getName());
 							log.error("Error interno: ".concat(((ResponseMinSaludDTO)response).getMensaje()));
 							trasladoInCorrectas.add(transladoEmpresaArl.getNumeroDocumentoEmpleador().trim());

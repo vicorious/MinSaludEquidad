@@ -7,7 +7,6 @@ import com.co.entities.RespuestaSATARL;
 import com.co.exception.MinSaludBusinessException;
 import com.co.singleton.ConfiguracionSingleton;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.co.dto.RequestBodyDTO;
 import com.co.dto.RequestFormPostDTO;
@@ -53,6 +52,7 @@ public class BaseController
     public <T> Object responseFromPostRequest(RequestBodyDTO request, Class<T> type) throws IOException, NoSuchFieldException, IllegalAccessException {
         HttpPost post = new HttpPost(request.getUrl());
         request.getHeaders().forEach(post::setHeader);
+        post.setHeader("Content-Type", "application/json; charset=utf-8");
         post.setEntity(new ByteArrayEntity(request.getBody().getBytes()));
         return sendRequest(post, type);
     }
@@ -61,6 +61,7 @@ public class BaseController
         HttpPost post = new HttpPost(request.getUrl());
         request.getHeaders().forEach(post::setHeader);
         post.setEntity(new ByteArrayEntity(request.getBody().getBytes()));
+        post.setHeader("Content-Type", "application/json; charset=utf-8");
         return sendRequestWithMappingError(post, type);
     }
 
@@ -68,6 +69,7 @@ public class BaseController
         HttpPost post = new HttpPost(request.getUrl());
         request.getHeaders().forEach(post::setHeader);
         post.setEntity(new ByteArrayEntity(request.getBody().getBytes()));
+        post.setHeader("Content-Type", "application/json; charset=utf-8");
         return sendRequestList(post, type);
     }
 
@@ -75,6 +77,7 @@ public class BaseController
         HttpPost post = new HttpPost(request.getUrl());
         request.getHeaders().forEach(post::setHeader);
         post.setEntity(new UrlEncodedFormEntity(request.getParams(), "UTF-8"));
+        post.setHeader("Content-Type", "application/json; charset=utf-8");
         return sendRequest(post, type);
     }
 
@@ -124,7 +127,7 @@ public class BaseController
         return parametros;
     }
 
-    public RespuestaSATARL writeLogSATARL(String empre_form, BigDecimal srv_id, BigDecimal srv_consec, BigDecimal estado_min, String error, String authorization){
+    public RespuestaSATARL writeLogSATARL(String empre_form, BigDecimal srv_id, BigDecimal srv_consec, BigDecimal estado_min, String error,  String authorization, String... description){
         Pattern patron = Pattern.compile("\"mensaje\":\"(.+?)\",\"codigo\":\"(.+?)\"");
         Matcher match = patron.matcher(error);
         RespuestaSATARL respuestaSATARL = new RespuestaSATARL();
@@ -139,7 +142,7 @@ public class BaseController
             respuestaSATARL.setIderrorMin(match.group(2));
         } else {
             respuestaSATARL.setIderrorMin(error);
-            respuestaSATARL.setDescerrorMin(error);
+            respuestaSATARL.setDescerrorMin(description == null ? error : description[0]);
         }
         
         return respuestaSATARL;
