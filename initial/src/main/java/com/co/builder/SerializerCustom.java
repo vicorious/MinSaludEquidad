@@ -14,14 +14,15 @@ public class SerializerCustom extends JsonSerializer<String>
     public void serialize(String value, JsonGenerator gen, SerializerProvider serializers) throws IOException
     {
         String val = value.trim();
-        gen.writeString(val);
-        
+        gen.writeString(eliminaAcentos(val));
+
     }
 
     public String eliminaAcentos(String s) {
         if(s == null || s.trim().length() == 0) {
             return "";
         }
+        s = s.replace('Ñ', '\001');
         s = s.replace('ñ', '\001');
         s = Normalizer.normalize(s, Normalizer.Form.NFD);
         s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
