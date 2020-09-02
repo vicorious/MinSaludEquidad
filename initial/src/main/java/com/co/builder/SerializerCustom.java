@@ -14,7 +14,7 @@ public class SerializerCustom extends JsonSerializer<String>
     public void serialize(String value, JsonGenerator gen, SerializerProvider serializers) throws IOException
     {
         String val = value.trim();
-        gen.writeString(eliminaAcentos(val));
+        gen.writeString(val);
     }
 
     public String eliminaAcentos(String s) {
