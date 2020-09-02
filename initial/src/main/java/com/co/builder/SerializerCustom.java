@@ -24,7 +24,7 @@ public class SerializerCustom extends JsonSerializer<String>
         s = s.replace('ñ', '\001');
         s = Normalizer.normalize(s, Normalizer.Form.NFD);
         s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
-        s = s.replace('\001', 'ñ');
+        s = s.replace('\001', 'Ñ');
         return s;
     }
 }
