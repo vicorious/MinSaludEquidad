@@ -166,7 +166,6 @@ public class BaseController
         try (CloseableHttpClient httpClient = HttpClients.createDefault();
              CloseableHttpResponse response = httpClient.execute(request))
         {
-            response.setHeader("Content-Type", "application/json; charset=UTF-8");
             int status_code = response.getStatusLine().getStatusCode();
             log.info("STATUS CODE".concat(status_code + ""));
             String json_string = EntityUtils.toString(response.getEntity(), "UTF-8");
