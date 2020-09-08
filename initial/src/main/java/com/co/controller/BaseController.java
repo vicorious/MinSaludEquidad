@@ -52,7 +52,6 @@ public class BaseController
     public <T> Object responseFromPostRequest(RequestBodyDTO request, Class<T> type) throws IOException, NoSuchFieldException, IllegalAccessException {
         HttpPost post = new HttpPost(request.getUrl());
         request.getHeaders().forEach(post::setHeader);
-        post.setHeader("Content-Type", "application/json; charset=utf-8");
         post.setEntity(new ByteArrayEntity(request.getBody().getBytes()));
         return sendRequest(post, type);
     }
@@ -61,7 +60,6 @@ public class BaseController
         HttpPost post = new HttpPost(request.getUrl());
         request.getHeaders().forEach(post::setHeader);
         post.setEntity(new ByteArrayEntity(request.getBody().getBytes()));
-        post.setHeader("Content-Type", "application/json; charset=utf-8");
         return sendRequestWithMappingError(post, type);
     }
 
@@ -69,7 +67,6 @@ public class BaseController
         HttpPost post = new HttpPost(request.getUrl());
         request.getHeaders().forEach(post::setHeader);
         post.setEntity(new ByteArrayEntity(request.getBody().getBytes()));
-        post.setHeader("Content-Type", "application/json; charset=utf-8");
         return sendRequestList(post, type);
     }
 
@@ -77,7 +74,6 @@ public class BaseController
         HttpPost post = new HttpPost(request.getUrl());
         request.getHeaders().forEach(post::setHeader);
         post.setEntity(new UrlEncodedFormEntity(request.getParams(), "UTF-8"));
-        post.setHeader("Content-Type", "application/json; charset=utf-8");
         return sendRequest(post, type);
     }
 
