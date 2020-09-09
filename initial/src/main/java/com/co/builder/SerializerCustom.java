@@ -26,12 +26,18 @@ public class SerializerCustom extends JsonSerializer<String>
         if(s == null || s.trim().length() == 0) {
             return "";
         }
+        log.info("EliminarAcentos ".concat(s));
+        s = s.replace('Ð', '\001');
         s = s.replace('Ð', '\001');
         s = s.replace('ñ', '\001');
         s = s.replace('Ñ', '\001');
+        log.info("EliminarAcentos ".concat(s));
         s = Normalizer.normalize(s, Normalizer.Form.NFD);
+        log.info("EliminarAcentos ".concat(s));
         s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+        log.info("EliminarAcentos ".concat(s));
         s = s.replace('\001', 'Ñ');
+        log.info("EliminarAcentos final".concat(s));
         return s;
     }
 }
