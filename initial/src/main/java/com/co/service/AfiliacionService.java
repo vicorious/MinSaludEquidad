@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.co.persistence.AfiliacionRepository;
 
 import java.math.BigDecimal;
+import java.text.Normalizer;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,10 +41,23 @@ public class AfiliacionService
                 p.activiEconimi = Integer.parseInt(p.getActividadEconomica() != null ? p.getActividadEconomica().trim() : "0");
                 p.tipAportante = Integer.parseInt(p.getTipoAportante() != null ? p.getTipoAportante().trim() : "0");
                 p.natuJuridica = Integer.parseInt(p.getNaturalezaJuridica() != null ?  p.getNaturalezaJuridica().trim() : "0");
+                p.setRazonSocialEmpleador(eliminaAcentos(p.getRazonSocialEmpleador()));
 
             });
             return result;
         }
+    }
+
+    public String eliminaAcentos(String s) {
+        if(s == null || s.trim().length() == 0) {
+            return "";
+        }
+        s = s.replace('Ñ', '\001');
+        s = s.replace('Ð', '\001');
+        s = Normalizer.normalize(s, Normalizer.Form.NFD);
+        s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+        s = s.replace('\001', 'Ñ');
+        return s;
     }
 
 }
