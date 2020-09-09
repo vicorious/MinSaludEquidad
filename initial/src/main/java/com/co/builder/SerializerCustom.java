@@ -14,7 +14,7 @@ public class SerializerCustom extends JsonSerializer<String>
     public void serialize(String value, JsonGenerator gen, SerializerProvider serializers) throws IOException
     {
         String val = value.trim();
-        gen.writeString(val);
+        gen.writeString(eliminaAcentos(val));
 
     }
 
@@ -23,6 +23,7 @@ public class SerializerCustom extends JsonSerializer<String>
             return "";
         }
         s = s.replace('Ñ', '\001');
+        s = s.replace('Ð', '\001');
         s = Normalizer.normalize(s, Normalizer.Form.NFD);
         s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
         s = s.replace('\001', 'Ñ');
