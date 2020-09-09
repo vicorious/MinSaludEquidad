@@ -35,6 +35,8 @@ public class SerializerCustom extends JsonSerializer<String>
         sn = Normalizer.normalize(sn, Normalizer.Form.NFD);
         log.info("Acentos after three ".concat(sn));
         sn = sn.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+        log.info("Acentos after Ñ FOUR ".concat(sn));
+        sn = sn.replace("A?", "Ñ");
         log.info("Acentos after end ".concat(sn));
         return sn;
     }
