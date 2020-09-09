@@ -26,15 +26,18 @@ public class SerializerCustom extends JsonSerializer<String>
     public  String eliminaAcentos(String s) throws UnsupportedEncodingException {
         log.info("Acentos before ".concat(s));
         String sn = new String(s.getBytes(StandardCharsets.ISO_8859_1), charset(s, new String[] { "ISO-8859-1", "UTF-8" }));
-        log.info("Acentos after one ".concat(s));
+        log.info("Acentos after one ".concat(sn));
         if(sn.trim().length() == 0) {
             return "";
         }
         sn = sn.replace('?', '\001');
+        log.info("Acentos after two ".concat(sn));
         sn = Normalizer.normalize(sn, Normalizer.Form.NFD);
+        log.info("Acentos after three ".concat(sn));
         sn = sn.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+        log.info("Acentos after four ".concat(sn));
         sn = sn.replace('\001', 'Ñ');
-        log.info("Acentos after end ".concat(s));
+        log.info("Acentos after end ".concat(sn));
         return sn;
     }
 
