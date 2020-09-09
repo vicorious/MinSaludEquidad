@@ -25,7 +25,7 @@ public class SerializerCustom extends JsonSerializer<String>
 
     public  String eliminaAcentos(String s) throws UnsupportedEncodingException {
         log.info("Acentos before ".concat(s));
-        String sn = new String(s.getBytes(StandardCharsets.ISO_8859_1), charset(s, new String[] { "ISO-8859-1", "UTF-8" }));
+        String sn = new String(s.getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
         log.info("Acentos after one ".concat(sn));
         if(sn.trim().length() == 0) {
             return "";
