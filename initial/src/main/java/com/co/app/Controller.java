@@ -181,7 +181,7 @@ public class Controller extends BaseController
 			method = RequestMethod.POST)*/
 	@ServiceConfig(protocol = "https", domain = "miseguridadsocial.gov.co", port = "8062",
 			name = "AfiliacionARL", clientId = "1cb2d1aeafa94a7b84f7b83cda27d971",
-			uri = "/AfiliacionARL", headers = {"Content-Type=application/json"},
+			uri = "/AfiliacionARL", headers = {"Content-Type=application/json;charset=utf-8"},
 			method = RequestMethod.POST)
 	public Object afiliacionARL(@RequestHeader("Authorization") String authorization)
 	{
