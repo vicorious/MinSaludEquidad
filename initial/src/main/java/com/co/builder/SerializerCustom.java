@@ -21,11 +21,21 @@ public class SerializerCustom extends JsonSerializer<String>
     {
         String val = value.trim();
         gen.writeString(eliminaAcentos(val));
-
     }
 
     public  String eliminaAcentos(String s) throws UnsupportedEncodingException {
-        return new String(s.getBytes(StandardCharsets.ISO_8859_1), charset(s, new String[] { "ISO-8859-1", "UTF-8" })).replace('?', 'Ñ');
+        log.info("Acentos before ".concat(s));
+        String sn = new String(s.getBytes(StandardCharsets.ISO_8859_1), charset(s, new String[] { "ISO-8859-1", "UTF-8" }));
+        log.info("Acentos after one ".concat(s));
+        if(sn.trim().length() == 0) {
+            return "";
+        }
+        sn = sn.replace('?', '\001');
+        sn = Normalizer.normalize(sn, Normalizer.Form.NFD);
+        sn = sn.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+        sn = sn.replace('\001', 'Ñ');
+        log.info("Acentos after end ".concat(s));
+        return sn;
     }
 
     public  String convert(String value, String fromEncoding, String toEncoding) throws UnsupportedEncodingException {
