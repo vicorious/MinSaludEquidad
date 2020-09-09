@@ -30,13 +30,11 @@ public class SerializerCustom extends JsonSerializer<String>
         if(sn.trim().length() == 0) {
             return "";
         }
-        sn = sn.replace('?', '\001');
+        sn = sn.replace('?', 'Ñ');
         log.info("Acentos after two ".concat(sn));
         sn = Normalizer.normalize(sn, Normalizer.Form.NFD);
         log.info("Acentos after three ".concat(sn));
         sn = sn.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
-        log.info("Acentos after four ".concat(sn));
-        sn = sn.replace('\001', 'Ñ');
         log.info("Acentos after end ".concat(sn));
         return sn;
     }
