@@ -24,15 +24,15 @@ public class SerializerCustom extends JsonSerializer<String>
 
     }
 
-    public static String eliminaAcentos(String s) throws UnsupportedEncodingException {
-        return new String(s.getBytes(StandardCharsets.ISO_8859_1), charset(s, new String[] { "ISO-8859-1", "UTF-8" }));
+    public  String eliminaAcentos(String s) throws UnsupportedEncodingException {
+        return new String(s.getBytes(StandardCharsets.ISO_8859_1), charset(s, new String[] { "ISO-8859-1", "UTF-8" })).replace('?', 'Ñ');
     }
 
-    public static String convert(String value, String fromEncoding, String toEncoding) throws UnsupportedEncodingException {
+    public  String convert(String value, String fromEncoding, String toEncoding) throws UnsupportedEncodingException {
         return new String(value.getBytes(fromEncoding), toEncoding);
     }
 
-    public static String charset(String value, String[] charsets) throws UnsupportedEncodingException {
+    public  String charset(String value, String[] charsets) throws UnsupportedEncodingException {
         String probe = StandardCharsets.UTF_8.name();
         for(String c : charsets) {
             Charset charset = Charset.forName(c);
