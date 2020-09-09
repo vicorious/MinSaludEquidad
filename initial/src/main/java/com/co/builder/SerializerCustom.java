@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.text.Normalizer;
 
@@ -23,20 +24,22 @@ public class SerializerCustom extends JsonSerializer<String>
 
     }
 
-    public String eliminaAcentos(String s) throws UnsupportedEncodingException {
-        if(s == null || s.trim().length() == 0) {
-            return "";
+    public static String eliminaAcentos(String s) throws UnsupportedEncodingException {
+        return new String(s.getBytes(StandardCharsets.ISO_8859_1), charset(s, new String[] { "ISO-8859-1", "UTF-8" }));
+    }
+
+    public static String convert(String value, String fromEncoding, String toEncoding) throws UnsupportedEncodingException {
+        return new String(value.getBytes(fromEncoding), toEncoding);
+    }
+
+    public static String charset(String value, String[] charsets) throws UnsupportedEncodingException {
+        String probe = StandardCharsets.UTF_8.name();
+        for(String c : charsets) {
+            Charset charset = Charset.forName(c);
+            if(value.equals(convert(convert(value, charset.name(), probe), probe, charset.name()))) {
+                return c;
+            }
         }
-        s= new String(s.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
-        log.info("EliminarAcentos ".concat(s));
-        s = s.replace('�', '\001');
-        log.info("EliminarAcentos ".concat(s));
-        s = Normalizer.normalize(s, Normalizer.Form.NFD);
-        log.info("EliminarAcentos ".concat(s));
-        s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
-        log.info("EliminarAcentos ".concat(s));
-        s = s.replace('\001', 'Ñ');
-        log.info("EliminarAcentos final".concat(s));
-        return s;
+        return StandardCharsets.UTF_8.name();
     }
 }
