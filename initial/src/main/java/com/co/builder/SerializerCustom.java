@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.text.Normalizer;
 
@@ -22,15 +23,13 @@ public class SerializerCustom extends JsonSerializer<String>
 
     }
 
-    public String eliminaAcentos(String s) {
+    public String eliminaAcentos(String s) throws UnsupportedEncodingException {
         if(s == null || s.trim().length() == 0) {
             return "";
         }
+        s= new String(s.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
         log.info("EliminarAcentos ".concat(s));
-        s = s.replace('Ð', '\001');
-        s = s.replace('Ð', '\001');
-        s = s.replace('ñ', '\001');
-        s = s.replace('Ñ', '\001');
+        s = s.replace('�', '\001');
         log.info("EliminarAcentos ".concat(s));
         s = Normalizer.normalize(s, Normalizer.Form.NFD);
         log.info("EliminarAcentos ".concat(s));
