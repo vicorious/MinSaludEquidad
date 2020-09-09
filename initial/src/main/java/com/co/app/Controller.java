@@ -199,7 +199,7 @@ public class Controller extends BaseController
                     SisafitraConstant.ParameroGeneralConstant.SATARLSERVICIO, new BigDecimal(1), SisafitraConstant.ParameroGeneralConstant.EMPRESA);
 			for(AfiliacionEmpresa afiliacion: afiliaciones)
 			{
-				log.info("Afiliacion ID: ".concat(afiliacion.getRazonSocialEmpleador().toPlainString()));
+				log.info("Afiliacion ID: ".concat(afiliacion.getRazonSocialEmpleador()));
 				RequestBodyDTO request_body = PropertiesBuilder.getAnnotationFeatures(
 						mapperBody(afiliacion), method.getName(), this.getClass(), method.getParameterTypes());
 				request_body.getHeaders().put(SisafitraConstant.AUTHORIZATION,  authorization);
